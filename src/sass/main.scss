@@ -1,7 +1,11 @@
-/*
- * Главный файл стилей.
- * Все паршалы подключаются сюда.
- */
+@import './utils/modern-normalize';
+@import './utils/variables';
+@import './utils/normalize-plus';
+@import "./utils/mixin";
+@import './components/containers';
+@import './components/button';
+@import './components/header';
+@import './components/hero';
 
-// Стили для файла с примером HTML-фрагмента
-@import './example';
+@import './components/footer';
+
