@@ -1,47 +1,39 @@
-// body {
-//     font-family: "DM Sans", sans-serif;
-//     font-size: 12px;
-//     font-weight: 500;
-//     line-height: 1.6;
-//     background-color: $accent-light-color;
-//     color: $primary-text-color;
+:root {
+  @include font(14px, 500, 1.3)
+}
 
-//     @media screen and (min-width: 768px) {
-//       font-size: 14px;
-//     }
-//     @media screen and (min-width: 1280px) {
-//       font-size: 16px;
-//     } 
-//   }
+body {
+  font-family: 'Roboto', sans-serif;
+}
   
-  img{
-    max-width: 100%;
-    height: auto;
-    display: block;
-  }
+img{
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
 
-  h1,
-  h2,
-  h3,
-  p,
-  ul {
-    margin: 0;
-  }
-  
-  ul {
-    padding: 0;
-    list-style: none;
-  }
+h1,
+h2,
+h3,
+p,
+ul {
+  margin: 0;
+}
 
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
+ul {
+  padding: 0;
+  list-style: none;
+}
 
-  button {
-    font: inherit;
-  } 
+a {
+  text-decoration: none;
+  color: inherit;
+}
 
-   body.modal-open {
-    overflow: hidden;
-  }
+button {
+  font: inherit;
+} 
+
+  body.modal-open {
+  overflow: hidden;
+}
