@@ -25,5 +25,11 @@
     "posthtml-include": "^1.6.2",
     "sass": "^1.32.8"
   },
-  "dependencies": {}
+
+
+
+  "dependencies": {
+    "firebase": "^9.6.3"
+  }
+
 }

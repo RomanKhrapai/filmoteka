@@ -1,0 +1,43 @@
+.hero__input {
+  border: none;
+  background-color: transparent;
+  border-bottom: 0.5px solid $bg-primary-color;
+  width: 100%;
+  outline: transparent;
+  color: $bg-primary-color;
+
+  &::placeholder {
+    color: $bg-primary-color;
+    @include font(14px, 400, 1.17);
+  }
+
+  &:focus {
+    &::placeholder {
+      color: transparent;
+    }
+  }
+}
+
+.hero__form {
+  position: relative;
+  margin-top: 41px;
+
+  @media screen and(min-width: 768px) {
+    width: 336px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// .main-header__search-icon {
+//   position: absolute;
+//   right: 0;
+// }
+
+.hero__search-button {
+  position: absolute;
+  right: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
