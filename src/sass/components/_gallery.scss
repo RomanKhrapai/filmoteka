@@ -1,6 +1,17 @@
+.section {
+  padding-top: 20px;
+  padding-bottom: 40px;
+
+  @media screen and (min-width: 768px) {
+    padding-top: 60px;
+    padding-bottom: 50px;
+  }
+
+
+}
 .films-list {
-  margin-top: 100px;
-  margin-bottom: 100px;
+  // margin-top: 100px;
+  // margin-bottom: 100px;
 
   @media screen and (min-width: 768px) {
     display: flex;
@@ -35,7 +46,8 @@
 }
 
 .film-card__name {
-  line-height: 1.66em;
+  font-size: 12px;
+  line-height: 1.16em;
   text-transform: uppercase;
 }
 
