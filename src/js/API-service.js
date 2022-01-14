@@ -17,6 +17,14 @@ export const ApiService = class {
         return response.data;
     } 
 
+    increasePage() {
+        this.page += 1;
+    }
+
+    decreasePage() {
+        this.page -= 1;
+    }
+
 }
 
 
