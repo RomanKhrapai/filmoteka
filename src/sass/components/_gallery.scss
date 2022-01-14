@@ -1,1 +1,61 @@
 
+.section {
+  padding-top: 20px;
+  padding-bottom: 40px;
+
+  @media screen and (min-width: 768px) {
+    padding-top: 60px;
+    padding-bottom: 50px;
+  }
+}
+
+.section__title--visually-hidden {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: 1px;
+}
+
+.films-list {
+  @media screen and (min-width: 768px) {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -15px;
+  }
+}
+
+// .film-card {
+//   @media screen and (max-width: 767px) {
+//     &:not(:last-child) {
+//       margin-bottom: 20px;
+//     }
+//   }
+
+//   @media screen and (min-width: 768px) {
+//     flex-basis: calc(100% / 2 - 30px);
+//     margin: 15px;
+//   }
+
+//   @media screen and (min-width: 1024px) {
+//     flex-basis: calc(100% / 3 - 30px);
+//   }
+// }
+
+// .film-card__img-box {
+//   margin-bottom: 10px;
+// }
+
+// .film-card__img-box img {
+//   width: 100%;
+// }
+
+// .film-card__name {
+//   font-size: 12px;
+//   line-height: 1.16em;
+//   text-transform: uppercase;
+// }
+
+// .film-card__info {
+//   color: $accent-color;
+// }
