@@ -107,4 +107,4 @@ var e=require("process");Object.defineProperty(exports,"__esModule",{value:!0}),
 },{"./refs.js":"VyiV"}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss");var e=require("../src/js/markup"),r=require("../src/js/refs.js"),t=require("../src/js/auth.js"),n=require("../src/js/header.js");(0,t.checkAuth)(),(0,t.userSignOut)(),(0,e.renderMarkup)(),r.btnHome.addEventListener("click",n.onBtnHomeClick),r.form.addEventListener("submit",n.onFormSubmit),r.btnLibrary.addEventListener("click",n.onBtnLibraryClick),r.btnWatched.addEventListener("click",n.onBtnWatchedClick),r.btnQueue.addEventListener("click",n.onBtnQueueClick),r.headerButton.addEventListener("click",n.onHeaderButtonClick);
 },{"./sass/main.scss":"clu1","../src/js/markup":"tW6H","../src/js/refs.js":"VyiV","../src/js/auth.js":"zSTK","../src/js/header.js":"cGsR"}]},{},["Focm"], null)
-//# sourceMappingURL=/filmoteka/src.00118ae0.js.map
+//# sourceMappingURL=/filmoteka/src.0292ca87.js.map
