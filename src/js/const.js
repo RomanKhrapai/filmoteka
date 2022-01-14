@@ -1,3 +1,5 @@
+import { ApiService } from "./API-service";
+const apiService = new ApiService();
 // Your web app's Firebase configuration
 export const FIREBASE_CONFIG = {
   apiKey: "AIzaSyCHa9HUHJl3kYWqEp2WxUjmUGARX58PmUY",
@@ -10,3 +12,18 @@ export const FIREBASE_CONFIG = {
 };
 
 export const PATH = 'users/';
+
+export const API = {
+  BASIC_URL: "https://api.themoviedb.org",
+  KEY: "967c6f14dacb0ca10f1175f7851a5869",
+  
+}
+
+
+
+export const API_IMG = {
+  BASIC_URL: "https://image.tmdb.org/t/p/",
+  FILE_SIZE: "original",
+}
+
+

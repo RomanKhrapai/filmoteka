@@ -1,3 +1,4 @@
+import { btnHome, btnLibrary, searchButton, form } from "./refs.js";
 export function onBtnHomeClick(event) {
     btnHome.classList.add('is-active')  
   btnLibrary.classList.remove('is-active') 
