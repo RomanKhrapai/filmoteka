@@ -1,6 +1,25 @@
 import './sass/main.scss';
+//------------
+const btnHome = document.querySelector('.site-nav__button')
+const btnLibrary = document.querySelector('.site-nav').lastElementChild.firstElementChild
+const searchButton = document.querySelector('.main-header__search-button')
+const form = document.querySelector('.hero__form')
 
-// глобальні імпорти
+btnHome.addEventListener('click', onBtnHomeClick)
+btnLibrary.addEventListener('click', onBtnLibraryClick)
+form.addEventListener('submit', onFormSubmit)
+
+function onBtnHomeClick(event) {
+
+  btnHome.classList.add('is-active')  
+  btnLibrary.classList.remove('is-active')  
+}
+
+function onBtnLibraryClick(event) {
+   btnHome.classList.remove('is-active')
+    btnLibrary.classList.add('is-active')  
+}
+ //----------
 
 
 // локальні імпорти
