@@ -1,4 +1,5 @@
 import './sass/main.scss';
+//------------
 const btnHome = document.querySelector('.site-nav__button')
 const btnLibrary = document.querySelector('.site-nav').lastElementChild.firstElementChild
 const searchButton = document.querySelector('.main-header__search-button')
@@ -18,18 +19,16 @@ function onBtnLibraryClick(event) {
    btnHome.classList.remove('is-active')
     btnLibrary.classList.add('is-active')  
 }
- 
+ //----------
 
-function onFormSubmit(event) {
-    event.preventDefault()
-  
-//    console.log(event.currentTarget.elements.movies.value);
-    
-    const formData = new FormData(event.currentTarget)
 
-    event.currentTarget.reset()
-}
- 
+// локальні імпорти
+import { btnHome, btnLibrary, searchButton, form } from "../src/js/refs.js";
+import { checkAuth, userSignOut } from '../src/js/auth.js';
+import { onBtnHomeClick, onFormSubmit } from '../src/js/header.js';
 
-console.log(searchButton);
-console.log(form); 
+checkAuth();
+userSignOut(); // можна виключити цю функцію, щоб не авторизовуватись після кожного оновлення сторінки
+
+btnHome.addEventListener('click', onBtnHomeClick);
+form.addEventListener('submit', onFormSubmit);
