@@ -1,6 +1,4 @@
-import { ApiService } from "./API-service";
-console.log(ApiService)
-//const apiService = new ApiService();
+
 // Your web app's Firebase configuration
 export const FIREBASE_CONFIG = {
   apiKey: "AIzaSyCHa9HUHJl3kYWqEp2WxUjmUGARX58PmUY",
