@@ -26,6 +26,8 @@
     "sass": "^1.32.8"
   },
   "dependencies": {
-    "firebase": "^9.6.2"
+    "axios": "^0.24.0",
+    "firebase": "^9.6.2",
+    "lodash": "^4.17.21"
   }
 }

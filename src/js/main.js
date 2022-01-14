@@ -6,6 +6,12 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChang
 // локальні імпорти
 import { FIREBASE_CONFIG, PATH } from "../js/const.js";
 import { btnHome, btnLibrary, searchButton, form, onBtnHomeClick, onFormSubmit } from './header.js';
+// import "./markup.js"
+import { renderMarkup } from "./markup";
+
+
+
+
 
 const app = initializeApp(FIREBASE_CONFIG);
 const provider = new GoogleAuthProvider();
@@ -60,3 +66,6 @@ userSignOut();
 
 btnHome.addEventListener('click', onBtnHomeClick);
 form.addEventListener('submit', onFormSubmit);
+
+
+renderMarkup();
