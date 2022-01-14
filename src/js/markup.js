@@ -7,7 +7,7 @@ import filmCard from "../markup-template/filmCard.hbs"
 
 
 const apiService = new ApiService();
- const dataArray = [];
+const dataArray = [];
 
 
 
@@ -33,9 +33,13 @@ function appendMarkup(element) {
 
 function responseProcessing(id, name, genres, imgPath, date) {
     const keyData = {
-        name, id, genres, img: `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE}${imgPath}`, date,
+        name, id, genres, img: `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE}${imgPath}`, date
     }
+    const year = keyData.date.slice(0,4);
+    keyData.date = year;
     dataArray.push(keyData);
+    
+    
 
 
 }
