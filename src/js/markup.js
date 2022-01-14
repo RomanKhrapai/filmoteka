@@ -1,7 +1,8 @@
 import { ApiService } from "./API-service";
 import { API_IMG } from "./const";
 
-import galleryContainer from "./refs";
+import { galleryContainer } from "./refs";
+console.log();
 import filmCard from "../markup-template/filmCard.hbs"
 
 
@@ -17,6 +18,7 @@ export function renderMarkup() {
            responseProcessing(id, title, genre_ids, poster_path, release_date);
         });
         const markup = filmCard(dataArray);
+        
         appendMarkup(markup);
        
     }).catch(console.log);
