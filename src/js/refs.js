@@ -12,5 +12,7 @@ const heroList = document.querySelector('.hero__list')
 const headerButton = document.querySelector('.header__button')
 const galleryContainer = document.querySelector(".js-gallery");
 
-export {btnHome, btnLibrary, searchButton, form, btnWatched, btnQueue, headerHeroWrapper,heroList,headerButton};
+export {btnHome, btnLibrary, searchButton, 
+    form, btnWatched, btnQueue, headerHeroWrapper,
+    heroList, headerButton, galleryContainer };
 

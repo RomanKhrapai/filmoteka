@@ -1,4 +1,6 @@
-import { btnHome, btnLibrary, searchButton, form } from "./refs.js";
+
+import { btnHome, btnLibrary, searchButton, form, btnWatched, btnQueue, headerHeroWrapper,heroList,headerButton} from "./refs.js";
+
 export function onBtnHomeClick(event) {
     btnHome.classList.add('is-active')  
   btnLibrary.classList.remove('is-active') 
@@ -47,4 +49,3 @@ export function homePageRender() {
   form.classList.remove('is-hidden')
 }
 
-import { btnHome, btnLibrary, searchButton, form, btnWatched, btnQueue, headerHeroWrapper,heroList,headerButton} from "./refs.js";

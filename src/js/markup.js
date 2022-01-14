@@ -1,7 +1,7 @@
 import { ApiService } from "./API-service";
 import { API_IMG } from "./const";
 
-import refs from "./refs";
+import galleryContainer from "./refs";
 import filmCard from "../markup-template/filmCard.hbs"
 
 
@@ -25,7 +25,7 @@ export function renderMarkup() {
 
 
 function appendMarkup(element) {
-    refs.galleryContainer.insertAdjacentHTML("beforeend", element); 
+    galleryContainer.insertAdjacentHTML("beforeend", element); 
 }
 
 
