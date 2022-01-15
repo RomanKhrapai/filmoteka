@@ -109,4 +109,4 @@ var e=require("process");Object.defineProperty(exports,"__esModule",{value:!0}),
 },{"./refs.js":"VyiV"}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss");var e=require("./js/modal-film"),r=require("../src/js/markup"),t=require("../src/js/refs.js"),n=require("../src/js/auth.js"),i=require("../src/js/header.js");(0,n.checkAuth)(),(0,n.userSignOut)(),(0,r.renderMarkup)(),t.btnHome.addEventListener("click",i.onBtnHomeClick),t.form.addEventListener("submit",i.onFormSubmit),t.btnLibrary.addEventListener("click",i.onBtnLibraryClick),t.btnWatched.addEventListener("click",i.onBtnWatchedClick),t.btnQueue.addEventListener("click",i.onBtnQueueClick),t.headerButton.addEventListener("click",i.onHeaderButtonClick),t.closeModal.addEventListener("click",e.toggleModal);
 },{"./sass/main.scss":"clu1","./js/modal-film":"voJm","../src/js/markup":"tW6H","../src/js/refs.js":"VyiV","../src/js/auth.js":"zSTK","../src/js/header.js":"cGsR"}]},{},["Focm"], null)
-//# sourceMappingURL=/filmoteka/src.a7b3b9ad.js.map
+//# sourceMappingURL=/filmoteka/src.a4b2a4da.js.map
