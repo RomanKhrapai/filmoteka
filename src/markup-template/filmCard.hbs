@@ -1,10 +1,13 @@
 {{#each this}}
 <li class="film-card" id="{{this.id}}">
+    {{!-- <a href="#" data-modal-open> --}}
           <div class="film-card__img-box">
           <img src="{{this.img}}" alt="{{this.name}}">
         </div>
       <div class="film-card__description">
         <h3 class="film-card__name">{{this.name}}</h3>
         <div class="film-card__info"><span class="film-card__genre">{{#each genres}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</span> | <span class="film-card__year">{{this.date}}</span> </div>
-      </div></li>
+      </div>
+      {{!-- </a> --}}
+      </li>
 {{/each}}
