@@ -14,9 +14,7 @@ const galleryContainer = document.querySelector(".js-gallery");
 const closeModal = document.querySelector('[data-modal-close]');
 const modal = document.querySelector('[data-modal]');
 
-const openModal = document.querySelector('[data-modal-open]')
-// console.log(openModal)
 
 export {btnHome, btnLibrary, searchButton, 
     form, btnWatched, btnQueue, headerHeroWrapper,
-    heroList, headerButton, galleryContainer, closeModal, modal, openModal};
+    heroList, headerButton, galleryContainer, closeModal, modal};

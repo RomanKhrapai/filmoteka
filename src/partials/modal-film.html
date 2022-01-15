@@ -1,6 +1,8 @@
-<div class="modal-area" data-modal>
+<div class="modal-area modal-area--is-hidden" data-modal>
     <div class="modal">
-        <img class="modal__img" src="./images/film-modal/rectangle.jpg" alt="">
+        <img class="modal__img" 
+        srcset="./images/film-modal/Rectangle.jpg 1x, ./images/film-modal/Rectangle@2x.jpg 2x"
+        src="./images/film-modal/Rectangle.jpg" alt="Poster">       
         <button data-modal-close class="close-btn">
             <svg width="30" height="30" class="close-btn__icon">
                 <use href="./images/film-modal/close-icon.svg#icon-close">
@@ -13,7 +15,7 @@
             </h2>
             <ul>
                 <li class="film__info-list">
-                    <span class="film__property vote">Vote / Votes</span>
+                    <p class="film__property vote">Vote / Votes</p>
                     <div class="film__stat">
                         <span class="film__stat-vote">7.3</span>
                         /
@@ -48,7 +50,7 @@
                     gold rush towns. But not all goes to plan one is killed and the other three escapes with bags of gold hide out in the
                     abandoned gold mine where they happen across another gang of three – who themselves were planning to hit the very same
                     bank! As tensions rise, things go from bad to worse as they realise the bags of gold are filled with lead... they’ve
-                    been double crossed – but by who and how?
+                    been double crossed – but by who and how?                    
                 </p>
             </div>
             <div class="main__btn-modal">

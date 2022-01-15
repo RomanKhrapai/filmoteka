@@ -17,27 +17,33 @@
 }
 
 .modal {
-  display: flex;
   background-color: $bg-primary-color;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%);
   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
   @media screen and (min-width: 1280px) {
+    display: flex;
     width: 880px;
-    padding: 50px 30px 40px 30px;
+    padding: 50px 30px 40px;
   }
 
-  @media screen and (max-width: 1279px) {
+  @media screen and (min-width: 768px) and (max-width: 1279px) {
+    display: flex;
     width: 620px;
-    height: 580px;
     padding: 40px 30px;
   }
 
+  @media screen and (min-width: 360px) and(max-width: 767px) {
+    width: 280px;
+    padding: 50px 20px 40px;
+    overflow: scroll;
+  }
+
   .modal-area--is-hidden & {
-    transform: translate(-50%, -50%) scale(1.2);
+    transform: translate(-50%, -50%) scale(1.5);
   }
 }
 
@@ -65,9 +71,14 @@
     width: 396px;
   }
 
-  @media screen and (max-width: 1279px) {
+  @media screen and (min-width: 768px) and (max-width: 1279px) {
     width: 264px;
     height: 374px;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 240px;
+    height: 360px;
   }
 }
 
@@ -83,8 +94,13 @@
     font-size: 30px;
   }
 
-  @media screen and (max-width: 1279px) {
+  @media screen and (min-width: 768px) and (max-width: 1279px) {
     font-size: 20px;
+  }
+
+  @media screen and (max-width: 767px) {
+    font-size: 20px;
+    margin-top: 30px;
   }
 }
 
@@ -136,6 +152,7 @@
 
 .film__stat {
   display: flex;
+  align-items: baseline;
 }
 
 .film__stat-vote {
@@ -147,7 +164,7 @@
   font-size: 12px;
   font-weight: 500;
   color: $light-text-color;
-  line-height: 1.17;
+  // line-height: 1.17;
   background-color: $accent-color;
   border-radius: $border-radius;
   margin-right: 3px;
@@ -161,7 +178,7 @@
   height: 16px;
   font-size: 12px;
   font-weight: 500;
-  line-height: 1.17;
+  // line-height: 1.17;
   background-color: $bg-secondary-color;
   border-radius: $border-radius;
   margin-left: 3px;
@@ -175,6 +192,7 @@
 
 .film__info-list {
   display: flex;
+  align-items: center;
 
   &:not(:last-child) {
     margin-bottom: 10px;
