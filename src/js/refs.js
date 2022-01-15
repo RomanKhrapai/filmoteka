@@ -11,8 +11,12 @@ const headerHeroWrapper = document.querySelector('.header-hero__wrapper')
 const heroList = document.querySelector('.hero__list')
 const headerButton = document.querySelector('.header__button')
 const galleryContainer = document.querySelector(".js-gallery");
+const closeModal = document.querySelector('[data-modal-close]');
+const modal = document.querySelector('[data-modal]');
+
+const openModal = document.querySelector('[data-modal-open]')
+// console.log(openModal)
 
 export {btnHome, btnLibrary, searchButton, 
     form, btnWatched, btnQueue, headerHeroWrapper,
-    heroList, headerButton, galleryContainer };
-
+    heroList, headerButton, galleryContainer, closeModal, modal, openModal};
