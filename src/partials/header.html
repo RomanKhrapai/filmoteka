@@ -1,46 +1,50 @@
  
-    <header class="main-header">
-
+   <div class="screen-background">
+   <div class="header-hero__wrapper ">
+   <div class="header-hero__container container">
+    
+    <header class="main-header">      
         
-        <div class="header-container">
 
-        <div class="flex-thumb">
+    <div class="flex-thumb">
 
-    <a href="/index.html">
+    <button type="button" class="header__button">
         <svg class="main-header__icon" width="24" height="24">
         <use href="./film-icon.svg#film-icon"></use>
         </svg>
         <span class="main-header__logo">Filmoteka</span>
-    </a>
+    </button>
 
-    <!-- <form class="site-nav" action="/index.html" >
-        <button type="button" class="site-nav__button">HOME</button>
-        <button type="button" class="site-nav__button">MY LIBRARY</button>
-    </form>
-     -->
 
     <ul class="site-nav">
-        <li class="site-nav__item"> <button type="button" class="site-nav__button ">HOME</button></li>
+        <li class="site-nav__item"> <button type="button" class="site-nav__button">HOME</button></li>
         <li class="site-nav__item"> <button type="button" class="site-nav__button">MY LIBRARY</button></li> 
     </ul>
 
-</div>
-
- <form class="main-header__form">
-<input class="main-header__input" type="text "name="movies" id="" placeholder="Поиск фильмов">
-<button class="main-header__search-button" type="submit">
-    <svg class="main-header__search-icon" width="12" height="12">
-    <use href="./search-icon.svg#search-icon"></use>
-</svg></button>
-
- </form>
-
-   
-   
-</div>
-
-
+    </div>
 
     </header>
 
- 
+    <div class="hero">
+    
+    <form class="hero__form">
+    <input class="hero__input" type="text "name="movies" id="" placeholder="Поиск фильмов">
+    <button class="hero__search-button" type="submit">
+        <svg class="hero__search-icon" width="12" height="12">
+            <use href="./search-icon.svg#search-icon"></use>
+        </svg></button>
+
+    </form>
+
+
+    <ul class="hero__list is-hidden ">
+<li class="hero__item"> <button class="hero__button" type="button">WATCHED</button> </li>
+<li class="hero__item"> <button class="hero__button" type="button">QUEUE</button></li>
+    </ul>
+
+
+    </div>
+
+    </div>
+    </div>
+    </div>
