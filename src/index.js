@@ -1,7 +1,5 @@
 import './sass/main.scss';
 
-
-
 import { toggleModal } from './js/modal-film';
 import { renderMarkup } from '../src/js/markup';
 // локальні імпорти
@@ -21,6 +19,9 @@ btnWatched.addEventListener('click', onBtnWatchedClick)
 btnQueue.addEventListener('click', onBtnQueueClick)
 headerButton.addEventListener('click', onHeaderButtonClick)
 closeModal.addEventListener('click', toggleModal)
-// openModalll.addEventListener('click', qwe)
-
+document.addEventListener('click', (event) => {    
+    if (event.path[2].id === 'modal-open') {      
+        toggleModal()      
+    }
+});
 

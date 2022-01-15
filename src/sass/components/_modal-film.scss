@@ -39,6 +39,7 @@
   @media screen and (min-width: 360px) and(max-width: 767px) {
     width: 280px;
     padding: 50px 20px 40px;
+    overflow: scroll;
   }
 
   .modal-area--is-hidden & {

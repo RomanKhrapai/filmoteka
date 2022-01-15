@@ -1,5 +1,5 @@
 import { modal } from "./refs";
 
 export function toggleModal() {
-    modal.classList.add('modal-area--is-hidden');
+    modal.classList.toggle('modal-area--is-hidden');
   }
