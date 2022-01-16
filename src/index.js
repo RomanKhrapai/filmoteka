@@ -20,7 +20,7 @@ btnQueue.addEventListener('click', onBtnQueueClick)
 headerButton.addEventListener('click', onHeaderButtonClick)
 closeModal.addEventListener('click', toggleModal)
 document.addEventListener('click', (event) => {    
-    if (event.path[2].id === 'modal-open') {      
+    if (event.path[2].id === 'data-modal-open') {      
         toggleModal()      
     }
 });
