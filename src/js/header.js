@@ -1,14 +1,16 @@
 
-import Notiflix from 'notiflix'
-const axios = require('axios').default;
-import { btnHome, btnLibrary, searchButton, form, btnWatched, btnQueue, headerHeroWrapper, heroList, headerButton } from "./refs.js";
+import { btnHome, btnLibrary, searchButton, form, btnWatched, btnQueue, headerHeroWrapper, heroList, headerButton, input , notificationFailureText,notificationSuccessText} from "./refs.js";
+import { renderMarkup, dataArray } from './markup';
+ 
 
 export function onBtnHomeClick(event) {
+ 
     btnHome.classList.add('is-active')  
   btnLibrary.classList.remove('is-active') 
   homePageRender()
  btnWatched.classList.remove('is-active-btn')
-    btnQueue.classList.remove('is-active-btn')
+  btnQueue.classList.remove('is-active-btn')
+
 }
 
 
@@ -19,6 +21,9 @@ export function onBtnLibraryClick(event) {
   headerHeroWrapper.classList.add('header-hero__library-wrapper')
   heroList.classList.remove('is-hidden')
   form.classList.add('is-hidden')
+  input.value = ""
+  notificationFailureText.classList.add('is-hidden')
+
 }
 
  export function onBtnWatchedClick(event) {
@@ -33,11 +38,12 @@ export function onBtnLibraryClick(event) {
 
 export function onHeaderButtonClick() {
   homePageRender()
-  btnHome.classList.remove('is-active')
+  btnHome.classList.add('is-active')
   btnLibrary.classList.remove('is-active') 
    btnWatched.classList.remove('is-active-btn')
     btnQueue.classList.remove('is-active-btn')
 }
+
 
 export function homePageRender() {
     headerHeroWrapper.classList.add('header-hero__wrapper')
@@ -45,10 +51,6 @@ export function homePageRender() {
   heroList.classList.add('is-hidden')
   form.classList.remove('is-hidden')
 }
-
-
-
-
 
 
  

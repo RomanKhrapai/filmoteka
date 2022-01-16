@@ -17,7 +17,7 @@
 
 
     <ul class="site-nav">
-        <li class="site-nav__item"> <button type="button" class="site-nav__button">HOME</button></li>
+        <li class="site-nav__item"> <button type="button" class="site-nav__button is-active">HOME</button></li>
         <li class="site-nav__item"> <button type="button" class="site-nav__button">MY LIBRARY</button></li> 
     </ul>
 
@@ -28,13 +28,15 @@
     <div class="hero">
     
     <form class="hero__form">
-    <input class="hero__input" type="text "name="movies" id="" placeholder="Поиск фильмов">
+    <input class="hero__input" type="text "name="movies" id="input" autocomplete="off" placeholder="Поиск фильмов">
     <button class="hero__search-button" type="submit">
         <svg class="hero__search-icon" width="12" height="12">
             <use href="./search-icon.svg#search-icon"></use>
         </svg></button>
 
     </form>
+
+    <p class="hero__notification-text is-hidden" >Search result is not successful. Enter the correct movie name and try again</p>
 
 
     <ul class="hero__list is-hidden ">
