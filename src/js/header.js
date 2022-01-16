@@ -1,5 +1,7 @@
 
-import { btnHome, btnLibrary, searchButton, form, btnWatched, btnQueue, headerHeroWrapper,heroList,headerButton} from "./refs.js";
+import Notiflix from 'notiflix'
+const axios = require('axios').default;
+import { btnHome, btnLibrary, searchButton, form, btnWatched, btnQueue, headerHeroWrapper, heroList, headerButton } from "./refs.js";
 
 export function onBtnHomeClick(event) {
     btnHome.classList.add('is-active')  
@@ -9,11 +11,6 @@ export function onBtnHomeClick(event) {
     btnQueue.classList.remove('is-active-btn')
 }
 
-export function onFormSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    event.currentTarget.reset();
-}
 
 export function onBtnLibraryClick(event) {
    btnHome.classList.remove('is-active')
@@ -49,3 +46,12 @@ export function homePageRender() {
   form.classList.remove('is-hidden')
 }
 
+
+
+
+
+
+ 
+ 
+ 
+ 
