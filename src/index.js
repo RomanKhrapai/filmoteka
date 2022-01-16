@@ -2,9 +2,10 @@ import './sass/main.scss';
 
 import { renderMarkup,onFormSubmit} from '../src/js/markup';
 import { toggleModal } from './js/modal-film';
+import { toggleModalTeam } from '../src/js/modal-team';
 
 // локальні імпорти
-import { btnHome, btnLibrary, searchButton, form, btnWatched, btnQueue, headerHeroWrapper,heroList,headerButton,closeModal,modal} from "../src/js/refs.js";
+import { btnHome, btnLibrary, searchButton, form, btnWatched, btnQueue, headerHeroWrapper,heroList,headerButton,closeModal,modal, openModalTeam, closeModalTeam} from "../src/js/refs.js";
 import { checkAuth, userSignOut } from '../src/js/auth.js';
 import { onBtnHomeClick, onBtnLibraryClick,onBtnWatchedClick, onBtnQueueClick,onHeaderButtonClick,homePageRender,fetchMovies} from '../src/js/header.js';
 
@@ -26,5 +27,9 @@ document.addEventListener('click', (event) => {
         toggleModal()      
     }
 });
+
+// modal-team
+openModalTeam.addEventListener('click', toggleModalTeam);
+closeModalTeam.addEventListener('click', toggleModalTeam);
 
 

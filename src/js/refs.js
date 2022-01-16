@@ -13,8 +13,13 @@ const headerButton = document.querySelector('.header__button')
 const galleryContainer = document.querySelector(".js-gallery");
 const closeModal = document.querySelector('[data-modal-close]');
 const modal = document.querySelector('[data-modal]');
+// modal-team
+const modalTeam = document.querySelector('[data-modal-team]');
+const openModalTeam = document.querySelector('.js-team-modal');
+const closeModalTeam = document.querySelector('[data-team-close]');
+
 
 
 export {btnHome, btnLibrary, searchButton, 
     form, btnWatched, btnQueue, headerHeroWrapper,
-    heroList, headerButton, galleryContainer, closeModal, modal};
+    heroList, headerButton, galleryContainer, closeModal, modal, modalTeam, openModalTeam, closeModalTeam};
