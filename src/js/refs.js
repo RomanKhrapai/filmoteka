@@ -16,8 +16,14 @@ const modal = document.querySelector('[data-modal]');
 const notificationFailureText = document.querySelector('.hero__notification-text')
 const input = document.querySelector('.hero__input')
 
+// modal-team
+const modalTeam = document.querySelector('[data-modal-team]');
+const openModalTeam = document.querySelector('.js-team-modal');
+const closeModalTeam = document.querySelector('[data-team-close]');
+
+
  
 
 export {btnHome, btnLibrary, searchButton, 
-    form, btnWatched, btnQueue, headerHeroWrapper,
-    heroList, headerButton, galleryContainer, closeModal, modal,notificationFailureText,input};
+    form, btnWatched, btnQueue, headerHeroWrapper,notificationFailureText,input,
+    heroList, headerButton, galleryContainer, closeModal, modal, modalTeam, openModalTeam, closeModalTeam};
