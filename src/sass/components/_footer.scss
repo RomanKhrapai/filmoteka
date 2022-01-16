@@ -42,11 +42,20 @@
             color: $accent-color;
             margin-left: 12px;
             margin-right: 12px;
-            font-size: 14px;
+            font-size: 21px;
+            line-height: 0.6;
+            width: 14px;
+            height: 13px;
+            display: inline-block;
+            overflow: hidden;
         }
         
         .team {
             position: relative;
+            background-color: transparent;
+            border: none;
+            padding: 0;
+            color: inherit;
         }
         
         .team::before {
