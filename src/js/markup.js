@@ -3,7 +3,10 @@ import { API_IMG } from "./const";
 import Notiflix from 'notiflix'
 
 
-import { galleryContainer } from "./refs";
+
+
+
+import { galleryContainer,notificationFailureText } from "./refs";
 console.log();
 import filmCard from "../markup-template/filmCard.hbs";
 import { result } from "lodash";
@@ -14,41 +17,39 @@ const apiService = new ApiService();
 let dataArray = [];
 
 
+
 export function onFormSubmit(event) {
     event.preventDefault();
-
-    dataArray = [];
-        
+       
     const moviesQuery = event.currentTarget.elements.movies.value;
     // let trimedSearchedMovies = apiService.searchedMovies.trim() 
     apiService.searchedMovies = moviesQuery;
-    // event.currentTarget.reset();
-
-    if (!moviesQuery) {
-        Notiflix.Notify.info('Please enter something');
-        return
-    }
  
-    apiService.fetchMoviesResults().then(resultsNotification).catch(error => { Notiflix.Notify.failure(error)});
-    // apiService.fetchMovies().then(result => console.log(result));
 
+   
+    apiService.fetchMoviesResults().then(resultsNotification).catch(error => { Notiflix.Notify.failure(error)}) ;
+    // apiService.fetchMovies().then(result => console.log(result));
+  
     apiService.resetPage();
 
-    clearGallery();
-    renderSearchMarkup();
 }
 
- function renderSearchMarkup() {
+function renderSearchMarkup() {
+
+    dataArray = [];
+    
     apiService.fetchMovies().then(data => {
             data.results.forEach(({ id, title, genre_ids, poster_path, release_date }) => {
            responseProcessing(id, title, genre_ids, poster_path, release_date);
-        });
+            });
+          
         const markup = filmCard(dataArray);
         appendMarkup(markup);
        
     }).catch(console.log);
-
+    clearGallery();
 }
+
 
 
 export function renderMarkup() {
@@ -76,7 +77,10 @@ function responseProcessing(id, name, genres, imgPath, date) {
     const keyData = {     
         name, id, genres, img: `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE}${imgPath}`, date
     }
-    const year = keyData.date.slice(0,4);
+    if (!imgPath) {
+        keyData.img = "http://0lik.ru/uploads/posts/2009-10/1255268707_0lik.ru_plenka.jpg"
+    };
+    const year = !keyData.date ? "unknown" : keyData.date.slice(0,4);
     keyData.date = year;
 
     dataArray.push(keyData);
@@ -90,9 +94,17 @@ function clearGallery(){
 
 function resultsNotification(results) {
     if (results.length === 0) {
-        Notiflix.Notify.failure('Sorry, there are no movies matching your search query. Please try again.');
+        notificationFailureText.classList.remove('is-hidden');
+        setTimeout(() => {
+            notificationFailureText.classList.add('is-hidden')
+        }, 5000);
+   
     }
+    if (results.length > 1) {
+        notificationFailureText.classList.add('is-hidden');
+        renderSearchMarkup();
+     }
 }
 
 
- 
+

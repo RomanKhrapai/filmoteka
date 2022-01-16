@@ -28,7 +28,14 @@ export const ApiService = class {
     const response = await axios.get(`${API.BASIC_URL}/3/search/movie?api_key=${API.KEY}&language=en-US&query=${this.searchedMovies}&page=${this.page}`);
      return response.data.results;
   
-}
+    }
+    
+      async  fetchMoviesTotalResults() {
+    const response = await axios.get(`${API.BASIC_URL}/3/search/movie?api_key=${API.KEY}&language=en-US&query=${this.searchedMovies}&page=${this.page}`);
+     return response.data.total_results;
+  
+    } 
+    
 
     increasePage() {
         this.page += 1;

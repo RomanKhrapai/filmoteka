@@ -13,8 +13,11 @@ const headerButton = document.querySelector('.header__button')
 const galleryContainer = document.querySelector(".js-gallery");
 const closeModal = document.querySelector('[data-modal-close]');
 const modal = document.querySelector('[data-modal]');
+const notificationFailureText = document.querySelector('.hero__notification-text')
+const input = document.querySelector('.hero__input')
 
+ 
 
 export {btnHome, btnLibrary, searchButton, 
     form, btnWatched, btnQueue, headerHeroWrapper,
-    heroList, headerButton, galleryContainer, closeModal, modal};
+    heroList, headerButton, galleryContainer, closeModal, modal,notificationFailureText,input};
