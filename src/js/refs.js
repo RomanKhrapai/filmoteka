@@ -15,6 +15,8 @@ const closeModal = document.querySelector('[data-modal-close]');
 const modal = document.querySelector('[data-modal]');
 const notificationFailureText = document.querySelector('.hero__notification-text')
 const input = document.querySelector('.hero__input')
+ 
+const searchIcon = document.querySelector('.hero__search-icon');
 
 // modal-team
 const modalTeam = document.querySelector('[data-modal-team]');
@@ -26,4 +28,4 @@ const closeModalTeam = document.querySelector('[data-team-close]');
 
 export {btnHome, btnLibrary, searchButton, 
     form, btnWatched, btnQueue, headerHeroWrapper,notificationFailureText,input,
-    heroList, headerButton, galleryContainer, closeModal, modal, modalTeam, openModalTeam, closeModalTeam};
+    heroList, headerButton, galleryContainer, closeModal, modal, modalTeam, openModalTeam, closeModalTeam, searchIcon};
