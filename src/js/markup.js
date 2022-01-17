@@ -22,18 +22,28 @@ export function onFormSubmit(event) {
     event.preventDefault();
        
     const moviesQuery = event.currentTarget.elements.movies.value;
-    // let trimedSearchedMovies = apiService.searchedMovies.trim() 
+    let trimedSearchedMovies = apiService.searchedMovies.trim() 
     apiService.searchedMovies = moviesQuery;
  
+    if (!moviesQuery) {
+        return
+    }
+    if (moviesQuery === " ") {
+    
+        return
+    }
 
    
-    apiService.fetchMoviesResults().then(resultsNotification).catch(error => { Notiflix.Notify.failure(error)}) ;
+         apiService.fetchMoviesResults().then(resultsNotification).catch(error => { Notiflix.Notify.failure(error)}) ;
     // apiService.fetchMovies().then(result => console.log(result));
+  
+  
   
     apiService.resetPage();
 
 }
 
+ 
 function renderSearchMarkup() {
 
     dataArray = [];
@@ -78,7 +88,7 @@ function responseProcessing(id, name, genres, imgPath, date) {
         name, id, genres, img: `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE}${imgPath}`, date
     }
     if (!imgPath) {
-        keyData.img = "http://0lik.ru/uploads/posts/2009-10/1255268707_0lik.ru_plenka.jpg"
+        keyData.img = "https://cdn1.savepice.ru/uploads/2022/1/17/453f010a7f25f43caeef9a5146541a6c-full.jpg"
     };
     const year = !keyData.date ? "unknown" : keyData.date.slice(0,4);
     keyData.date = year;
@@ -100,7 +110,7 @@ function resultsNotification(results) {
         }, 5000);
    
     }
-    if (results.length > 1) {
+    if (results.length >= 1) {
         notificationFailureText.classList.add('is-hidden');
         renderSearchMarkup();
      }

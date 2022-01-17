@@ -7,7 +7,7 @@ import { toggleModalTeam } from '../src/js/modal-team';
 // локальні імпорти
 import { btnHome, btnLibrary, searchButton, form, btnWatched, btnQueue, headerHeroWrapper,heroList,headerButton,closeModal,modal, openModalTeam, closeModalTeam} from "../src/js/refs.js";
 import { checkAuth, userSignOut } from '../src/js/auth.js';
-import { onBtnHomeClick, onBtnLibraryClick,onBtnWatchedClick, onBtnQueueClick,onHeaderButtonClick,homePageRender,fetchMovies} from '../src/js/header.js';
+import { onBtnHomeClick, onBtnLibraryClick,onBtnWatchedClick, onBtnQueueClick,onHeaderButtonClick,homePageRender,fetchMovies,onInputInput} from '../src/js/header.js';
 
 // checkAuth();
 // userSignOut(); // можна виключити цю функцію, щоб не авторизовуватись після кожного оновлення сторінки
@@ -20,6 +20,7 @@ btnLibrary.addEventListener('click', onBtnLibraryClick)
 btnWatched.addEventListener('click', onBtnWatchedClick)
 btnQueue.addEventListener('click', onBtnQueueClick)
 headerButton.addEventListener('click', onHeaderButtonClick)
+input.addEventListener('input', onInputInput)
 
 closeModal.addEventListener('click', toggleModal)
 document.addEventListener('click', (event) => {    
