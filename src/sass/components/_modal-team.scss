@@ -27,8 +27,7 @@
   background-color: $bg-primary-color;
   padding: 40px 20px;
   overflow-y: scroll;
-  opacity: 1;
-  transition: transform $function-time, opacity $function-time;
+  transition: transform $function-time;
 
   //   Tablet
   @media screen and (min-width: 768px) {
@@ -43,7 +42,6 @@
 
   .backdrop.is-hidden & {
     transform: translate(-50%, -50%) scale(1.5);
-    opacity: 0;
   }
 }
 
@@ -56,6 +54,7 @@
   align-items: center;
   width: 30px;
   height: 30px;
+  padding: 0px;
   background-color: transparent;
   border: transparent;
   border-radius: 50%;
@@ -73,8 +72,6 @@
 
 .modal-team__icon-close {
   display: block;
-  width: 30px;
-  height: 30px;
   stroke: currentColor;
 }
 
