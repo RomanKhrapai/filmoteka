@@ -3,16 +3,16 @@ import { API_IMG } from "./const";
 import Notiflix from 'notiflix'
 
 
-
-
-
-import { galleryContainer,notificationFailureText } from "./refs";
-console.log();
+import { galleryContainer,notificationFailureText, modal, closeModal, filmClickListener, modalRender, modalClear } from "./refs";
+// console.log();
 import filmCard from "../markup-template/filmCard.hbs";
+import modalFilm from "../markup-template/modalFilm.hbs"
 import { result } from "lodash";
 
 const apiService = new ApiService();
 let dataArray = [];
+
+let array = [];
 
 
 export function onFormSubmit(event) {
@@ -42,6 +42,7 @@ function renderSearchMarkup() {
         });
         }).then(next => {
             const markup = filmCard(dataArray);
+            // console.log(markup)
             appendMarkup(markup);
         }).catch(console.log);
         }).catch(console.log);
@@ -115,4 +116,27 @@ function resultsNotification(results) {
 }
 
 
+export function renderModalFilm() {
+    
+    filmClickListener.addEventListener('click',(event) => {
+        apiService.fetchTrendingFilms().then(data => {           
+            array = data.results;            
+            let targetFilm = (array.find(film => film.id == event.path[3].id));
+            const markup = modalFilm(targetFilm);
+            appendMarkupModal(markup);       
+            }).catch(console.log);        
+            clearModal();
+        }
+        
+    );
+}
+
+
+function appendMarkupModal(element) {
+    modalClear.insertAdjacentHTML("afterbegin", element); 
+}
+
+function clearModal(){
+  modalClear.innerHTML = '';  
+}
 

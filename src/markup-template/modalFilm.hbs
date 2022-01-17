@@ -1,0 +1,61 @@
+
+
+    
+<img class="modal__img"         
+src="https://image.tmdb.org/t/p/original{{this.poster_path}}" alt="{{this.title}}">       
+
+<div class="film__info">
+    <h2 class="modal__title">
+        {{this.title}}
+    </h2>
+        <div class="film__info-list">
+            <span class="film__property vote">Vote / Votes</span>
+            <div class="film__stat">
+                <span class="film__stat-vote">{{this.vote_average}}</span>
+                /
+                <span class="film__stat-votes">{{this.vote_count}}</span>
+            </div> 
+        </div>
+        
+        <div class="film__info-list">
+            <span class="film__property popularity">Popularity</span>
+            <span class="film__stat">{{this.popularity}}</span>
+        </div>
+        
+        <div class="film__info-list">
+            <span class="film__property original-title">Original Title</span>                
+            <span class="film__stat">{{this.original_title}}</span>
+        </div>
+        
+        <div class="film__info-list">
+            <span class="film__property genre">Genre</span>
+            <span class="film__stat">
+                {{!-- {{this.genre_ids}} --}}
+                {{#if genre_ids}}
+    {{#each genre_ids}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+        {{else}}
+        unknown
+        {{/if}}
+                </span>                   
+        </div>
+        
+    <div class="about">
+        <h3 class="about-title">
+            ABOUT
+        </h3>
+        <p class="about-text">
+            {{this.overview}}        
+        </p>
+    </div>
+    <div class="main__btn-modal">
+        <button type="button" class="main__btn main__btn-margin">
+        ADD TO WACHTED
+        </button>
+        <button type="button" class="main__btn">
+        ADD TO QUEUE
+        </button>
+    </div>            
+</div>
+
+
+ 
