@@ -18,6 +18,8 @@ const filmClickListener = document.querySelector(".gallery");
 const modalClear = document.querySelector(".data-modal-clear");
 const notificationFailureText = document.querySelector('.hero__notification-text')
 const input = document.querySelector('.hero__input')
+ 
+const searchIcon = document.querySelector('.hero__search-icon');
 
 // modal-team
 const modalTeam = document.querySelector('[data-modal-team]');
@@ -27,4 +29,6 @@ const closeModalTeam = document.querySelector('[data-team-close]');
 console.log(modalClear)
 export {btnHome, btnLibrary, searchButton, 
     form, btnWatched, btnQueue, headerHeroWrapper,notificationFailureText,input,
-    heroList, headerButton, galleryContainer, closeModal, modal, modalTeam, openModalTeam, closeModalTeam, filmClickListener, backdrop, modalClear };
+    heroList, headerButton, galleryContainer, closeModal, modal, modalTeam, openModalTeam,
+    closeModalTeam, filmClickListener, backdrop, modalClear, searchIcon };
+

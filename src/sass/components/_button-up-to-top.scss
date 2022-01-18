@@ -1,0 +1,51 @@
+/* ue-scroll.css */
+
+:root {
+  --color-accent: #ff6b08;
+
+  --btn-width: 50px;
+  --btn-height: 50px;
+  --btn-cursor: pointer;
+  --btn-position-top: auto;
+  --btn-position-right: 20px;
+  --btn-position-bottom: 20px;
+  --btn-position-left: auto;
+  --btn-z-index: 100;
+  --arrow-size: 40%;
+  --arrow-repeat: no-repeat;
+  --arrow-position: center;
+}
+
+.ue-scroll {
+  display: none;
+  position: fixed;
+  transform: translate3d(0, 0, 0);
+  cursor: var(--btn-cursor);
+  top: var(--btn-position-top);
+  right: var(--btn-position-right);
+  bottom: var(--btn-position-bottom);
+  left: var(--btn-position-left);
+  z-index: var(--btn-z-index);
+  width: var(--btn-width);
+  height: var(--btn-height);
+  background-size: var(--arrow-size);
+  background-repeat: var(--arrow-repeat);
+  background-position: var(--arrow-position);
+
+  &.btn-accent {
+    background-color: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    background-image: url('../images/arrow-white.png');
+  }
+
+  &.circle {
+    border-radius: 50%;
+  }
+  &.rounded-rectangle {
+    border-radius: 20%;
+  }
+  &.square {
+    border-radius: 0%;
+  }
+}
