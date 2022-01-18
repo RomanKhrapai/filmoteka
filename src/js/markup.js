@@ -11,31 +11,25 @@ import { result } from "lodash";
 
 const apiService = new ApiService();
 let dataArray = [];
+export {dataArray}
 
-let array = [];
 
 
 export function onFormSubmit(event) {
     event.preventDefault();
        
     const moviesQuery = event.currentTarget.elements.movies.value;
-    let trimedSearchedMovies = apiService.searchedMovies.trim();
+    // let trimedSearchedMovies = apiService.searchedMovies.trim();
     apiService.searchedMovies = moviesQuery;
  
     if (!moviesQuery) {
         return
     }
     if (moviesQuery === " ") {
-    
         return
-    }
-
-   
+    }  
          apiService.fetchMoviesResults().then(resultsNotification).catch(error => { Notiflix.Notify.failure(error)}) ;
     // apiService.fetchMovies().then(result => console.log(result));
-  
-  
-  
     apiService.resetPage();
 
 }
@@ -58,6 +52,9 @@ function renderSearchMarkup() {
 }
 
 export function renderMarkup(fetchFunc) {
+    dataArray = [];
+
+    clearGallery()
     fetchFunc.then(data => {
       
         apiService.getGenres().then(({ genres }) => {
@@ -123,8 +120,8 @@ export function renderModalFilm() {
     
     mainContainer.filmClickListener.addEventListener('click',(event) => {
         apiService.fetchTrendingFilms().then(data => {           
-            array = data.results;            
-            let targetFilm = (array.find(film => film.id == event.path[3].id));
+            dataArray = data.results;            
+            let targetFilm = (dataArray.find(film => film.id == event.path[3].id));
             const markup = modalFilm(targetFilm);
             appendMarkupModal(markup);       
             }).catch(console.log);        
@@ -143,3 +140,4 @@ function clearModal(){
   mainContainer.modalClear.innerHTML = '';  
 }
 
+ 

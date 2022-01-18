@@ -1,30 +1,36 @@
 
 import { header } from "./refs.js";
 import { renderMarkup, dataArray } from './markup';
+import { ApiService} from "./API-service";
+
+
+const apiService = new ApiService();
+
  
 
+
 export function onBtnHomeClick(event) {
- 
+  resetInpitValue();
+  searchIconRemoveClass();
+  renderMarkup(apiService.fetchTrendingFilms());
   header.btnHome.classList.add('is-active');
   header.btnLibrary.classList.remove('is-active');
   homePageRender();
   header.btnWatched.classList.remove('is-active-btn');
   header.btnQueue.classList.remove('is-active-btn');
-
+  hideNotification();
 }
 
 
 export function onBtnLibraryClick(event) {
   header.btnHome.classList.remove('is-active');
-  header.btnLibrary.classList.add('is-active') ; 
-  header.headerHeroWrapper.classList.remove('header-hero__wrapper');
-  header.headerHeroWrapper.classList.add('header-hero__library-wrapper');
+  header.btnLibrary.classList.add('is-active'); 
+  headerHeroWrapperClassList('header-hero__library-wrapper','header-hero__wrapper')
   header.heroList.classList.remove('is-hidden');
   header.form.classList.add('is-hidden');
-  header.input.value = "";
-  header.notificationFailureText.classList.add('is-hidden');
-  header.searchIcon.classList.remove('is-big');
-
+  resetInpitValue();
+  hideNotification();
+  searchIconRemoveClass();
 }
 
  export function onBtnWatchedClick(event) {
@@ -38,22 +44,23 @@ export function onBtnLibraryClick(event) {
 } 
 
 export function onHeaderButtonClick() {
+  resetInpitValue();
+  searchIconRemoveClass();
+  renderMarkup(apiService.fetchTrendingFilms());
   homePageRender();
   header.btnHome.classList.add('is-active');
   header.btnLibrary.classList.remove('is-active'); 
   header.btnWatched.classList.remove('is-active-btn');
   header.btnQueue.classList.remove('is-active-btn');
+  hideNotification();
 }
 
 
 export function homePageRender() {
-  header.headerHeroWrapper.classList.add('header-hero__wrapper');
-  header.headerHeroWrapper.classList.remove('header-hero__library-wrapper');
+  headerHeroWrapperClassList('header-hero__wrapper','header-hero__library-wrapper')
   header.heroList.classList.add('is-hidden');
   header.form.classList.remove('is-hidden');
 }
-
-
 
  
 export function onInputInput(event) {
@@ -64,12 +71,27 @@ export function onInputInput(event) {
       header.searchIcon.classList.add('is-big');
   }
   if (!inputText) {
-            header.searchIcon.classList.remove('is-big');
+      searchIconRemoveClass();
   }
   if(inputText === " "){
-  header.searchIcon.classList.remove('is-big');
+      searchIconRemoveClass();
   }
 }
  
 
+function resetInpitValue() {
+  header.input.value = "";
+}
  
+function searchIconRemoveClass(){
+  header.searchIcon.classList.remove('is-big');
+}
+
+function headerHeroWrapperClassList(classToAdd,classToRemove) {
+  header.headerHeroWrapper.classList.add(classToAdd);
+  header.headerHeroWrapper.classList.remove(classToRemove);
+}
+
+function hideNotification() {
+  header.notificationFailureText.classList.add('is-hidden');
+}
