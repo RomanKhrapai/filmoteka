@@ -17,7 +17,6 @@
 
 .film-card__img-box {
   height: 400px;
-  margin-bottom: 10px;
 }
 
 .film-card__img-box img {
@@ -28,6 +27,7 @@
 }
 
 .film-card__name {
+  padding-top: 10px;
   line-height: 1.1em;
   text-transform: uppercase;
 
