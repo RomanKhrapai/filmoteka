@@ -1,4 +1,7 @@
 import './sass/main.scss';
+import UeScroll from 'ue-scroll-js';
+
+UeScroll.init();
 
 import { renderMarkup,onFormSubmit} from '../src/js/markup';
 import { onToggleModal, onBackdropClose, onHiddenModal } from './js/modal-film';
