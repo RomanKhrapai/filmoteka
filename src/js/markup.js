@@ -51,6 +51,7 @@ function renderSearchMarkup() {
 }
 
 export function renderMarkup(fetchFunc) {
+    dataArray = [];
 
     clearGallery()
     fetchFunc.then(data => {
