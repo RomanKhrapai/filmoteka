@@ -29,6 +29,7 @@
     "axios": "^0.24.0",
     "firebase": "^9.6.3",
     "lodash": "^4.17.21",
-    "notiflix": "^3.2.2"
+    "notiflix": "^3.2.2",
+    "ue-scroll-js": "^2.0.2"
   }
 }
