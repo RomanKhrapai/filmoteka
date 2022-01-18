@@ -13,6 +13,9 @@ const headerButton = document.querySelector('.header__button')
 const galleryContainer = document.querySelector(".js-gallery");
 const closeModal = document.querySelector('[data-modal-close]');
 const modal = document.querySelector('[data-modal]');
+const backdrop = document.querySelector('.modal-area');
+const filmClickListener = document.querySelector(".gallery");
+const modalClear = document.querySelector(".data-modal-clear");
 const notificationFailureText = document.querySelector('.hero__notification-text')
 const input = document.querySelector('.hero__input')
  
@@ -23,9 +26,9 @@ const modalTeam = document.querySelector('[data-modal-team]');
 const openModalTeam = document.querySelector('.js-team-modal');
 const closeModalTeam = document.querySelector('[data-team-close]');
 
-
- 
-
+console.log(modalClear)
 export {btnHome, btnLibrary, searchButton, 
     form, btnWatched, btnQueue, headerHeroWrapper,notificationFailureText,input,
-    heroList, headerButton, galleryContainer, closeModal, modal, modalTeam, openModalTeam, closeModalTeam, searchIcon};
+    heroList, headerButton, galleryContainer, closeModal, modal, modalTeam, openModalTeam,
+    closeModalTeam, filmClickListener, backdrop, modalClear, searchIcon };
+
