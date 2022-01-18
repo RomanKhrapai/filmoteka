@@ -1,12 +1,12 @@
 import { ApiService } from "./API-service";
 import { API_IMG } from "./const";
-import Notiflix from 'notiflix'
+import Notiflix from 'notiflix';
 
 
-import { galleryContainer,notificationFailureText, modal, closeModal, filmClickListener, modalRender, modalClear } from "./refs";
+import { mainContainer, hero } from "./refs";
 // console.log();
 import filmCard from "../markup-template/filmCard.hbs";
-import modalFilm from "../markup-template/modalFilm.hbs"
+import modalFilm from "../markup-template/modalFilm.hbs";
 import { result } from "lodash";
 
 const apiService = new ApiService();
@@ -19,7 +19,7 @@ export function onFormSubmit(event) {
     event.preventDefault();
        
     const moviesQuery = event.currentTarget.elements.movies.value;
-    // let trimedSearchedMovies = apiService.searchedMovies.trim() 
+    // let trimedSearchedMovies = apiService.searchedMovies.trim();
     apiService.searchedMovies = moviesQuery;
  
     if (!moviesQuery) {
@@ -70,7 +70,7 @@ export function renderMarkup(fetchFunc) {
 }
 
 function appendMarkup(element) {
-    galleryContainer.insertAdjacentHTML("beforeend", element); 
+    mainContainer.galleryContainer.insertAdjacentHTML("beforeend", element); 
 }
 
 function responseProcessing(id, name, genres, imgPath, date) {
@@ -98,19 +98,19 @@ function filterGenres(conditions, array) {
 
 
 function clearGallery(){
-    galleryContainer.innerHTML = '';
+    mainContainer.galleryContainer.innerHTML = '';
 }
 
 function resultsNotification(results) {
     if (results.length === 0) {
-        notificationFailureText.classList.remove('is-hidden');
+        hero.notificationFailureText.classList.remove('is-hidden');
         setTimeout(() => {
-            notificationFailureText.classList.add('is-hidden')
+            hero.notificationFailureText.classList.add('is-hidden')
         }, 5000);
    
     }
     if (results.length >= 1) {
-        notificationFailureText.classList.add('is-hidden');
+        hero.notificationFailureText.classList.add('is-hidden');
         renderSearchMarkup();
      }
 }
@@ -118,7 +118,7 @@ function resultsNotification(results) {
 
 export function renderModalFilm() {
     
-    filmClickListener.addEventListener('click',(event) => {
+    mainContainer.filmClickListener.addEventListener('click',(event) => {
         apiService.fetchTrendingFilms().then(data => {           
             dataArray = data.results;            
             let targetFilm = (dataArray.find(film => film.id == event.path[3].id));
@@ -133,11 +133,11 @@ export function renderModalFilm() {
 
 
 function appendMarkupModal(element) {
-    modalClear.insertAdjacentHTML("afterbegin", element); 
+    mainContainer.modalClear.insertAdjacentHTML("afterbegin", element); 
 }
 
 function clearModal(){
-  modalClear.innerHTML = '';  
+  mainContainer.modalClear.innerHTML = '';  
 }
 
  

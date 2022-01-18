@@ -8,33 +8,32 @@ import { onToggleModal, onBackdropClose, onHiddenModal } from './js/modal-film';
 import { toggleModalTeam } from '../src/js/modal-team';
 import { renderModalFilm } from '../src/js/markup';
 // локальні імпорти
-import { btnHome, btnLibrary, searchButton, form, btnWatched, btnQueue, headerHeroWrapper,heroList,headerButton, closeModal, openModalTeam, closeModalTeam, filmClickListener, backdrop} from "../src/js/refs.js";
+import { header, mainContainer, team } from "../src/js/refs.js";
 import { checkAuth, userSignOut } from '../src/js/auth.js';
 import { onBtnHomeClick, onBtnLibraryClick, onBtnWatchedClick, onBtnQueueClick, onHeaderButtonClick, homePageRender, fetchMovies, onInputInput } from '../src/js/header.js';
 import { ApiService } from "./js/API-service";
 const apiService = new ApiService();
 
-// checkAuth();
-// userSignOut(); // можна виключити цю функцію, щоб не авторизовуватись після кожного оновлення сторінки
+checkAuth();
 
 renderMarkup(apiService.fetchTrendingFilms()); 
-renderModalFilm()
+renderModalFilm();
 
 
-btnHome.addEventListener('click', onBtnHomeClick);
-form.addEventListener('submit', onFormSubmit);
-btnLibrary.addEventListener('click', onBtnLibraryClick)
-btnWatched.addEventListener('click', onBtnWatchedClick)
-btnQueue.addEventListener('click', onBtnQueueClick)
-headerButton.addEventListener('click', onHeaderButtonClick)
-input.addEventListener('input', onInputInput)
+header.btnHome.addEventListener('click', onBtnHomeClick);
+header.form.addEventListener('submit', onFormSubmit);
+header.btnLibrary.addEventListener('click', onBtnLibraryClick);
+header.btnWatched.addEventListener('click', onBtnWatchedClick);
+header.btnQueue.addEventListener('click', onBtnQueueClick);
+header.headerButton.addEventListener('click', onHeaderButtonClick);
+header.input.addEventListener('input', onInputInput);
 
-backdrop.addEventListener('click', onBackdropClose)
-closeModal.addEventListener('click', onToggleModal)
-filmClickListener.addEventListener('click', onHiddenModal);
+mainContainer.backdrop.addEventListener('click', onBackdropClose);
+mainContainer.closeModal.addEventListener('click', onToggleModal);
+mainContainer.filmClickListener.addEventListener('click', onHiddenModal);
 
 // modal-team
-openModalTeam.addEventListener('click', toggleModalTeam);
-closeModalTeam.addEventListener('click', toggleModalTeam);
+team.openModalTeam.addEventListener('click', toggleModalTeam);
+team.closeModalTeam.addEventListener('click', toggleModalTeam);
 
 

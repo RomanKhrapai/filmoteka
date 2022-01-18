@@ -1,66 +1,65 @@
 
-import { btnHome, btnLibrary, searchButton, form, btnWatched,searchIcon, btnQueue, headerHeroWrapper, heroList, headerButton, input , notificationFailureText,notificationSuccessText} from "./refs.js";
+import { header } from "./refs.js";
 import { renderMarkup, dataArray } from './markup';
- import { ApiService} from "./API-service";
+import { ApiService} from "./API-service";
 
 
 const apiService = new ApiService();
 
  
 
- 
+
 export function onBtnHomeClick(event) {
-   resetInpitValue();
-   searchIconRemoveClass();
+  resetInpitValue();
+  searchIconRemoveClass();
   renderMarkup(apiService.fetchTrendingFilms());
-    btnHome.classList.add('is-active');
-  btnLibrary.classList.remove('is-active');
+  header.btnHome.classList.add('is-active');
+  header.btnLibrary.classList.remove('is-active');
   homePageRender();
- btnWatched.classList.remove('is-active-btn');
-  btnQueue.classList.remove('is-active-btn');
- hideNotification()
+  header.btnWatched.classList.remove('is-active-btn');
+  header.btnQueue.classList.remove('is-active-btn');
+  hideNotification();
 }
 
 
 export function onBtnLibraryClick(event) {
-   btnHome.classList.remove('is-active');
-  btnLibrary.classList.add('is-active'); 
-   headerHeroWrapperClassList('header-hero__library-wrapper','header-hero__wrapper')
-  heroList.classList.remove('is-hidden');
-  form.classList.add('is-hidden');
-   resetInpitValue();
- hideNotification();
-   searchIconRemoveClass();
-
+  header.btnHome.classList.remove('is-active');
+  header.btnLibrary.classList.add('is-active'); 
+  headerHeroWrapperClassList('header-hero__library-wrapper','header-hero__wrapper')
+  header.heroList.classList.remove('is-hidden');
+  header.form.classList.add('is-hidden');
+  resetInpitValue();
+  hideNotification();
+  searchIconRemoveClass();
 }
 
  export function onBtnWatchedClick(event) {
-   btnWatched.classList.add('is-active-btn');
-    btnQueue.classList.remove('is-active-btn');
+  header.btnWatched.classList.add('is-active-btn');
+  header.btnQueue.classList.remove('is-active-btn');
 } 
 
  export function onBtnQueueClick(event) {
-   btnQueue.classList.add('is-active-btn');
-    btnWatched.classList.remove('is-active-btn');
+  header.btnQueue.classList.add('is-active-btn');
+  header.btnWatched.classList.remove('is-active-btn');
 } 
 
 export function onHeaderButtonClick() {
-   resetInpitValue();
-   searchIconRemoveClass();
-    renderMarkup(apiService.fetchTrendingFilms());
+  resetInpitValue();
+  searchIconRemoveClass();
+  renderMarkup(apiService.fetchTrendingFilms());
   homePageRender();
-  btnHome.classList.add('is-active');
-  btnLibrary.classList.remove('is-active'); 
-   btnWatched.classList.remove('is-active-btn');
-  btnQueue.classList.remove('is-active-btn');
-  hideNotification()
+  header.btnHome.classList.add('is-active');
+  header.btnLibrary.classList.remove('is-active'); 
+  header.btnWatched.classList.remove('is-active-btn');
+  header.btnQueue.classList.remove('is-active-btn');
+  hideNotification();
 }
 
 
 export function homePageRender() {
   headerHeroWrapperClassList('header-hero__wrapper','header-hero__library-wrapper')
-  heroList.classList.add('is-hidden');
-  form.classList.remove('is-hidden');
+  header.heroList.classList.add('is-hidden');
+  header.form.classList.remove('is-hidden');
 }
 
  
@@ -69,30 +68,30 @@ export function onInputInput(event) {
 
   let trimedInputText = inputText.trim()
   if (trimedInputText) {
-      searchIcon.classList.add('is-big');
+      header.searchIcon.classList.add('is-big');
   }
   if (!inputText) {
-            searchIconRemoveClass();
+      searchIconRemoveClass();
   }
   if(inputText === " "){
-  searchIconRemoveClass();
+      searchIconRemoveClass();
   }
 }
  
 
 function resetInpitValue() {
-   input.value = "";
+  header.input.value = "";
 }
  
 function searchIconRemoveClass(){
-searchIcon.classList.remove('is-big')
+  header.searchIcon.classList.remove('is-big');
 }
 
 function headerHeroWrapperClassList(classToAdd,classToRemove) {
-  headerHeroWrapper.classList.add(classToAdd);
-  headerHeroWrapper.classList.remove(classToRemove);
+  header.headerHeroWrapper.classList.add(classToAdd);
+  header.headerHeroWrapper.classList.remove(classToRemove);
 }
 
 function hideNotification() {
-     notificationFailureText.classList.add('is-hidden');
- }
+  header.notificationFailureText.classList.add('is-hidden');
+}

@@ -142,12 +142,16 @@
 }
 
 .site-nav__item {
-  &:first-child {
-    margin-right: 39px;
-  }
+  // &:first-child {
+    margin-right: 29px;
+
+    @media (max-width:767px) {
+      margin-right: 19px;
+    }
+  // }
 }
 
-.site-nav__button {
+.site-nav__button, .auth__button {
   //   position: relative;
   border: none;
   background-color: transparent;
@@ -210,8 +214,71 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  margin-right: auto;
 
   &:hover {
     text-shadow: rgb(230, 231, 230) 0.5px 0 3px;
   }
+}
+
+.auth {
+  position: relative; // для auth__dropdown-menu
+}
+
+.auth__button {
+  padding: 4px 0;
+}
+
+.auth__dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: $light-text-color;
+  top: 28px;
+  right: 0;
+  width: 100px;
+  border-radius: 5px;
+  padding: 5px 10px;
+  z-index: 1;
+}
+
+.auth__dropdown-menu a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.auth__img {
+  display: inline-block;
+  margin-bottom: -4px;
+  border-radius: 50%;
+
+  @media (min-width: 768px) {
+    margin-right: 5px;
+  }
+}
+
+.auth__name {
+  text-transform: uppercase;
+  padding: 5px 0;
+
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+
+// .auth:hover .auth__dropdown-menu,
+// .auth:focus .auth__dropdown-menu,
+// .auth__button:hover .auth__dropdown-menu,
+// .auth__button:focus .auth__dropdown-menu {
+//   display: block;
+// }
+
+.icon {
+  margin-left: 10px;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
 }
