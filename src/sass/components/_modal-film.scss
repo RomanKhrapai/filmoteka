@@ -48,6 +48,16 @@
   }
 }
 
+.data-modal-clear {
+  @media screen and (min-width: 1280px) {
+    display: flex;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1279px) {
+    display: flex;
+  }
+}
+
 .close-btn {
   position: absolute;
   display: flex;
@@ -57,11 +67,29 @@
   right: 10px;
   width: 30px;
   height: 30px;
-  background-color: $bg-primary-color;
   border: none;
   cursor: pointer;
   padding: 0;
   box-sizing: border-box;
+  padding: 0px;
+  background-color: transparent;
+  border: transparent;
+  border-radius: 50%;
+  color: $primary-text-color;
+  transition: background-color $function-time, border $function-time, color $function-time;
+
+  &:hover,
+  &:focus {
+    background-color: $accent-color;
+    border: $accent-color;
+    color: $bg-primary-color;
+    cursor: pointer;
+  }
+}
+
+.close-btn__icon {
+  display: block;
+  stroke: currentColor;
 }
 
 .modal__img {
