@@ -30,7 +30,7 @@ export const ApiService = class {
   
     }
     
-    
+     
 
     increasePage() {
         this.page += 1;

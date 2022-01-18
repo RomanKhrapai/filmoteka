@@ -11,31 +11,24 @@ import { result } from "lodash";
 
 const apiService = new ApiService();
 let dataArray = [];
-
-let array = [];
+export {dataArray}
 
 
 export function onFormSubmit(event) {
     event.preventDefault();
        
     const moviesQuery = event.currentTarget.elements.movies.value;
-    let trimedSearchedMovies = apiService.searchedMovies.trim() 
+    // let trimedSearchedMovies = apiService.searchedMovies.trim() 
     apiService.searchedMovies = moviesQuery;
  
     if (!moviesQuery) {
         return
     }
     if (moviesQuery === " ") {
-    
         return
-    }
-
-   
+    }  
          apiService.fetchMoviesResults().then(resultsNotification).catch(error => { Notiflix.Notify.failure(error)}) ;
     // apiService.fetchMovies().then(result => console.log(result));
-  
-  
-  
     apiService.resetPage();
 
 }
@@ -58,6 +51,8 @@ function renderSearchMarkup() {
 }
 
 export function renderMarkup(fetchFunc) {
+
+    clearGallery()
     fetchFunc.then(data => {
       
         apiService.getGenres().then(({ genres }) => {
@@ -143,3 +138,4 @@ function clearModal(){
   modalClear.innerHTML = '';  
 }
 
+ 
