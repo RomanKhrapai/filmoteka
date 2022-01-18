@@ -14,6 +14,7 @@ let dataArray = [];
 export {dataArray}
 
 
+
 export function onFormSubmit(event) {
     event.preventDefault();
        
@@ -118,8 +119,8 @@ export function renderModalFilm() {
     
     filmClickListener.addEventListener('click',(event) => {
         apiService.fetchTrendingFilms().then(data => {           
-            array = data.results;            
-            let targetFilm = (array.find(film => film.id == event.path[3].id));
+            dataArray = data.results;            
+            let targetFilm = (dataArray.find(film => film.id == event.path[3].id));
             const markup = modalFilm(targetFilm);
             appendMarkupModal(markup);       
             }).catch(console.log);        
