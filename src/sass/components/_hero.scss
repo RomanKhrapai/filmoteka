@@ -92,10 +92,12 @@
   @include font(16px, 100, 1.3);
 }
 
-.hero__notification-text--green {
-  color: rgb(45, 196, 7);
-  text-align: center;
-  margin-top: 20px;
-  @include font(16px, 100, 1.3);
-  text-shadow: rgb(40, 131, 4) 1px 0 10px;
+.hero__search-icon {
+  stroke: white;
+}
+
+.is-big {
+  stroke: $accent-color;
+  width: 15px;
+  height: 15px;
 }
