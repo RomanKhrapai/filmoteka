@@ -157,6 +157,7 @@
 
   @media screen and (max-width: 1279px) {
     margin-right: 39px;
+    min-width: 69px;
   }
 }
 
@@ -181,7 +182,7 @@
 
 .film__info-list {
   display: flex;
-  align-items: center;
+  // align-items: center;
   margin-bottom: 10px;
 }
 
@@ -196,11 +197,16 @@
   justify-content: center;
   width: 36px;
   height: 16px;
-  color: $light-text-color;
-  // line-height: 1.17;
-  background-color: $accent-color;
+  line-height: 1.17;
+  background-color: $bg-secondary-color;
   border-radius: $border-radius;
   margin-right: 3px;
+
+  &:hover,
+  &:focus {
+    color: $light-text-color;
+    background-color: $accent-color;
+  }
 }
 
 .film__stat-votes {
@@ -209,14 +215,20 @@
   justify-content: center;
   width: 36px;
   height: 16px;
-  // line-height: 1.17;
+  line-height: 1.17;
   background-color: $bg-secondary-color;
   border-radius: $border-radius;
   margin-left: 3px;
+
+  &:hover,
+  &:focus {
+    color: $light-text-color;
+    background-color: $accent-color;
+  }
 }
 
 .about {
-  margin-top: 20px;
+  padding-top: 10px;
   margin-bottom: 20px;
   line-height: 1.66;
 }

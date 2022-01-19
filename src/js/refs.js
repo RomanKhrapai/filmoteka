@@ -26,7 +26,6 @@ const modalTeam = document.querySelector('[data-modal-team]');
 const openModalTeam = document.querySelector('.js-team-modal');
 const closeModalTeam = document.querySelector('[data-team-close]');
 
-console.log(modalClear)
 export {btnHome, btnLibrary, searchButton, 
     form, btnWatched, btnQueue, headerHeroWrapper,notificationFailureText,input,
     heroList, headerButton, galleryContainer, closeModal, modal, modalTeam, openModalTeam,

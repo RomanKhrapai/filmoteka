@@ -11,7 +11,6 @@ import { result } from "lodash";
 
 const apiService = new ApiService();
 let dataArray = [];
-export {dataArray}
 
 
 export function onFormSubmit(event) {
@@ -21,63 +20,63 @@ export function onFormSubmit(event) {
     // let trimedSearchedMovies = apiService.searchedMovies.trim() 
     apiService.searchedMovies = moviesQuery;
  
-    if (!moviesQuery) {
-        return
-    }
-    if (moviesQuery === " ") {
-        return
-    }  
-         apiService.fetchMoviesResults().then(resultsNotification).catch(error => { Notiflix.Notify.failure(error)}) ;
+   
+    apiService.fetchMoviesResults().then(resultsNotification).catch(error => { Notiflix.Notify.failure(error)}) ;
     // apiService.fetchMovies().then(result => console.log(result));
+  
     apiService.resetPage();
 
 }
+
 
 function renderSearchMarkup() {
     dataArray = [];
         apiService.fetchMovies().then(data => {
         apiService.getGenres().then(({ genres }) => {
-    data.results.forEach(({ id, title, genre_ids, poster_path, release_date }) => {
+    data.results.forEach(({ id, title, genre_ids, poster_path, release_date, vote_average, vote_count, popularity, original_title, overview }) => {
         const filterResult = filterGenres(genre_ids, genres);
-        responseProcessing(id, title, filterResult, poster_path, release_date);
+        responseProcessing(id, title, filterResult, poster_path, release_date, vote_average, vote_count, popularity, original_title, overview);
         });
-        }).then(next => {
-            const markup = filmCard(dataArray);
-            // console.log(markup)
+        })
+            .then(next => {
+            const markup = filmCard(dataArray);       
             appendMarkup(markup);
         }).catch(console.log);
         }).catch(console.log);
     clearGallery();
 }
 
-export function renderMarkup(fetchFunc) {
 
-    clearGallery()
+
+export function renderMarkup(fetchFunc) {
     fetchFunc.then(data => {
       
         apiService.getGenres().then(({ genres }) => {
-    data.results.forEach(({ id, title, genre_ids, poster_path, release_date }) => {
-        const filterResult = filterGenres(genre_ids, genres);
-        responseProcessing(id, title, filterResult, poster_path, release_date);
+    data.results.forEach(({ id, title, genre_ids, poster_path, release_date, vote_average, vote_count, popularity, original_title, overview }) => {
+        const filterResult = filterGenres(genre_ids, genres);      
+        responseProcessing(id, title, filterResult, poster_path, release_date, vote_average, vote_count, popularity, original_title, overview);
         });
         }).then(next => {
-            const markup = filmCard(dataArray);
+            const markup = filmCard(dataArray);            
             appendMarkup(markup);
         }).catch(console.log);
     }).catch(console.log);
 }
 
+
+
 function appendMarkup(element) {
     galleryContainer.insertAdjacentHTML("beforeend", element); 
 }
 
-function responseProcessing(id, name, genres, imgPath, date) {
+
+function responseProcessing(id, name, genres, imgPath, date, vote_average, vote_count, popularity, original_title, overview) {
    
     const keyData = {     
-        name, id, genres, img: `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE}${imgPath}`, date
+        name, id, genres, img: `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE}${imgPath}`, date, vote_average, vote_count, popularity, original_title, overview
     }
     if (!imgPath) {
-        keyData.img = "https://cdn1.savepice.ru/uploads/2022/1/17/453f010a7f25f43caeef9a5146541a6c-full.jpg"
+        keyData.img = "http://0lik.ru/uploads/posts/2009-10/1255268707_0lik.ru_plenka.jpg"
     };
     const year = !keyData.date ? "unknown" : keyData.date.slice(0,4);
     keyData.date = year;
@@ -90,7 +89,7 @@ function filterGenres(conditions, array) {
     const filter = array.filter(item => conditions.includes(item.id)).map(obj => obj.name);
        if (filter.length > 2) {
             filter.splice(2);
-       }
+    }  
     return filter;
 }
 
@@ -107,7 +106,7 @@ function resultsNotification(results) {
         }, 5000);
    
     }
-    if (results.length >= 1) {
+    if (results.length > 1) {
         notificationFailureText.classList.add('is-hidden');
         renderSearchMarkup();
      }
@@ -117,15 +116,22 @@ function resultsNotification(results) {
 export function renderModalFilm() {
     
     filmClickListener.addEventListener('click',(event) => {
-        apiService.fetchTrendingFilms().then(data => {           
-            array = data.results;            
-            let targetFilm = (array.find(film => film.id == event.path[3].id));
-            const markup = modalFilm(targetFilm);
+        apiService.fetchTrendingFilms().then(data => {   
+            apiService.getGenres().then(({ genres }) => {
+                    //  console.log(genres)
+             data.results.forEach(({ id, title, genre_ids, poster_path, release_date, vote_average, vote_count, popularity, original_title, overview }) => {
+            let filterResult = filterGenres(genre_ids, genres);
+                responseProcessing(id, title, filterResult, poster_path, release_date, vote_average, vote_count, popularity, original_title, overview);                   
+             });
+            })    
+            let targetFilm = (dataArray.find(film => film.id == event.path[3].id));
+            console.log(targetFilm)
+            console.log(dataArray)
+            const markup = modalFilm(targetFilm);            
             appendMarkupModal(markup);       
-            }).catch(console.log);        
+        }).catch(console.log);              
             clearModal();
-        }
-        
+        }       
     );
 }
 
@@ -138,4 +144,4 @@ function clearModal(){
   modalClear.innerHTML = '';  
 }
 
- 
+

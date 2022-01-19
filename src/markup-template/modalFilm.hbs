@@ -2,17 +2,16 @@
 
     
 <img class="modal__img"         
-src="https://image.tmdb.org/t/p/original{{this.poster_path}}" alt="{{this.title}}">       
+src="https://image.tmdb.org/t/p/original{{this.img}}" alt="{{this.name}}">       
 
 <div class="film__info">
     <h2 class="modal__title">
-        {{this.title}}
+        {{this.name}}
     </h2>
         <div class="film__info-list">
             <span class="film__property vote">Vote / Votes</span>
             <div class="film__stat">
-                <span class="film__stat-vote">{{this.vote_average}}</span>
-                /
+                <span class="film__stat-vote">{{this.vote_average}}</span>/ 
                 <span class="film__stat-votes">{{this.vote_count}}</span>
             </div> 
         </div>
@@ -30,9 +29,9 @@ src="https://image.tmdb.org/t/p/original{{this.poster_path}}" alt="{{this.title}
         <div class="film__info-list">
             <span class="film__property genre">Genre</span>
             <span class="film__stat">
-                {{!-- {{this.genre_ids}} --}}
-                {{#if genre_ids}}
-    {{#each genre_ids}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+                {{!-- {{this.genres}} --}}
+                {{#if genres}}
+    {{#each genres}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
         {{else}}
         unknown
         {{/if}}
