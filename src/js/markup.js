@@ -78,17 +78,20 @@ export function appendMarkup(element) {
 function responseProcessing(id, name, genres, imgPath, date) {
    
     const keyData = {     
-        name, id, genres, img: `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE}${imgPath}`, date
+        name, id, genres, img1x: `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE_1x}${imgPath}`, date, img2x: `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE_2x}${imgPath}`,
     }
     if (!imgPath) {
-        keyData.img = "https://cdn1.savepice.ru/uploads/2022/1/17/453f010a7f25f43caeef9a5146541a6c-full.jpg"
+        keyData.img = "https://cdn.pixabay.com/photo/2019/05/17/05/55/film-4208953_1280.jpg"
     };
     const year = !keyData.date ? "unknown" : keyData.date.slice(0,4);
     keyData.date = year;
 
     dataArray.push(keyData);
+    console.log(dataArray);
 
 }
+
+
 
 export function filterGenres(conditions, array) {
     const filter = array.filter(item => conditions.includes(item.id)).map(obj => obj.name);
