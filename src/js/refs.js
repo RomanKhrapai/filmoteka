@@ -28,9 +28,6 @@ const mainContainer = {
     backdrop: document.querySelector('.modal-area'),
     filmClickListener: document.querySelector(".gallery"),
     modalClear: document.querySelector(".data-modal-clear"),
-
-    btnAddToWatched: document.querySelector("#btn__watched"),
-    btnAddToQueue: document.querySelector("#btn__queue"),
 }
 
 // modal-team

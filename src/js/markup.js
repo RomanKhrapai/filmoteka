@@ -5,7 +5,8 @@ import { errorNotif } from "./header";
 
 
 import { mainContainer, header } from "./refs";
-// console.log();
+import { firebaseBtnListeners } from "./firebase.js";
+
 import filmCard from "../markup-template/filmCard.hbs";
 import modalFilm from "../markup-template/modalFilm.hbs";
 import { result } from "lodash";
@@ -70,7 +71,7 @@ export function renderMarkup(fetchFunc) {
     }).catch(console.log);
 }
 
-function appendMarkup(element) {
+export function appendMarkup(element) {
     mainContainer.galleryContainer.insertAdjacentHTML("beforeend", element); 
 }
 
@@ -89,7 +90,7 @@ function responseProcessing(id, name, genres, imgPath, date) {
 
 }
 
-function filterGenres(conditions, array) {
+export function filterGenres(conditions, array) {
     const filter = array.filter(item => conditions.includes(item.id)).map(obj => obj.name);
        if (filter.length > 2) {
             filter.splice(2);
@@ -98,14 +99,13 @@ function filterGenres(conditions, array) {
 }
 
 
-function clearGallery(){
+export function clearGallery(){
     mainContainer.galleryContainer.innerHTML = '';
 }
 
 function resultsNotification(results) {
     if (results.length === 0) {
-        errorNotif();
-   
+        errorNotif(); 
     }
     if (results.length >= 1) {
         header.heroNotification.innerHTML = "";
@@ -121,8 +121,9 @@ export function renderModalFilm() {
             dataArray = data.results;            
             let targetFilm = (dataArray.find(film => film.id == event.path[3].id));
             const markup = modalFilm(targetFilm);
-            appendMarkupModal(markup);       
-            }).catch(console.log);        
+            appendMarkupModal(markup);
+            firebaseBtnListeners(targetFilm);
+            }).catch(console.log);
             clearModal();
         }
         
