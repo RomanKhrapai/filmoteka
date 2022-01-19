@@ -16,7 +16,8 @@ const header = {
     notificationFailureText: document.querySelector('.hero__notification-text'),
     input: document.querySelector('.hero__input'),
     searchIcon: document.querySelector('.hero__search-icon'),
-    heroNotification : document.querySelector('.notification-text'),
+    heroNotification: document.querySelector('.notification-text'),
+    screenCover: document.querySelector('.screen-background')
 }
 console.log(header.heroNotification);
 
