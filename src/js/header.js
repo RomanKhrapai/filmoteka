@@ -95,3 +95,14 @@ function headerHeroWrapperClassList(classToAdd,classToRemove) {
 function hideNotification() {
   header.notificationFailureText.classList.add('is-hidden');
 }
+
+export function errorNotif() {
+  header.heroNotification.innerHTML = "Search result is not successful. Enter the correct movie name and try again"
+  setTimeout(() => {
+           header.heroNotification.innerHTML = ""
+        }, 5000);
+}
+
+
+// const notification = `<p class="hero__notification-text"> Search result is not successful. Enter the correct movie name and try again </p>`
+// header.form.insertAdjacentHTML('beforeend', notification) 

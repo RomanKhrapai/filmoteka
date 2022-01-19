@@ -1,9 +1,10 @@
 import { ApiService } from "./API-service";
 import { API_IMG } from "./const";
 import Notiflix from 'notiflix';
+import { errorNotif } from "./header";
 
 
-import { mainContainer, hero } from "./refs";
+import { mainContainer, header } from "./refs";
 // console.log();
 import filmCard from "../markup-template/filmCard.hbs";
 import modalFilm from "../markup-template/modalFilm.hbs";
@@ -28,7 +29,7 @@ export function onFormSubmit(event) {
     if (moviesQuery === " ") {
         return
     }  
-         apiService.fetchMoviesResults().then(resultsNotification).catch(error => { Notiflix.Notify.failure(error)}) ;
+         apiService.fetchMoviesResults().then(resultsNotification) 
     // apiService.fetchMovies().then(result => console.log(result));
     apiService.resetPage();
 
@@ -103,14 +104,11 @@ function clearGallery(){
 
 function resultsNotification(results) {
     if (results.length === 0) {
-        hero.notificationFailureText.classList.remove('is-hidden');
-        setTimeout(() => {
-            hero.notificationFailureText.classList.add('is-hidden')
-        }, 5000);
+        errorNotif();
    
     }
     if (results.length >= 1) {
-        hero.notificationFailureText.classList.add('is-hidden');
+        header.heroNotification.innerHTML = "";
         renderSearchMarkup();
      }
 }
