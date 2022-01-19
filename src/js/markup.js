@@ -3,7 +3,8 @@ import { API_IMG } from "./const";
 import Notiflix from 'notiflix';
 
 
-import { mainContainer, hero } from "./refs";
+import { mainContainer, header } from "./refs";
+import { firebaseBtnListeners } from "./firebase.js";
 // console.log();
 import filmCard from "../markup-template/filmCard.hbs";
 import modalFilm from "../markup-template/modalFilm.hbs";
@@ -69,7 +70,7 @@ export function renderMarkup(fetchFunc) {
     }).catch(console.log);
 }
 
-function appendMarkup(element) {
+export function appendMarkup(element) {
     mainContainer.galleryContainer.insertAdjacentHTML("beforeend", element); 
 }
 
@@ -88,7 +89,7 @@ function responseProcessing(id, name, genres, imgPath, date) {
 
 }
 
-function filterGenres(conditions, array) {
+export function filterGenres(conditions, array) {
     const filter = array.filter(item => conditions.includes(item.id)).map(obj => obj.name);
        if (filter.length > 2) {
             filter.splice(2);
@@ -97,20 +98,20 @@ function filterGenres(conditions, array) {
 }
 
 
-function clearGallery(){
+export function clearGallery(){
     mainContainer.galleryContainer.innerHTML = '';
 }
 
 function resultsNotification(results) {
     if (results.length === 0) {
-        hero.notificationFailureText.classList.remove('is-hidden');
+        header.notificationFailureText.classList.remove('is-hidden');
         setTimeout(() => {
-            hero.notificationFailureText.classList.add('is-hidden')
+            header.notificationFailureText.classList.add('is-hidden')
         }, 5000);
    
     }
     if (results.length >= 1) {
-        hero.notificationFailureText.classList.add('is-hidden');
+        header.notificationFailureText.classList.add('is-hidden');
         renderSearchMarkup();
      }
 }
@@ -123,8 +124,9 @@ export function renderModalFilm() {
             dataArray = data.results;            
             let targetFilm = (dataArray.find(film => film.id == event.path[3].id));
             const markup = modalFilm(targetFilm);
-            appendMarkupModal(markup);       
-            }).catch(console.log);        
+            appendMarkupModal(markup);
+            firebaseBtnListeners(targetFilm);
+            }).catch(console.log);
             clearModal();
         }
         

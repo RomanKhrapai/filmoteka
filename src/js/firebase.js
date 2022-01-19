@@ -8,42 +8,68 @@ import { API_IMG } from "./const";
 
 // локальні імпорти
 import { FIREBASE_CONFIG, PATH } from "../js/const.js";
-import { header } from "../js/refs.js";
-import { renderMarkup, responseProcessing } from '../src/js/markup';
+import { user } from "../js/auth.js";
+import { header, mainContainer } from "../js/refs.js";
+import { appendMarkup, renderMarkup, filterGenres, clearGallery } from '../js/markup';
+import filmCard from "../markup-template/filmCard.hbs";
 
 const app = initializeApp(FIREBASE_CONFIG);
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
 const db = getDatabase();
-const starCountRef = ref(db, PATH);
+const authDataRef = ref(db, PATH);
 const apiService = new ApiService();
+const time = Date.now();
 
-export function makeNewRecord(uid, id, title, genre_ids, poster_path, release_date) {
-    const time = Date.now();
+export function firebaseBtnListeners(targetFilm) {
+    const btnAddToWatched = document.getElementById("btn__watched");
+    const btnAddToQueue = document.getElementById("btn__queue");
+    btnAddToWatched.addEventListener('click', () => {saveMovieFb(targetFilm, user.uid, true)});
+    btnAddToQueue.addEventListener('click', () => {saveMovieFb(targetFilm, user.uid, false)});
+}
+
+function saveMovieFb(targetFilm, uid, watched) {
 
     // A post entry.
-    const movieData = {
-        id,
-        poster_path,
-        title,
-        genre_ids,
-        release_date
-    };
+    const {id, title, genre_ids, poster_path, release_date} = targetFilm;
 
-    set(ref(db, PATH + time), {
+    const recordValue = {
         time_id: time,
-        uid: uid,
-        movie: movieData,
-        watched: false,
-    });
-  
-    // Get a key for a new Post.
-    const newPostKey = push(child(ref(db), 'posts')).key;
-  
-    // Write the new post's data simultaneously in the posts list and the user's post list.
-    const updates = {};
-    updates['/posts/' + newPostKey] = postData;
-    updates['/user-posts/' + uid + '/' + newPostKey] = postData;
-  
-    return update(ref(db), updates);
+        uid,
+        movie: {id, title, genre_ids, poster_path, release_date},
+        watched: watched,
+    }
+
+    console.log(recordValue);
+
+    if(!uid) {
+        return;
+    }
+    set(ref(db, PATH + `${uid}-` + time), recordValue)
+      .then(() => {
+        // Data saved successfully!
+      })
+      .catch((error) => {
+        // The write failed...
+      });;
 }
+
+export function getMovieData (watched) {
+    return onValue(authDataRef, (snapshot) => {
+        const data = snapshot.val();
+        // const sorted = data.map(())
+        console.log(data);
+        // const markup = renderMarkup(Object.values(data));
+        // console.log(markup);
+        // document.querySelector(".messages").innerHTML = markup;
+      });
+}
+
+// function getUserMovies(array) {
+//     const movies = array.map(({time_id, uid, movie, watched}) => {
+//         const markup = filmCard(array);
+//         appendMarkup(markup);
+//     }).join('');
+//     console.log(movies);
+//     return movies;
+// }

@@ -6,6 +6,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChang
 // локальні імпорти
 import { FIREBASE_CONFIG, PATH } from "../js/const.js";
 import { header } from "../js/refs.js";
+import { getMovieData } from "../js/firebase.js";
 
 const app = initializeApp(FIREBASE_CONFIG);
 const provider = new GoogleAuthProvider();
@@ -13,18 +14,20 @@ const auth = getAuth();
 const db = getDatabase();
 const authDataRef = ref(db, PATH);
 
-let user;
+export let user;
 
 // авторизація
 
 export function checkAuth() {
         onAuthStateChanged(auth, (userFirebase) => {
         if (userFirebase) {
-            const {photoURL, displayName} = userFirebase;
+            const {photoURL, displayName, uid} = userFirebase;
             user = {
                 photoURL,
-                displayName
+                displayName,
+                uid
             };
+            console.log(user);
             header.btnAuth.innerHTML = getAuthData(user.photoURL, user.displayName);
             header.btnAuth.insertAdjacentHTML ("beforeend", getAuthMenu());
 
@@ -33,6 +36,12 @@ export function checkAuth() {
                 document.addEventListener('mouseup', checkClickLogOut);
                 header.btnAuth.lastChild.addEventListener('click', userSignOut);
             })
+
+            header.btnWatched.addEventListener('click', () => {getMovieData(true)});
+            header.btnQueue.addEventListener('click', () => {getMovieData(false)});
+
+            // firebaseBtnListeners();
+
         } else {
             user = {
                 photoURL: `https://cdn.iconscout.com/icon/premium/png-256-thumb/movie-60-165251.png`,
