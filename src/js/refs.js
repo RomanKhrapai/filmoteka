@@ -2,9 +2,9 @@
 
 // header
 const header = {
-    headerButton: document.querySelector('.header__button'),
-    btnHome: document.querySelectorAll('.site-nav__button')[0],
-    btnLibrary: document.querySelectorAll('.site-nav__button')[1],
+    headerButton: document.querySelector('.header__link'),
+    btnHome: document.querySelectorAll('.site-nav__link')[0],
+    btnLibrary: document.querySelectorAll('.site-nav__link')[1],
     btnAuth: document.querySelector(".auth"),
     btnLogOut: document.querySelector(".auth__dropdown-item"),
     searchButton: document.querySelector('.main-header__search-button'),
@@ -16,7 +16,9 @@ const header = {
     notificationFailureText: document.querySelector('.hero__notification-text'),
     input: document.querySelector('.hero__input'),
     searchIcon: document.querySelector('.hero__search-icon'),
+    heroNotification : document.querySelector('.notification-text'),
 }
+console.log(header.heroNotification);
 
 // main container
 const mainContainer = {

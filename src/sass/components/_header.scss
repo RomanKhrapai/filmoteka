@@ -7,6 +7,7 @@
     url(../images/header/filmoteka-mobile-x1.jpg);
 
   background-size: cover;
+  background-position: center;
   min-width: 320px;
   height: 230px;
   animation: show 2s;
@@ -18,15 +19,17 @@
       opacity: 1;
     }
   }
-
-  @media screen and (min-device-pixel-ratio: 2),
-    screen and (min-resolution: 192dpi),
-    screen and (min-resolution: 2dppx) {
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
-      url(../images/header/filmoteka-mobile-x2.jpg);
+  @media screen and(max-width: 320px) {
+    @media screen and (min-device-pixel-ratio: 2),
+      screen and (min-resolution: 192dpi),
+      screen and (min-resolution: 2dppx) {
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+        url(../images/header/filmoteka-mobile-x2.jpg);
+    }
   }
 
-  @media screen and(min-width: 768px) {
+  @media screen and(min-width: 321px) and(max-width: 768px) {
+    // max-width: 768px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
       url(../images/header/filmoteka-tablet-x1.jpg);
 
@@ -38,7 +41,7 @@
     }
   }
 
-  @media screen and(min-width: 1024px) {
+  @media screen and(min-width: 769px) {
     max-width: 1024px;
     margin-left: auto;
     margin-right: auto;
@@ -80,7 +83,7 @@
       url(../images/header/library-mobile-x2.jpg);
   }
 
-  @media screen and(min-width: 768px) {
+  @media screen and(min-width: 321px) and(max-width: 768px) {
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
       url(../images/header/library-tablet-x1.jpg);
 
@@ -92,7 +95,7 @@
     }
   }
 
-  @media screen and(min-width: 1024px) {
+  @media screen and(min-width: 769px) {
     max-width: 1024px;
     margin-left: auto;
     margin-right: auto;
@@ -108,9 +111,7 @@
   }
 }
 
-.header-hero__container {
-  padding-top: 46px;
-
+.animation-thumb {
   animation: show 0.5s;
   @keyframes show {
     from {
@@ -121,7 +122,7 @@
     }
   }
 
-  @media screen and(min-width: 768px) {
+  @media screen and (min-width: 768px) {
     transition-duration: 1000ms;
   }
 
@@ -130,29 +131,24 @@
   }
 }
 
-.flex-thumb {
+.header {
+  padding-top: 46px;
   display: flex;
-  justify-content: space-between;
-
   align-items: baseline;
+  justify-content: space-between;
 }
 
-.site-nav {
+.site-nav__list {
   display: flex;
 }
 
 .site-nav__item {
-  // &:first-child {
-    margin-right: 29px;
-
-    @media (max-width:767px) {
-      margin-right: 19px;
-    }
-  // }
+  &:first-child {
+    margin-right: 39px;
+  }
 }
 
-.site-nav__button, .auth__button {
-  //   position: relative;
+.site-nav__link {
   border: none;
   background-color: transparent;
   color: $bg-primary-color;
@@ -208,77 +204,14 @@
   }
 }
 
-.header__button {
+.header__link {
   background-color: transparent;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
-  margin-right: auto;
 
   &:hover {
     text-shadow: rgb(230, 231, 230) 0.5px 0 3px;
   }
-}
-
-.auth {
-  position: relative; // для auth__dropdown-menu
-}
-
-.auth__button {
-  padding: 4px 0;
-}
-
-.auth__dropdown-menu {
-  display: none;
-  position: absolute;
-  background-color: $light-text-color;
-  top: 28px;
-  right: 0;
-  width: 100px;
-  border-radius: 5px;
-  padding: 5px 10px;
-  z-index: 1;
-}
-
-.auth__dropdown-menu a {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.auth__img {
-  display: inline-block;
-  margin-bottom: -4px;
-  border-radius: 50%;
-
-  @media (min-width: 768px) {
-    margin-right: 5px;
-  }
-}
-
-.auth__name {
-  text-transform: uppercase;
-  padding: 5px 0;
-
-  @media (max-width: 767px) {
-    display: none;
-  }
-}
-
-// .auth:hover .auth__dropdown-menu,
-// .auth:focus .auth__dropdown-menu,
-// .auth__button:hover .auth__dropdown-menu,
-// .auth__button:focus .auth__dropdown-menu {
-//   display: block;
-// }
-
-.icon {
-  margin-left: 10px;
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  stroke-width: 0;
-  stroke: currentColor;
-  fill: currentColor;
 }

@@ -1,60 +1,52 @@
- 
-   <div class="screen-background">
-   <div class="header-hero__wrapper container">
-   <div class="header-hero__container ">
-    
-    <header class="header" id="header">      
-        
+<div class="screen-background">
+    <div class="header-hero__wrapper ">
+        <div class="container animation-thumb">
 
-    <div class="flex-thumb">
+            <header class="header">
+         
 
-        <a class="header__button">
-        <svg class="header__icon" width="24" height="24">
-            <use href="./film-icon.svg#film-icon"></use>
-        </svg>
-        <span class="header__logo">Filmoteka</span>
-        </a>
- 
-       
- 
+                    <a class="header__link">
+                        <svg class="header__icon" width="24" height="24">
+                            <use href="./film-icon.svg#film-icon"></use>
+                        </svg>
+                        <span class="header__logo">Filmoteka</span>
+                    </a>
 
 
-    <ul class="site-nav">
-        <li class="site-nav__item"> <a class="site-nav__button is-active">HOME</a></li>
-        <li class="site-nav__item"> <a class="site-nav__button">MY LIBRARY</a></li>
-    </ul>
 
-    <div class="auth">
-        <a class="auth__button"><img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/movie-60-165251.png" class="auth__img" width="20"><span class="auth__name">GUEST</span></a>
-    </div>
+            <nav class="site-nav">
 
-    </div>
+                    <ul class="site-nav__list">
+                        <li class="site-nav__item"> <a class="site-nav__link is-active">HOME</a></li>
+                        <li class="site-nav__item"> <a class="site-nav__link">MY LIBRARY</a></li>
+                    </ul>
 
-    </header>
+            </nav>
+            </header>
 
-    <div class="hero">
-    
-    <form class="hero__form">
-    <input class="hero__input" type="text "name="movies" id="input" autocomplete="off" placeholder="Поиск фильмов">
-    <button class="hero__search-button" type="submit">
-        <svg class="hero__search-icon" width="12" height="12">
-            <use href="./search-icon.svg#search-new"></use>
-        </svg>
-    </button>
+            <div class="hero">
 
-    </form>
+                <form class="hero__form">
+                    <input class="hero__input" type="text" name="movies" id="input" minlength="2" required autocomplete="off"
+                        placeholder="Поиск фильмов">
+                    <button class="hero__search-button" type="submit">
+                        <svg class="hero__search-icon" width="12" height="12">
+                            <use href="./search-icon.svg#search-new"></use>
+                        </svg>
+                    </button>
 
-    <p class="hero__notification-text is-hidden" >Search result is not successful. Enter the correct movie name and try again</p>
+                </form>
+
+                <div class="notification-text"></div>
 
 
-    <ul class="hero__list is-hidden ">
-<li class="hero__item"> <button class="hero__button" type="button">WATCHED</button> </li>
-<li class="hero__item"> <button class="hero__button" type="button">QUEUE</button></li>
-    </ul>
+                <ul class="hero__list is-hidden ">
+                    <li class="hero__item"> <button class="hero__button" type="button">WATCHED</button> </li>
+                    <li class="hero__item"> <button class="hero__button" type="button">QUEUE</button></li>
+                </ul>
 
+            </div>
+        </div>
 
     </div>
-
-    </div>
-    </div>
-    </div>
+</div>
