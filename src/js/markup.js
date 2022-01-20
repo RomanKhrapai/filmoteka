@@ -3,6 +3,8 @@ import { API_IMG } from "./const";
 import Notiflix from 'notiflix';
 import { errorNotif } from "./header";
 
+import Pagination from 'tui-pagination';
+import 'tui-pagination/dist/tui-pagination.css';
 
 import { mainContainer, header } from "./refs";
 import { firebaseBtnListeners } from "./firebase.js";
@@ -39,6 +41,7 @@ export function onFormSubmit(event) {
 }
 
 
+
 function renderSearchMarkup() {
     dataArray = [];
         apiService.fetchMovies().then(data => {
@@ -53,7 +56,9 @@ function renderSearchMarkup() {
             appendMarkup(markup);
         }).catch(console.log);
         }).catch(console.log);
+    apiService.fetchMovies().then((result) => { renderPaginationMovies(result.total_results, result.page) }).catch(console.log);
     clearGallery();
+    
 }
 
 
@@ -150,5 +155,3 @@ function appendMarkupModal(element) {
 function clearModal(){
   mainContainer.modalClear.innerHTML = '';  
 }
-
-

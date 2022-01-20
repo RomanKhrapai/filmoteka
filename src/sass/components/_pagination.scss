@@ -1,0 +1,51 @@
+.tui-pagination {
+  &.height_modifier {
+    height: 40px;
+  }
+}
+
+.tui-pagination .tui-page-btn {
+  &.button_modifier {
+    width: 40px;
+    color: #000000;
+    padding: 13px 0;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+  }
+}
+
+.tui-pagination .tui-page-btn {
+  &.button_more {
+    width: 40px;
+    color: #000000;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+  }
+}
+
+.tui-pagination .tui-is-selected,
+.tui-pagination strong {
+  &.selected-accent {
+    background-color: #ff6b08;
+  }
+}
+
+.tui-pagination .tui-first-child.tui-is-selected {
+  &.selected-accent {
+    border-left: 1px solid #ff6b08;
+  }
+}
+
+.tui-pagination .tui-last-child.tui-is-selected {
+  &.selected-accent {
+    border-right: 1px solid #ff6b08;
+  }
+}
+
+.tui-pagination .tui-is-selected:hover {
+  &.selected-accent {
+    background-color: #ff6b08;
+  }
+}
