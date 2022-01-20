@@ -6,7 +6,7 @@ import { errorNotif } from "./header";
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 
-import { mainContainer, header } from "./refs";
+import { mainContainer, header, modalFilmRefs } from "./refs";
 import { firebaseBtnListeners } from "./firebase.js";
 
 import filmCard from "../markup-template/filmCard.hbs";
@@ -52,6 +52,7 @@ function renderSearchMarkup() {
         });
         })
             .then(next => {
+                console.log(dataArray)
             const markup = filmCard(dataArray);       
             appendMarkup(markup);
         }).catch(console.log);
@@ -89,17 +90,15 @@ function responseProcessing(id, name, genres, imgPath, date, vote_average, vote_
    
     const keyData = {     
 
-        name, id, genres, img1x: `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE_1x}${imgPath}`, date, img2x: `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE_2x}${imgPath}`,
+        name, id, genres, img1x: `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE_1x}${imgPath}`, date, img2x: `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE_2x}${imgPath}`, vote_average, vote_count, popularity, original_title, overview
     }
     if (!imgPath) {
         keyData.img = "https://cdn.pixabay.com/photo/2019/05/17/05/55/film-4208953_1280.jpg"
 
     };
     const year = !keyData.date ? "unknown" : keyData.date.slice(0,4);
-    keyData.date = year;
-
-    dataArray.push(keyData);
-    console.log(dataArray);
+    keyData.date = year;    
+    dataArray.push(keyData);  
 
 }
 
@@ -132,24 +131,31 @@ function resultsNotification(results) {
 
 export function renderModalFilm() {
     
-    mainContainer.filmClickListener.addEventListener('click',(event) => {
+    modalFilmRefs.filmClickListener.addEventListener('click', (event) => {
+        event.preventDefault();
         apiService.fetchTrendingFilms().then(data => {           
-            dataArray = data.results;            
+            apiService.getGenres().then(({ genres }) => {
+                    //  console.log(genres)
+                data.results.forEach(({ id, title, genre_ids, poster_path, release_date, vote_average, vote_count, popularity, original_title, overview }) => {
+                let filterResult = filterGenres(genre_ids, genres);
+                responseProcessing(id, title, filterResult, poster_path, release_date, vote_average, vote_count, popularity, original_title, overview);                   
+                });
+            })              
             let targetFilm = (dataArray.find(film => film.id == event.path[3].id));
             const markup = modalFilm(targetFilm);
             appendMarkupModal(markup);
             firebaseBtnListeners(targetFilm);
-            }).catch(console.log);
-            clearModal();
-        }       
+        }).catch(console.log);
+        clearModal();
+    }       
     );
 }
 
 
 function appendMarkupModal(element) {
-    mainContainer.modalClear.insertAdjacentHTML("afterbegin", element); 
+    modalFilmRefs.modalClear.insertAdjacentHTML("afterbegin", element); 
 }
 
 function clearModal(){
-  mainContainer.modalClear.innerHTML = '';  
+  modalFilmRefs.modalClear.innerHTML = '';  
 }
