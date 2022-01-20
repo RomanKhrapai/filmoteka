@@ -1,10 +1,10 @@
-import { modal, closeModal, modalClear, backdrop } from "./refs";
+import { mainContainer } from "./refs";
 
  
 function onToggleModal() {
   window.addEventListener('keydown', onEscClose)
-  modal.classList.toggle('modal-area--is-hidden');
-  modal.classList.contains('modal-area--is-hidden') ? document.body.style.overflow = "" : document.body.style.overflow = "hidden";   
+  mainContainer.modal.classList.toggle('modal-area--is-hidden');
+  mainContainer.modal.classList.contains('modal-area--is-hidden') ? document.body.style.overflow = "" : document.body.style.overflow = "hidden";   
 };  
 
 function onBackdropClose(event) { 
