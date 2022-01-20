@@ -62,12 +62,10 @@ function renderSearchMarkup() {
 }
 
 
-export function renderMarkup(fetchFunc) {
-    dataArray = [];
-
 
 
 export function renderMarkup(fetchFunc) {
+    //     dataArray = [];
     fetchFunc.then(data => {
       
         apiService.getGenres().then(({ genres }) => {
