@@ -13,7 +13,6 @@ import { result } from "lodash";
 
 const apiService = new ApiService();
 let dataArray = [];
-export {dataArray}
 
 
 
@@ -24,6 +23,7 @@ export function onFormSubmit(event) {
     // let trimedSearchedMovies = apiService.searchedMovies.trim();
     apiService.searchedMovies = moviesQuery;
  
+
     if (!moviesQuery) {
         return
     }
@@ -31,41 +31,47 @@ export function onFormSubmit(event) {
         return
     }  
          apiService.fetchMoviesResults().then(resultsNotification) 
+
     // apiService.fetchMovies().then(result => console.log(result));
+  
     apiService.resetPage();
 
 }
+
 
 function renderSearchMarkup() {
     dataArray = [];
         apiService.fetchMovies().then(data => {
         apiService.getGenres().then(({ genres }) => {
-    data.results.forEach(({ id, title, genre_ids, poster_path, release_date }) => {
+    data.results.forEach(({ id, title, genre_ids, poster_path, release_date, vote_average, vote_count, popularity, original_title, overview }) => {
         const filterResult = filterGenres(genre_ids, genres);
-        responseProcessing(id, title, filterResult, poster_path, release_date);
+        responseProcessing(id, title, filterResult, poster_path, release_date, vote_average, vote_count, popularity, original_title, overview);
         });
-        }).then(next => {
-            const markup = filmCard(dataArray);
-            // console.log(markup)
+        })
+            .then(next => {
+            const markup = filmCard(dataArray);       
             appendMarkup(markup);
         }).catch(console.log);
         }).catch(console.log);
     clearGallery();
 }
 
+
 export function renderMarkup(fetchFunc) {
     dataArray = [];
 
-    clearGallery()
+
+
+export function renderMarkup(fetchFunc) {
     fetchFunc.then(data => {
       
         apiService.getGenres().then(({ genres }) => {
-    data.results.forEach(({ id, title, genre_ids, poster_path, release_date }) => {
-        const filterResult = filterGenres(genre_ids, genres);
-        responseProcessing(id, title, filterResult, poster_path, release_date);
+    data.results.forEach(({ id, title, genre_ids, poster_path, release_date, vote_average, vote_count, popularity, original_title, overview }) => {
+        const filterResult = filterGenres(genre_ids, genres);      
+        responseProcessing(id, title, filterResult, poster_path, release_date, vote_average, vote_count, popularity, original_title, overview);
         });
         }).then(next => {
-            const markup = filmCard(dataArray);
+            const markup = filmCard(dataArray);            
             appendMarkup(markup);
         }).catch(console.log);
     }).catch(console.log);
@@ -75,13 +81,16 @@ export function appendMarkup(element) {
     mainContainer.galleryContainer.insertAdjacentHTML("beforeend", element); 
 }
 
-function responseProcessing(id, name, genres, imgPath, date) {
+
+function responseProcessing(id, name, genres, imgPath, date, vote_average, vote_count, popularity, original_title, overview) {
    
     const keyData = {     
+
         name, id, genres, img1x: `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE_1x}${imgPath}`, date, img2x: `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE_2x}${imgPath}`,
     }
     if (!imgPath) {
         keyData.img = "https://cdn.pixabay.com/photo/2019/05/17/05/55/film-4208953_1280.jpg"
+
     };
     const year = !keyData.date ? "unknown" : keyData.date.slice(0,4);
     keyData.date = year;
@@ -97,7 +106,7 @@ export function filterGenres(conditions, array) {
     const filter = array.filter(item => conditions.includes(item.id)).map(obj => obj.name);
        if (filter.length > 2) {
             filter.splice(2);
-       }
+    }  
     return filter;
 }
 
@@ -110,6 +119,7 @@ function resultsNotification(results) {
     if (results.length === 0) {
         errorNotif(); 
     }
+
     if (results.length >= 1) {
         header.heroNotification.innerHTML = "";
         renderSearchMarkup();
@@ -128,8 +138,7 @@ export function renderModalFilm() {
             firebaseBtnListeners(targetFilm);
             }).catch(console.log);
             clearModal();
-        }
-        
+        }       
     );
 }
 
@@ -142,4 +151,4 @@ function clearModal(){
   mainContainer.modalClear.innerHTML = '';  
 }
 
- 
+
