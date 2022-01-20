@@ -25,7 +25,7 @@ export function onBtnHomeClick(event) {
 export function onBtnLibraryClick(event) {
   header.btnHome.classList.remove('is-active');
   header.btnLibrary.classList.add('is-active'); 
-  headerHeroWrapperClassList('header-hero__library-wrapper','header-hero__wrapper')
+  screenCoverClassList('header-hero__library-wrapper','header-hero__wrapper')
   header.heroList.classList.remove('is-hidden');
   header.form.classList.add('is-hidden');
   resetInpitValue();
@@ -57,7 +57,7 @@ export function onHeaderButtonClick() {
 
 
 export function homePageRender() {
-  headerHeroWrapperClassList('header-hero__wrapper','header-hero__library-wrapper')
+ screenCoverClassList('header-hero__wrapper','header-hero__library-wrapper')
   header.heroList.classList.add('is-hidden');
   header.form.classList.remove('is-hidden');
 }
@@ -87,9 +87,9 @@ function searchIconRemoveClass(){
   header.searchIcon.classList.remove('is-big');
 }
 
-function headerHeroWrapperClassList(classToAdd,classToRemove) {
-  header.headerHeroWrapper.classList.add(classToAdd);
-  header.headerHeroWrapper.classList.remove(classToRemove);
+function screenCoverClassList(classToAdd,classToRemove) {
+  header.screenCover.classList.add(classToAdd);
+  header.screenCover.classList.remove(classToRemove);
 }
 
 function hideNotification() {

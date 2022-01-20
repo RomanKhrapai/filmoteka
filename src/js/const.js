@@ -20,7 +20,8 @@ export const API = {
 
 export const API_IMG = {
   BASIC_URL: "https://image.tmdb.org/t/p/",
-  FILE_SIZE: "original",
+  FILE_SIZE_1x: "w342",
+  FILE_SIZE_2x: "w780",
 }
 
 
