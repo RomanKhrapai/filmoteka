@@ -23,12 +23,7 @@ console.log(header.heroNotification);
 
 // main container
 const mainContainer = {
-    galleryContainer: document.querySelector(".js-gallery"),
-    closeModal: document.querySelector('[data-modal-close]'),
-    modal: document.querySelector('[data-modal]'),
-    backdrop: document.querySelector('.modal-area'),
-    filmClickListener: document.querySelector(".gallery"),
-    modalClear: document.querySelector(".data-modal-clear"),
+    galleryContainer: document.querySelector(".js-gallery")
 }
 
 // modal-team
@@ -38,6 +33,16 @@ const team = {
     closeModalTeam: document.querySelector('[data-team-close]'),
 }
 
-export {header, mainContainer, team};
+//modal-film
+const modalFilmRefs = {
+    closeModal: document.querySelector('[data-modal-close]'),
+    modal: document.querySelector('[data-modal]'),
+    backdrop: document.querySelector('.modal-area'),
+    filmClickListener: document.querySelector(".gallery"),
+    modalClear: document.querySelector(".data-modal-clear")
+}
+
+
+export { header, mainContainer, team, modalFilmRefs };
 
 

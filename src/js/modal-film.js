@@ -1,10 +1,10 @@
-import { mainContainer } from "./refs";
+import { modalFilmRefs } from "./refs";
 
  
 function onToggleModal() {
   window.addEventListener('keydown', onEscClose)
-  mainContainer.modal.classList.toggle('modal-area--is-hidden');
-  mainContainer.modal.classList.contains('modal-area--is-hidden') ? document.body.style.overflow = "" : document.body.style.overflow = "hidden";   
+  modalFilmRefs.modal.classList.toggle('modal-area--is-hidden');
+  modalFilmRefs.modal.classList.contains('modal-area--is-hidden') ? document.body.style.overflow = "" : document.body.style.overflow = "hidden";   
 };  
 
 function onBackdropClose(event) { 
@@ -15,7 +15,7 @@ function onBackdropClose(event) {
 
 function onHiddenModal(event) {   
   if (event.path[2].id === 'data-modal-open') {
-    console.log(event)
+    // console.log(event)
      onToggleModal()      
   }
 };
