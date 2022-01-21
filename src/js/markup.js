@@ -77,6 +77,7 @@ export function renderMarkup(fetchFunc) {
             apiService
                 .getGenres()
                 .then(({ genres }) => {
+                    
                     goResponseProcessing(data.results, genres);
                 })
                 .then(next => {
@@ -88,82 +89,45 @@ export function renderMarkup(fetchFunc) {
         .catch(console.log);
 }
 
-function goResponseProcessing(result, genres) {
-    result.forEach(({
-                            id,
-                            title,
-                            genre_ids,
-                            poster_path,
-                            release_date,
-                            vote_average,
-                            vote_count,
-                            popularity,
-                            original_title,
-                            overview,
-    }) => {
-        const filterResult = filterGenres(genre_ids, genres);
-                            responseProcessing(
-                                id,
-                                title,
-                                filterResult,
-                                poster_path,
-                                release_date,
-                                vote_average,
-                                vote_count,
-                                popularity,
-                                original_title,
-                                overview,
-                            );
-                        },
-                    );
-    
-}
-
-export function appendMarkup(element) {
-    loaderIsHidden();
-    mainContainer.galleryContainer.insertAdjacentHTML('beforeend', element);
-}
-
-function responseProcessing(
-    id,
-    name,
-    genres,
-    imgPath,
-    date,
-    vote_average,
-    vote_count,
-    popularity,
-    original_title,
-    overview,
-) {
-    const keyData = {
-        name,
-        id,
-        genres,
-        img1x: `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE_1x}${imgPath}`,
-        date,
-        img2x: `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE_2x}${imgPath}`,
-        vote_average,
-        vote_count,
-        popularity,
-        original_title,
-        overview,
-    };
-    if (!imgPath) {
-        keyData.img = 'https://cdn.pixabay.com/photo/2019/05/17/05/55/film-4208953_1280.jpg';
-    }
-    const year = !keyData.date ? 'unknown' : keyData.date.slice(0, 4);
-    keyData.date = year;
-    dataArray.push(keyData);
-
-}
-
 export function filterGenres(conditions, array) {
     const filter = array.filter(item => conditions.includes(item.id)).map(obj => obj.name);
     if (filter.length > 2) {
         filter.splice(2);
     }
     return filter;
+}
+
+function goResponseProcessing(result, genres) {
+    result.forEach((film) => {
+        film.genres = filterGenres(film.genre_ids, genres);
+        film.date = !film.release_date ? 'unknown' : film.release_date.slice(0, 4);     
+        film.img1x = createURLImg(film.poster_path,1)
+        film.img2x = createURLImg(film.poster_path,2)
+      
+        addDataArray(film);
+          },
+           );
+}
+
+function addDataArray(item){
+    dataArray.push(item);
+}
+
+function createURLImg(url,zoom){
+    if (!url) {
+        return zoom === 1? 
+          'https://cdn.pixabay.com/photo/2019/05/17/05/55/film-4208953_1280.jpg':
+          'https://cdn.pixabay.com/photo/2019/05/17/05/55/film-4208953_1280.jpg';
+        }
+            return zoom === 1? 
+            `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE_1x}${url}`:
+            `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE_2x}${url}`; 
+}
+
+
+export function appendMarkup(element) {
+    loaderIsHidden();
+    mainContainer.galleryContainer.insertAdjacentHTML('beforeend', element);
 }
 
 export function clearGallery() {

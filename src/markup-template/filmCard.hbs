@@ -2,10 +2,10 @@
   <li class="film-card" id="{{this.id}}">
       <a href="#" id="data-modal-open">
             <div class="film-card__img-box">
-            <img src="{{this.img1x}}" alt="{{this.name}}" sizes="(min-width: 1024px) 274px, (min-width: 768px) 294px, (max-width: 767px) 280px" srcset="{{this.img1x}} 342w, {{this.img2x}} 780w">
+            <img src="{{this.img1x}}" alt="{{this.title}}" sizes="(min-width: 1024px) 274px, (min-width: 768px) 294px, (max-width: 767px) 280px" srcset="{{this.img1x}} 342w, {{this.img2x}} 780w">
           </div>
       <div class="film-card__description">
-        <h3 class="film-card__name">{{this.name}}</h3>
+        <h3 class="film-card__name">{{this.title}}</h3>
         <div class="film-card__info">
           <span class="film-card__genre">{{#if genres}}
             {{#each genres}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
