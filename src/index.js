@@ -8,7 +8,10 @@ import { onToggleModal, onBackdropClose, onHiddenModal } from './js/modal-film';
 import { toggleModalTeam } from '../src/js/modal-team';
 import { renderModalFilm } from '../src/js/markup';
 // локальні імпорти
-import { header, mainContainer, team, modalFilmRefs } from "../src/js/refs.js";
+
+import { loadDataFromLS, setDataToLS, addMovieToLocalStorage, removeMovieFromLocalStorage} from './js/localeStorage';
+import { header, mainContainer, team , modalFilmRefs} from "../src/js/refs.js";
+
 import { checkAuth, userSignOut } from '../src/js/auth.js';
 import { onBtnHomeClick, onBtnLibraryClick, onBtnWatchedClick, onBtnQueueClick, onHeaderButtonClick, homePageRender, fetchMovies, onInputInput } from '../src/js/header.js';
 import { ApiService } from "./js/API-service";
@@ -37,4 +40,7 @@ modalFilmRefs.filmClickListener.addEventListener('click', onHiddenModal);
 team.openModalTeam.addEventListener('click', toggleModalTeam);
 team.closeModalTeam.addEventListener('click', toggleModalTeam);
 
-
+//localStorage
+// modal.btnWatched.addEventListener('click', addMovieToLocalStorage);
+// mainContainer.modal.btnQueue.addEventListener('click', removeMovieFromLocalStorage);
+// refAuth.addEventListener('click', onCheckedAuth);

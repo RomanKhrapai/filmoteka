@@ -34,13 +34,15 @@ const team = {
     closeModalTeam: document.querySelector('[data-team-close]'),
 };
 
-//modal-film
-const modalFilmRefs = {
-    closeModal: document.querySelector('[data-modal-close]'),
-    modal: document.querySelector('[data-modal]'),
-    backdrop: document.querySelector('.modal-area'),
-    filmClickListener: document.querySelector('.gallery'),
-    modalClear: document.querySelector('.data-modal-clear'),
-};
+
+// localStorage
+const localStorage = {
+btnWatched : document.querySelector('#btn__watched'),
+btnQueue : document.querySelector('#btn__queue'),
+refAuth : document.querySelector('.auth__button'),
+}
+
+export {header, mainContainer, team, localStorage};
+
 
 export { header, mainContainer, team, modalFilmRefs };
