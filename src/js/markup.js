@@ -22,7 +22,6 @@ export function onFormSubmit(event) {
     event.preventDefault();
        
     const moviesQuery = event.currentTarget.elements.movies.value;
-    // let trimedSearchedMovies = apiService.searchedMovies.trim();
     apiService.searchedMovies = moviesQuery;
  
 
@@ -43,7 +42,7 @@ export function onFormSubmit(event) {
 
 
 function renderSearchMarkup() {
-    dataArray = [];
+         clearMarkup()
         apiService.fetchMovies().then(data => {
         apiService.getGenres().then(({ genres }) => {
     data.results.forEach(({ id, title, genre_ids, poster_path, release_date, vote_average, vote_count, popularity, original_title, overview }) => {
@@ -65,7 +64,8 @@ function renderSearchMarkup() {
 
 
 export function renderMarkup(fetchFunc) {
-    //     dataArray = [];
+       clearMarkup()
+       clearGallery();
     fetchFunc.then(data => {
       
         apiService.getGenres().then(({ genres }) => {
@@ -99,7 +99,7 @@ function responseProcessing(id, name, genres, imgPath, date, vote_average, vote_
     keyData.date = year;
 
     dataArray.push(keyData);
-    console.log(dataArray);
+ 
 
 }
 
@@ -152,4 +152,8 @@ function appendMarkupModal(element) {
 
 function clearModal(){
   mainContainer.modalClear.innerHTML = '';  
+}
+
+function clearMarkup() {
+    dataArray = [];
 }

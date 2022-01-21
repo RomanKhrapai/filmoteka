@@ -13,13 +13,12 @@ const header = {
     btnQueue: document.querySelectorAll('.hero__button')[1],
     headerHeroWrapper: document.querySelector('.header-hero__wrapper'),
     heroList: document.querySelector('.hero__list'),
-    notificationFailureText: document.querySelector('.hero__notification-text'),
-    input: document.querySelector('.hero__input'),
+     input: document.querySelector('.hero__input'),
     searchIcon: document.querySelector('.hero__search-icon'),
     heroNotification: document.querySelector('.notification-text'),
     screenCover: document.querySelector('.screen-background')
 }
-console.log(header.heroNotification);
+ 
 
 // main container
 const mainContainer = {

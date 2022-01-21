@@ -13,12 +13,11 @@ export function onBtnHomeClick(event) {
   resetInpitValue();
   searchIconRemoveClass();
   renderMarkup(apiService.fetchTrendingFilms());
-  header.btnHome.classList.add('is-active');
-  header.btnLibrary.classList.remove('is-active');
+  homeBtnAddClass();
+ libraryBtnRemoveClass();
   homePageRender();
-  header.btnWatched.classList.remove('is-active-btn');
-  header.btnQueue.classList.remove('is-active-btn');
-  hideNotification();
+   watchBtnRemoveClass();
+  QueueBtnRemoveClass();
 }
 
 
@@ -29,18 +28,17 @@ export function onBtnLibraryClick(event) {
   header.heroList.classList.remove('is-hidden');
   header.form.classList.add('is-hidden');
   resetInpitValue();
-  hideNotification();
   searchIconRemoveClass();
 }
 
  export function onBtnWatchedClick(event) {
   header.btnWatched.classList.add('is-active-btn');
-  header.btnQueue.classList.remove('is-active-btn');
+  QueueBtnRemoveClass();
 } 
 
  export function onBtnQueueClick(event) {
   header.btnQueue.classList.add('is-active-btn');
-  header.btnWatched.classList.remove('is-active-btn');
+   watchBtnRemoveClass();
 } 
 
 export function onHeaderButtonClick() {
@@ -48,11 +46,10 @@ export function onHeaderButtonClick() {
   searchIconRemoveClass();
   renderMarkup(apiService.fetchTrendingFilms());
   homePageRender();
-  header.btnHome.classList.add('is-active');
-  header.btnLibrary.classList.remove('is-active'); 
-  header.btnWatched.classList.remove('is-active-btn');
-  header.btnQueue.classList.remove('is-active-btn');
-  hideNotification();
+  homeBtnAddClass();
+  libraryBtnRemoveClass(); 
+   watchBtnRemoveClass();
+  QueueBtnRemoveClass();
 }
 
 
@@ -92,8 +89,20 @@ function screenCoverClassList(classToAdd,classToRemove) {
   header.screenCover.classList.remove(classToRemove);
 }
 
-function hideNotification() {
-  header.notificationFailureText.classList.add('is-hidden');
+function homeBtnAddClass() {
+  header.btnHome.classList.add('is-active');
+}
+
+function libraryBtnRemoveClass() {
+  header.btnLibrary.classList.remove('is-active');
+}
+
+function watchBtnRemoveClass() {
+  header.btnWatched.classList.remove('is-active-btn')
+}
+
+function QueueBtnRemoveClass() {
+  header.btnQueue.classList.remove('is-active-btn')
 }
 
 export function errorNotif() {
@@ -103,6 +112,3 @@ export function errorNotif() {
         }, 5000);
 }
 
-
-// const notification = `<p class="hero__notification-text"> Search result is not successful. Enter the correct movie name and try again </p>`
-// header.form.insertAdjacentHTML('beforeend', notification) 
