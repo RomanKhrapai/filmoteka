@@ -37,5 +37,12 @@ const team = {
     closeModalTeam: document.querySelector('[data-team-close]'),
 }
 
-export {header, mainContainer, team};
+// localStorage
+const localStorage = {
+btnWatched : document.querySelector('#btn__watched'),
+btnQueue : document.querySelector('#btn__queue'),
+refAuth : document.querySelector('.auth__button'),
+}
+
+export {header, mainContainer, team, localStorage};
 

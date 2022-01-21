@@ -14,6 +14,7 @@ import { result } from "lodash";
 const apiService = new ApiService();
 let dataArray = [];
 export {dataArray}
+export let targetFilm;
 
 
 
@@ -122,7 +123,8 @@ export function renderModalFilm() {
     mainContainer.filmClickListener.addEventListener('click',(event) => {
         apiService.fetchTrendingFilms().then(data => {           
             dataArray = data.results;            
-            let targetFilm = (dataArray.find(film => film.id == event.path[3].id));
+            targetFilm = (dataArray.find(film => film.id == event.path[3].id));
+            console.log(targetFilm);
             const markup = modalFilm(targetFilm);
             appendMarkupModal(markup);
             firebaseBtnListeners(targetFilm);
