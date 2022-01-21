@@ -48,34 +48,7 @@ function renderSearchMarkup() {
             apiService
                 .getGenres()
                 .then(({ genres }) => {
-                    data.results.forEach(
-                        ({
-                            id,
-                            title,
-                            genre_ids,
-                            poster_path,
-                            release_date,
-                            vote_average,
-                            vote_count,
-                            popularity,
-                            original_title,
-                            overview,
-                        }) => {
-                            const filterResult = filterGenres(genre_ids, genres);
-                            responseProcessing(
-                                id,
-                                title,
-                                filterResult,
-                                poster_path,
-                                release_date,
-                                vote_average,
-                                vote_count,
-                                popularity,
-                                original_title,
-                                overview,
-                            );
-                        },
-                    );
+                    goResponseProcessing(data.results, genres);
                 })
                 .then(next => {
                     console.log(dataArray);
@@ -104,8 +77,19 @@ export function renderMarkup(fetchFunc) {
             apiService
                 .getGenres()
                 .then(({ genres }) => {
-                    data.results.forEach(
-                        ({
+                    goResponseProcessing(data.results, genres);
+                })
+                .then(next => {
+                    const markup = filmCard(dataArray);
+                    appendMarkup(markup);
+                })
+                .catch(console.log);
+        })
+        .catch(console.log);
+}
+
+function goResponseProcessing(result, genres) {
+    result.forEach(({
                             id,
                             title,
                             genre_ids,
@@ -116,8 +100,8 @@ export function renderMarkup(fetchFunc) {
                             popularity,
                             original_title,
                             overview,
-                        }) => {
-                            const filterResult = filterGenres(genre_ids, genres);
+    }) => {
+        const filterResult = filterGenres(genre_ids, genres);
                             responseProcessing(
                                 id,
                                 title,
@@ -132,14 +116,7 @@ export function renderMarkup(fetchFunc) {
                             );
                         },
                     );
-                })
-                .then(next => {
-                    const markup = filmCard(dataArray);
-                    appendMarkup(markup);
-                })
-                .catch(console.log);
-        })
-        .catch(console.log);
+    
 }
 
 export function appendMarkup(element) {
@@ -211,35 +188,7 @@ export function renderModalFilm() {
             .fetchTrendingFilms()
             .then(data => {
                 apiService.getGenres().then(({ genres }) => {
-                    //  console.log(genres)
-                    data.results.forEach(
-                        ({
-                            id,
-                            title,
-                            genre_ids,
-                            poster_path,
-                            release_date,
-                            vote_average,
-                            vote_count,
-                            popularity,
-                            original_title,
-                            overview,
-                        }) => {
-                            let filterResult = filterGenres(genre_ids, genres);
-                            responseProcessing(
-                                id,
-                                title,
-                                filterResult,
-                                poster_path,
-                                release_date,
-                                vote_average,
-                                vote_count,
-                                popularity,
-                                original_title,
-                                overview,
-                            );
-                        },
-                    );
+                    goResponseProcessing(data.results, genres);
                 });
                 let targetFilm = dataArray.find(film => film.id == event.path[3].id);
                 const markup = modalFilm(targetFilm);
