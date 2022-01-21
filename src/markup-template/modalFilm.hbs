@@ -1,19 +1,17 @@
 
-
-    
-<img class="modal__img"         
-src="https://image.tmdb.org/t/p/original{{this.poster_path}}" alt="{{this.title}}">       
+<img class="modal__img" src="{{this.img1x}}" alt="{{this.name}}" 
+sizes="(min-width: 1024px) 274px, (min-width: 768px) 294px, (max-width: 767px) 280px" 
+srcset="https://image.tmdb.org/t/p/original{{this.img1x}} 1x, {{this.img2x}} 2x"
+>
 
 <div class="film__info">
     <h2 class="modal__title">
-        {{this.title}}
+        {{this.name}}
     </h2>
         <div class="film__info-list">
             <span class="film__property vote">Vote / Votes</span>
             <div class="film__stat">
-                <span class="film__stat-vote">{{this.vote_average}}</span>
-                /
-                <span class="film__stat-votes">{{this.vote_count}}</span>
+                <span class="film__stat-vote">{{this.vote_average}}</span>/ <span class="film__stat-vote film__stat-votes">{{this.vote_count}}</span>
             </div> 
         </div>
         
@@ -30,13 +28,13 @@ src="https://image.tmdb.org/t/p/original{{this.poster_path}}" alt="{{this.title}
         <div class="film__info-list">
             <span class="film__property genre">Genre</span>
             <span class="film__stat">
-                {{!-- {{this.genre_ids}} --}}
-                {{#if genre_ids}}
-    {{#each genre_ids}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
-        {{else}}
-        unknown
-        {{/if}}
-                </span>                   
+                {{!-- {{this.genres}} --}}
+                {{#if genres}}
+                {{#each genres}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+                {{else}}
+                unknown
+                {{/if}}
+            </span>                   
         </div>
         
     <div class="about">

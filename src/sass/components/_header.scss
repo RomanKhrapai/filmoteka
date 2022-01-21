@@ -1,13 +1,5 @@
 .screen-background {
-  background-color: rgba(0, 1, 3, 225);
-}
-
-.header-hero__wrapper {
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
-    url(../images/header/filmoteka-mobile-x1.jpg);
-
-  background-size: cover;
-  background-position: center;
+  padding-top: 46px;
   min-width: 320px;
   height: 230px;
   animation: show 2s;
@@ -19,51 +11,56 @@
       opacity: 1;
     }
   }
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+    center / auto no-repeat url('../images/header/filmoteka-mobile-x1.jpg'), #000103;
+
   @media screen and(max-width: 320px) {
     @media screen and (min-device-pixel-ratio: 2),
       screen and (min-resolution: 192dpi),
       screen and (min-resolution: 2dppx) {
-      background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
-        url(../images/header/filmoteka-mobile-x2.jpg);
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+        center / contain no-repeat url('../images/header/filmoteka-mobile-x2.jpg'), #000103;
     }
   }
 
   @media screen and(min-width: 321px) and(max-width: 768px) {
-    // max-width: 768px;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
-      url(../images/header/filmoteka-tablet-x1.jpg);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      center / auto no-repeat url('../images/header/filmoteka-tablet-x1.jpg'), #000103;
 
     @media screen and (min-device-pixel-ratio: 2),
       screen and (min-resolution: 192dpi),
       screen and (min-resolution: 2dppx) {
-      background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
-        url(../images/header/filmoteka-tablet-x2.jpg);
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+        center / cover no-repeat url('../images/header/filmoteka-tablet-x2.jpg'), #000103;
     }
   }
 
   @media screen and(min-width: 769px) {
-    max-width: 1024px;
+    // max-width: 1024px;
     margin-left: auto;
     margin-right: auto;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
-      url(../images/header/filmoteka-desktop-x1.jpg);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      center / auto no-repeat url('../images/header/filmoteka-desktop-x1.jpg'), #000103;
 
     @media screen and (min-device-pixel-ratio: 2),
       screen and (min-resolution: 192dpi),
       screen and (min-resolution: 2dppx) {
-      background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
-        url(../images/header/filmoteka-desktop-x2.jpg);
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+        center / cover no-repeat url('../images/header/filmoteka-desktop-x2.jpg'), #000103;
+    }
+  }
+
+  @media screen and(min-width: 1024px) {
+    @media screen and (min-device-pixel-ratio: 2),
+      screen and (min-resolution: 192dpi),
+      screen and (min-resolution: 2dppx) {
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+        center / contain no-repeat url('../images/header/filmoteka-desktop-x2.jpg'), #000103;
     }
   }
 }
 
 .header-hero__library-wrapper {
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
-    url(../images/header/library-mobile-x1.jpg);
-
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
   min-width: 320px;
   height: 230px;
   animation: show 2s;
@@ -75,38 +72,51 @@
       opacity: 1;
     }
   }
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+    center / auto no-repeat url('../images/header/library-mobile-x1.jpg'), #000103;
 
-  @media screen and (min-device-pixel-ratio: 2),
-    screen and (min-resolution: 192dpi),
-    screen and (min-resolution: 2dppx) {
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
-      url(../images/header/library-mobile-x2.jpg);
+  @media screen and(max-width: 320px) {
+    @media screen and (min-device-pixel-ratio: 2),
+      screen and (min-resolution: 192dpi),
+      screen and (min-resolution: 2dppx) {
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+        center / contain no-repeat url('../images/header/library-mobile-x2.jpg'), #000103;
+    }
   }
 
   @media screen and(min-width: 321px) and(max-width: 768px) {
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
-      url(../images/header/library-tablet-x1.jpg);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      center / auto no-repeat url('../images/header/library-tablet-x1.jpg'), #000103;
 
     @media screen and (min-device-pixel-ratio: 2),
       screen and (min-resolution: 192dpi),
       screen and (min-resolution: 2dppx) {
-      background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
-        url(../images/header/library-tablet-x2.jpg);
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+        center / cover no-repeat url('../images/header/library-tablet-x2.jpg'), #000103;
     }
   }
 
   @media screen and(min-width: 769px) {
-    max-width: 1024px;
+    // max-width: 1024px;
     margin-left: auto;
     margin-right: auto;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
-      url(../images/header/library-desktop-x1.jpg);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      center / auto no-repeat url('../images/header/library-desktop-x1.jpg'), #000103;
 
     @media screen and (min-device-pixel-ratio: 2),
       screen and (min-resolution: 192dpi),
       screen and (min-resolution: 2dppx) {
-      background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
-        url(../images/header/library-desktop-x2.jpg);
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+        center / cover no-repeat url('../images/header/library-desktop-x2.jpg'), #000103;
+    }
+  }
+
+  @media screen and(min-width: 1024px) {
+    @media screen and (min-device-pixel-ratio: 2),
+      screen and (min-resolution: 192dpi),
+      screen and (min-resolution: 2dppx) {
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+        center / contain no-repeat url('../images/header/library-desktop-x2.jpg'), #000103;
     }
   }
 }
@@ -132,10 +142,18 @@
 }
 
 .header {
-  padding-top: 46px;
   display: flex;
   align-items: baseline;
   justify-content: space-between;
+}
+
+.flex-thumb {
+  display: flex;
+  align-items: baseline;
+}
+
+.site-nav {
+  margin-right: 35px;
 }
 
 .site-nav__list {
@@ -209,7 +227,7 @@
   border: none;
   cursor: pointer;
   display: flex;
-  align-items: center;
+  align-items: baseline;
 
   &:hover {
     text-shadow: rgb(230, 231, 230) 0.5px 0 3px;
