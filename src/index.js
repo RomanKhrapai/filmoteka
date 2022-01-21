@@ -8,7 +8,7 @@ import { onToggleModal, onBackdropClose, onHiddenModal } from './js/modal-film';
 import { toggleModalTeam } from '../src/js/modal-team';
 import { renderModalFilm } from '../src/js/markup';
 // локальні імпорти
-import { header, mainContainer, team } from "../src/js/refs.js";
+import { header, mainContainer, team, modalFilmRefs } from "../src/js/refs.js";
 import { checkAuth, userSignOut } from '../src/js/auth.js';
 import { onBtnHomeClick, onBtnLibraryClick, onBtnWatchedClick, onBtnQueueClick, onHeaderButtonClick, homePageRender, fetchMovies, onInputInput } from '../src/js/header.js';
 import { ApiService } from "./js/API-service";
@@ -28,9 +28,10 @@ header.btnQueue.addEventListener('click', onBtnQueueClick);
 header.headerButton.addEventListener('click', onHeaderButtonClick);
 header.input.addEventListener('input', onInputInput);
 
-mainContainer.backdrop.addEventListener('click', onBackdropClose);
-mainContainer.closeModal.addEventListener('click', onToggleModal);
-mainContainer.filmClickListener.addEventListener('click', onHiddenModal);
+//modal-film
+modalFilmRefs.backdrop.addEventListener('click', onBackdropClose);
+modalFilmRefs.closeModal.addEventListener('click', onToggleModal);
+modalFilmRefs.filmClickListener.addEventListener('click', onHiddenModal);
 
 // modal-team
 team.openModalTeam.addEventListener('click', toggleModalTeam);
