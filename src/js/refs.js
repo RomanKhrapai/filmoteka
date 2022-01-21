@@ -41,8 +41,12 @@ btnWatched : document.querySelector('#btn__watched'),
 btnQueue : document.querySelector('#btn__queue'),
 refAuth : document.querySelector('.auth__button'),
 }
+const modalFilmRefs = {
+    closeModal: document.querySelector('[data-modal-close]'),
+    modal: document.querySelector('[data-modal]'),
+    backdrop: document.querySelector('.modal-area'),
+    filmClickListener: document.querySelector('.gallery'),
+    modalClear: document.querySelector('.data-modal-clear'),
+};
 
-export {header, mainContainer, team, localStorage};
-
-
-export { header, mainContainer, team, modalFilmRefs };
+export {header, mainContainer, team, localStorage, modalFilmRefs};
