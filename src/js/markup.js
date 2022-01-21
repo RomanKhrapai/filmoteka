@@ -23,7 +23,6 @@ export function onFormSubmit(event) {
     loaderIsVisible();
 
     const moviesQuery = event.currentTarget.elements.movies.value;
-    // let trimedSearchedMovies = apiService.searchedMovies.trim();
     apiService.searchedMovies = moviesQuery;
 
     if (!moviesQuery) {
@@ -40,7 +39,9 @@ export function onFormSubmit(event) {
 }
 
 function renderSearchMarkup() {
-    dataArray = [];
+
+         clearMarkup()
+  
     apiService
         .fetchMovies()
         .then(data => {
@@ -94,7 +95,10 @@ function renderSearchMarkup() {
 }
 
 export function renderMarkup(fetchFunc) {
-    //     dataArray = [];
+
+       clearMarkup()
+       clearGallery();
+
     fetchFunc
         .then(data => {
             apiService
@@ -174,6 +178,7 @@ function responseProcessing(
     const year = !keyData.date ? 'unknown' : keyData.date.slice(0, 4);
     keyData.date = year;
     dataArray.push(keyData);
+
 }
 
 export function filterGenres(conditions, array) {
@@ -249,6 +254,9 @@ export function renderModalFilm() {
 function appendMarkupModal(element) {
     modalFilmRefs.modalClear.insertAdjacentHTML('afterbegin', element);
 }
+
+function clearMarkup() {
+    dataArray = [];
 
 function clearModal() {
     modalFilmRefs.modalClear.innerHTML = '';
