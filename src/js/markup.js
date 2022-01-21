@@ -257,6 +257,7 @@ function appendMarkupModal(element) {
 
 function clearMarkup() {
     dataArray = [];
+}
 
 function clearModal() {
     modalFilmRefs.modalClear.innerHTML = '';
