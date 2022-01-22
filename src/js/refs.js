@@ -29,6 +29,7 @@ const mainContainer = {
 
 // modal-team
 const team = {
+    backdrop: document.querySelector('.backdrop'),
     modalTeam: document.querySelector('[data-modal-team]'),
     openModalTeam: document.querySelector('.js-team-modal'),
     closeModalTeam: document.querySelector('[data-team-close]'),
