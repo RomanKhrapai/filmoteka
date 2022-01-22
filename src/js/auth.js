@@ -4,15 +4,17 @@ import { getDatabase, ref, set, onValue } from "firebase/database";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 
 // локальні імпорти
-import { FIREBASE_CONFIG, PATH } from "../js/const.js";
+import { FIREBASE_CONFIG, PATH, NON_AUTH_ICON } from "../js/const.js";
 import { header } from "../js/refs.js";
-import { getMovieData } from "../js/firebase.js";
+import { renderMarkupWatchedQueue } from '../js/markup';
+import { ApiService } from "../js/API-service";
 
 const app = initializeApp(FIREBASE_CONFIG);
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
 const db = getDatabase();
 const authDataRef = ref(db, PATH);
+const apiService = new ApiService();
 
 export let user;
 
@@ -28,26 +30,22 @@ export function checkAuth() {
                 uid
             };
             console.log(user);
-            header.btnAuth.innerHTML = getAuthData(user.photoURL, user.displayName);
+            header.btnAuth.innerHTML = showAuthUser(user.photoURL, user.displayName);
             header.btnAuth.insertAdjacentHTML ("beforeend", getAuthMenu());
 
-            header.btnAuth.firstChild.addEventListener('click', () => {
-                header.btnAuth.lastChild.style.display = "block";
-                document.addEventListener('mouseup', checkClickLogOut);
-                header.btnAuth.lastChild.addEventListener('click', userSignOut);
-            })
+            header.btnAuth.firstChild.addEventListener('click', () => {showSignOutButton()});
 
-            header.btnWatched.addEventListener('click', () => {getMovieData(true)});
-            header.btnQueue.addEventListener('click', () => {getMovieData(false)});
+            header.btnWatched.addEventListener('click', () => {renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(), true, user)});
+            header.btnQueue.addEventListener('click', () => {renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(), false, user)});
 
             // firebaseBtnListeners();
 
         } else {
             user = {
-                photoURL: `https://cdn.iconscout.com/icon/premium/png-256-thumb/movie-60-165251.png`,
-                displayName: `GUEST`
+                photoURL: NON_AUTH_ICON,
+                displayName: `LOG IN`
             };
-            header.btnAuth.innerHTML = getAuthData(user.photoURL, user.displayName);
+            header.btnAuth.innerHTML = showNonAuthUser(user.photoURL, user.displayName);
 
             header.btnAuth.firstChild.addEventListener('click', () => {
             signInWithPopup(auth, provider)
@@ -55,17 +53,13 @@ export function checkAuth() {
             // This gives you a Google Access Token. You can use it to access the Google API.
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
-            // The signed-in user info.
-            const user = result.user;
+            const user = result.user; // The signed-in user info.
             // ...
             }).catch((error) => {
-            // Handle Errors here.
-            const errorCode = error.code;
+            const errorCode = error.code; // Handle Errors here.
             const errorMessage = error.message;
-            // The email of the user's account used.
-            const email = error.email;
-            // The AuthCredential type that was used.
-            const credential = GoogleAuthProvider.credentialFromError(error);
+            const email = error.email; // The email of the user's account used.
+            const credential = GoogleAuthProvider.credentialFromError(error); // The AuthCredential type that was used.
             // ...
             });
           })
@@ -73,8 +67,16 @@ export function checkAuth() {
     });
 }
 
-function getAuthData(photoURL, displayName) {
-    return `<a class="auth__button"><img src="${photoURL}" class="auth__img" width="20"><span class="auth__name">${displayName}</span></a>`
+function showAuthUser(photoURL, displayName) {
+    return `<button class="auth__button"><span class="auth__name">${displayName}</span>
+            <img src="${photoURL}" class="auth__img" alt="user image" width="20" height="20">
+            </button>`
+};
+
+function showNonAuthUser(logo, displayName) {
+    return `<button class="auth__button"><span class="auth__name">${displayName}</span>
+            ${logo}
+            </button>`
 };
 
 function getAuthMenu() {
@@ -86,13 +88,20 @@ function getAuthMenu() {
     </div>`
 }
 
-function checkClickLogOut(e) {
+function showSignOutButton() {
+    header.btnAuth.lastChild.style.display = "block";
+    document.addEventListener('mouseup', checkClickSignOut);
+    header.btnAuth.lastChild.addEventListener('click', userSignOut);
+}
+
+function checkClickSignOut(e) {
     if (!header.btnAuth.contains(e.target)) {
         header.btnAuth.lastChild.style.display = 'none';
     }
 }
 
 export function userSignOut() {
+    document.removeEventListener('mouseup', checkClickSignOut);
     signOut(auth).then(() => {
     // Sign-out successful.
     }).catch((error) => {

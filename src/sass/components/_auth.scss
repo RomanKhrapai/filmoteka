@@ -1,0 +1,85 @@
+.auth {
+    position: relative; // для auth__dropdown-menu
+  }
+  
+  .auth__button {
+    display: flex;
+    align-items: center;
+    // padding: 4px 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .auth__dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: $light-text-color;
+    top: 28px;
+    right: 0;
+    width: 100px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    z-index: 1;
+  }
+  
+  .auth__dropdown-menu a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .auth__img {
+    display: inline-block;
+    // margin-bottom: -4px;
+    border-radius: 50%;
+  
+    @media (min-width: 768px) {
+      margin-left: 5px;
+    }
+  }
+  
+  .auth__name {
+    border: none;
+    background-color: transparent;
+    color: $bg-primary-color;
+    text-transform: uppercase;
+    @include font(12px, 500, 1.17);
+  
+    cursor: pointer;
+  
+    @media (max-width: 767px) {
+      display: none;
+    }
+  
+    &:hover,
+    .auth:hover & {
+      text-shadow: $text-shadow;
+    }
+  }
+
+  .auth__icon {
+    stroke: $light-text-color;
+    fill: $light-text-color;
+    border-radius: 50%;
+    background-color:transparent;
+  
+    @media (min-width: 768px) {
+      margin-left: 5px;
+    }
+  }
+
+  .icon {
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    stroke-width: 0;
+    stroke: $light-text-color;
+    fill: $light-text-color;
+  }
+
+  .auth:hover #non-auth-user,
+  .auth:focus #non-auth-user,
+  .auth__button:focus #non-auth-user {
+    filter: drop-shadow(1px 1px 2px rgb(255, 255, 255, 1));
+  }

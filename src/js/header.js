@@ -1,12 +1,9 @@
-
 import { header } from "./refs.js";
 import { renderMarkup, dataArray } from './markup';
 import { ApiService} from "./API-service";
 
 
 const apiService = new ApiService();
-
- 
 
 
 export function onBtnHomeClick(event) {

@@ -13,7 +13,8 @@ import { result } from "lodash";
 
 const apiService = new ApiService();
 let dataArray = [];
-export {dataArray}
+export {dataArray};
+export let targetFilm;
 
 
 
@@ -71,6 +72,37 @@ export function renderMarkup(fetchFunc) {
     }).catch(console.log);
 }
 
+export function renderMarkupWatchedQueue(fetchFunc, watchedStatus, user) {
+    dataArray = [];
+    clearGallery();
+    
+    fetchFunc.then((recordsArrayFb) => {
+            const records = Object.values(recordsArrayFb);
+            const sortedRecords = Object.values(records).filter((record => record.uid === user.uid && record.watched === watchedStatus));
+
+            let sortedMovies = [];
+            for (const record of sortedRecords) {
+                sortedMovies.push(record.movie);
+            }
+            
+            let data = {
+                page: 1,
+                results: sortedMovies,
+                total_results: sortedMovies.length,
+                total_pages: 1,
+            };
+            apiService.getGenres().then(({ genres }) => {
+                data.results.forEach(({ id, title, genre_ids, poster_path, release_date }) => {
+            const filterResult = filterGenres(genre_ids, genres);
+            responseProcessing(id, title, filterResult, poster_path, release_date);
+            });
+            }).then(next => {
+                const markup = filmCard(dataArray);
+                appendMarkup(markup);
+            }).catch(console.log);
+    }).catch(console.log);
+}
+
 export function appendMarkup(element) {
     mainContainer.galleryContainer.insertAdjacentHTML("beforeend", element); 
 }
@@ -87,7 +119,6 @@ function responseProcessing(id, name, genres, imgPath, date) {
     keyData.date = year;
 
     dataArray.push(keyData);
-    console.log(dataArray);
 
 }
 
@@ -122,7 +153,7 @@ export function renderModalFilm() {
     mainContainer.filmClickListener.addEventListener('click',(event) => {
         apiService.fetchTrendingFilms().then(data => {           
             dataArray = data.results;            
-            let targetFilm = (dataArray.find(film => film.id == event.path[3].id));
+            targetFilm = (dataArray.find(film => film.id == event.path[3].id));
             const markup = modalFilm(targetFilm);
             appendMarkupModal(markup);
             firebaseBtnListeners(targetFilm);

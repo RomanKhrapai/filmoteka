@@ -9,7 +9,7 @@ import { toggleModalTeam } from '../src/js/modal-team';
 import { renderModalFilm } from '../src/js/markup';
 // локальні імпорти
 import { header, mainContainer, team } from "../src/js/refs.js";
-import { checkAuth, userSignOut } from '../src/js/auth.js';
+import { checkAuth } from '../src/js/auth.js';
 import { onBtnHomeClick, onBtnLibraryClick, onBtnWatchedClick, onBtnQueueClick, onHeaderButtonClick, homePageRender, fetchMovies, onInputInput } from '../src/js/header.js';
 import { ApiService } from "./js/API-service";
 const apiService = new ApiService();
