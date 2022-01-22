@@ -168,46 +168,22 @@ function resultsNotification(results) {
 }
 
 
-
-
-// export function renderModalFilm() {
-//     modalFilmRefs.filmClickListener.addEventListener('click', event => {
-//         event.preventDefault();
-//         apiService
-//             .fetchTrendingFilms()
-//             .then(data => {
-//                 apiService.getGenres().then(({ genres }) => {
-//                     goResponseProcessing(data.results, genres);
-//                 });
-//                 let targetFilm = dataArray.find(film => film.id == event.path[3].id);
-//                 const markup = modalFilm(targetFilm);
-//                 appendMarkupModal(markup);
-//                 firebaseBtnListeners(targetFilm);
-//             })
-//             .catch(console.log);
-//         clearModal();
-//     });
-// }
-
-
-
 export function renderModalFilm() {
-  
-    modalFilmRefs.filmClickListener.addEventListener('click',(event) => {
+    mainContainer.galleryContainer.addEventListener('click', (event) => {
         event.preventDefault();
-        apiService.fetchTrendingFilms().then(data => {  
-            dataArray = data.results;            
-            targetFilm = (dataArray.find(film => film.id == event.path[3].id));
-            console.log(targetFilm);
-            const markup = modalFilm(targetFilm);
-            appendMarkupModal(markup);
-            firebaseBtnListeners(targetFilm);
-            }).catch(console.log);
-            clearModal();
-        }
-        
-    );
-
+        apiService.fetchTrendingFilms().then(data => {
+                apiService.getGenres().then(({ genres }) => {
+                    goResponseProcessing(data.results, genres);
+                });
+            let targetFilm = dataArray.find(film => film.id == event.path[3].id);
+            console.log(dataArray)
+                const markup = modalFilm(targetFilm);
+                appendMarkupModal(markup);
+                firebaseBtnListeners(targetFilm);
+            })
+            .catch(console.log);
+        clearModal();
+    });
 }
 
 function appendMarkupModal(element) {
