@@ -1,6 +1,6 @@
 
 import { header } from "./refs.js";
-import { renderMarkup, dataArray } from './markup';
+import { renderMarkup, clearMarkup, clearGallery} from './markup';
 import { ApiService} from "./API-service";
 
 
@@ -10,6 +10,9 @@ const apiService = new ApiService();
 
 
 export function onBtnHomeClick(event) {
+ setLocation("home?")
+  libraryText.classList.add('is-hidden')
+
   resetInpitValue();
   searchIconRemoveClass();
   renderMarkup(apiService.fetchTrendingFilms());
@@ -22,6 +25,12 @@ export function onBtnHomeClick(event) {
 
 
 export function onBtnLibraryClick(event) {
+  
+setLocation("library?")
+   watchBtnAddClass() 
+  libraryText.classList.remove('is-hidden')
+  clearGallery()
+ clearMarkup()
   header.btnHome.classList.remove('is-active');
   header.btnLibrary.classList.add('is-active'); 
   screenCoverClassList('header-hero__library-wrapper','header-hero__wrapper')
@@ -42,6 +51,7 @@ export function onBtnLibraryClick(event) {
 } 
 
 export function onHeaderButtonClick() {
+     libraryText.classList.add('is-hidden')
   resetInpitValue();
   searchIconRemoveClass();
   renderMarkup(apiService.fetchTrendingFilms());
@@ -105,10 +115,30 @@ function QueueBtnRemoveClass() {
   header.btnQueue.classList.remove('is-active-btn')
 }
 
+function watchBtnAddClass() {
+  header.btnWatched.classList.add('is-active-btn')
+}
+
+export function clearNotification() {
+     header.heroNotification.innerHTML = ""
+}
+
 export function errorNotif() {
   header.heroNotification.innerHTML = "Search result is not successful. Enter the correct movie name and try again"
   setTimeout(() => {
-           header.heroNotification.innerHTML = ""
+   clearNotification()
         }, 5000);
 }
 
+const libraryText = document.querySelector('.library-text')
+ 
+
+export function setLocation(curLoc){
+    try {
+      history.pushState(null, null, curLoc);
+      return;
+    } catch(e) {}
+ location.hash = '#' + curLoc;
+}
+
+ 

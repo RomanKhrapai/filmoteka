@@ -1,7 +1,7 @@
 import { ApiService } from "./API-service";
 import { API_IMG } from "./const";
 import Notiflix from 'notiflix';
-import { errorNotif } from "./header";
+import { errorNotif, setLocation, clearNotification } from "./header";
 
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
@@ -19,19 +19,15 @@ let dataArray = [];
 
 
 export function onFormSubmit(event) {
+    setLocation('?search-results')
     event.preventDefault();
        
     const moviesQuery = event.currentTarget.elements.movies.value;
     apiService.searchedMovies = moviesQuery;
  
 
-    if (!moviesQuery) {
-        return
-    }
-    if (moviesQuery === " ") {
-        return
-    }  
-         apiService.fetchMoviesResults().then(resultsNotification) 
+   
+         apiService.fetchMovies().then(renderSearchMarkup).catch(e => Notiflix.failure(e))
 
     // apiService.fetchMovies().then(result => console.log(result));
   
@@ -40,35 +36,11 @@ export function onFormSubmit(event) {
 }
 
 
-
-function renderSearchMarkup() {
-         clearMarkup()
-        apiService.fetchMovies().then(data => {
-        apiService.getGenres().then(({ genres }) => {
-    data.results.forEach(({ id, title, genre_ids, poster_path, release_date, vote_average, vote_count, popularity, original_title, overview }) => {
-        const filterResult = filterGenres(genre_ids, genres);
-        responseProcessing(id, title, filterResult, poster_path, release_date, vote_average, vote_count, popularity, original_title, overview);
-        });
-        })
-            .then(next => {
-            const markup = filmCard(dataArray);       
-            appendMarkup(markup);
-        }).catch(console.log);
-        }).catch(console.log);
-    apiService.fetchMovies().then((result) => { renderPaginationMovies(result.total_results, result.page) }).catch(console.log);
-    clearGallery();
-    
-}
-
-
-
-
 export function renderMarkup(fetchFunc) {
        clearMarkup()
        clearGallery();
     fetchFunc.then(data => {
-      
-        apiService.getGenres().then(({ genres }) => {
+          apiService.getGenres().then(({ genres }) => {
     data.results.forEach(({ id, title, genre_ids, poster_path, release_date, vote_average, vote_count, popularity, original_title, overview }) => {
         const filterResult = filterGenres(genre_ids, genres);      
         responseProcessing(id, title, filterResult, poster_path, release_date, vote_average, vote_count, popularity, original_title, overview);
@@ -118,14 +90,28 @@ export function clearGallery(){
     mainContainer.galleryContainer.innerHTML = '';
 }
 
-function resultsNotification(results) {
-    if (results.length === 0) {
+function renderSearchMarkup(data) {
+    if (data.total_results=== 0) {
         errorNotif(); 
     }
-
-    if (results.length >= 1) {
-        header.heroNotification.innerHTML = "";
-        renderSearchMarkup();
+    if (data.total_results >= 1) {
+        clearNotification();
+         clearMarkup();
+    apiService.fetchMovies().then(data =>
+    {
+        apiService.getGenres().then(({ genres }) => {
+    data.results.forEach(({ id, title, genre_ids, poster_path, release_date, vote_average, vote_count, popularity, original_title, overview }) => {
+        const filterResult = filterGenres(genre_ids, genres);
+        responseProcessing(id, title, filterResult, poster_path, release_date, vote_average, vote_count, popularity, original_title, overview);
+        });
+        })
+            .then(next => {
+            const markup = filmCard(dataArray);       
+            appendMarkup(markup);
+        }).catch(console.log);
+        }).catch(console.log);
+    apiService.fetchMovies().then((result) => { renderPaginationMovies(result.total_results, result.page) }).catch(console.log);
+    clearGallery();
      }
 }
 
@@ -154,6 +140,6 @@ function clearModal(){
   mainContainer.modalClear.innerHTML = '';  
 }
 
-function clearMarkup() {
+export function clearMarkup() {
     dataArray = [];
 }

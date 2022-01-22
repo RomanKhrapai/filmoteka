@@ -233,3 +233,15 @@
     text-shadow: rgb(230, 231, 230) 0.5px 0 3px;
   }
 }
+
+.library-text {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  padding-top: 50vh;
+  text-align: center;
+  font-weight: 500;
+  color: rgb(99, 102, 102);
+}
