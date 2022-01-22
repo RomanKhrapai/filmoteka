@@ -29,7 +29,6 @@ export function checkAuth() {
                 displayName,
                 uid
             };
-            console.log(user);
             header.btnAuth.innerHTML = showAuthUser(user.photoURL, user.displayName);
             header.btnAuth.insertAdjacentHTML ("beforeend", getAuthMenu());
 
