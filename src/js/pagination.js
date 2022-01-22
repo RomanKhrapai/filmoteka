@@ -30,8 +30,7 @@ export function renderPaginationMovies(totalItems, currentPage) {
                 '</a>'
         },
     }
-    console.log(apiService.page);
-    console.log(apiService.searchedMovies);
+    
     const instance = new Pagination(container, options);
     instance.on('afterMove', (event) => {
         apiService.page = event.page;

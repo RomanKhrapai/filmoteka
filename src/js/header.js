@@ -19,6 +19,16 @@ export function onBtnHomeClick(event) {
    watchBtnRemoveClass();
   QueueBtnRemoveClass();
 }
+export function onHeaderButtonClick() {
+  resetInpitValue();
+  searchIconRemoveClass();
+  renderMarkup(apiService.fetchTrendingFilms());
+  homePageRender();
+  homeBtnAddClass();
+  libraryBtnRemoveClass(); 
+   watchBtnRemoveClass();
+  QueueBtnRemoveClass();
+}
 
 
 export function onBtnLibraryClick(event) {
@@ -41,16 +51,7 @@ export function onBtnLibraryClick(event) {
    watchBtnRemoveClass();
 } 
 
-export function onHeaderButtonClick() {
-  resetInpitValue();
-  searchIconRemoveClass();
-  renderMarkup(apiService.fetchTrendingFilms());
-  homePageRender();
-  homeBtnAddClass();
-  libraryBtnRemoveClass(); 
-   watchBtnRemoveClass();
-  QueueBtnRemoveClass();
-}
+
 
 
 export function homePageRender() {
