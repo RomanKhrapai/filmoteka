@@ -99,11 +99,13 @@ export function renderMarkupWatchedQueue(fetchFunc, watchedStatus, user) {
                 total_results: sortedMovies.length,
                 total_pages: 1,
             };
-            apiService.getGenres().then(({ genres }) => {
-                data.results.forEach(({ id, title, genre_ids, poster_path, release_date }) => {
-            const filterResult = filterGenres(genre_ids, genres);
-            responseProcessing(id, title, filterResult, poster_path, release_date);
-            });
+            apiService
+            .getGenres()
+            .then(({ genres }) => {
+                // data.results.forEach(({ id, title, genre_ids, poster_path, release_date }) => {
+            // const filterResult = filterGenres(genre_ids, genres);
+            goResponseProcessing(data.results, genres);
+            // });
             }).then(next => {
                 const markup = filmCard(dataArray);
                 appendMarkup(markup);
