@@ -24,11 +24,7 @@ export const ApiService = class {
   
     }
     
-    async  fetchMoviesResults() {
-    const response = await axios.get(`${API.BASIC_URL}/3/search/movie?api_key=${API.KEY}&language=en-US&query=${this.searchedMovies}&page=${this.page}`);
-     return response.data.results;
-  
-    }
+ 
     
     async  fetchMoviesfromFb() {
     const response = await axios.get("https://filmoteka-7pro-default-rtdb.europe-west1.firebasedatabase.app/records.json");
