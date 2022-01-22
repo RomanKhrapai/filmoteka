@@ -98,19 +98,6 @@
   }
 }
 
-// .modal-team__team-name--black {
-//   padding: 5px;
-//   background-color: $primary-text-color;
-//   color: $light-text-color;
-// }
-
-// .modal-team__team-name--orange {
-//   padding: 5px;
-//   color: $light-text-color;
-//   background-color: $accent-color;
-//   margin-right: 20px;
-// }
-
 .modal-team__list {
   display: block;
 
@@ -126,11 +113,6 @@
   justify-content: center;
   margin-bottom: 30px;
 
-  //   background-color: $primary-white-color;
-  border-radius: $border-radius;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
-    0px 2px 1px rgba(0, 0, 0, 0.2);
-
   @media screen and (min-width: 768px) {
     width: calc((100% - 60px) / 2);
     margin: 15px;
@@ -143,7 +125,7 @@
 }
 
 .modal-team__thumb {
-  min-width: 235px;
+  width: 240px;
   height: 320px;
   border-radius: 5px 5px 0px 0px;
   overflow: hidden;
@@ -154,9 +136,12 @@
 }
 
 .modal-team__description {
+  width: 240px;
   padding: 5px 10px;
   border: 1px solid $describe-text-color;
-  border-top: none;
+  border-radius: 0px 0px 5px 5px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
 
   @media screen and (min-width: 768px) {
     padding: 10px 15px;
@@ -174,7 +159,7 @@
 }
 
 .modal-team__name--no-margin {
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
 .modal-team__role {
