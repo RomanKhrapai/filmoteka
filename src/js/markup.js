@@ -1,20 +1,17 @@
 import { ApiService } from './API-service';
 import { API_IMG } from './const';
-import Notiflix from 'notiflix';
 import { errorNotif } from './header';
-
-import Pagination from 'tui-pagination';
-import 'tui-pagination/dist/tui-pagination.css';
 
 import { mainContainer, header, modalFilmRefs } from './refs';
 import { firebaseBtnListeners } from './firebase.js';
 
 import filmCard from '../markup-template/filmCard.hbs';
 import modalFilm from '../markup-template/modalFilm.hbs';
-import { result } from 'lodash';
-import { loaderIsVisible, loaderIsHidden } from './loader';
 
-const apiService = new ApiService();
+import { loaderIsVisible, loaderIsHidden } from './loader';
+import { renderPaginationMovies } from './pagination';
+
+export const apiService = new ApiService();
 export let dataArray = [];
 export let targetFilm;
 
@@ -35,15 +32,11 @@ export function onFormSubmit(event) {
     }
     apiService.fetchMoviesResults().then(resultsNotification);
 
-    // apiService.fetchMovies().then(result => console.log(result));
-
     apiService.resetPage();
 }
 
-function renderSearchMarkup() {
-
-         clearMarkup()
-  
+export function renderSearchMarkup() {
+  clearGallery();
     apiService
         .fetchMovies()
         .then(data => {
@@ -53,28 +46,22 @@ function renderSearchMarkup() {
                     goResponseProcessing(data.results, genres);
                 })
                 .then(next => {
-                    console.log(dataArray);
                     const markup = filmCard(dataArray);
                     appendMarkup(markup);
                 })
                 .catch(console.log);
-        })
+        renderPaginationMovies(data.total_results, data.page);
+            })
         .catch(console.log);
-    apiService
-        .fetchMovies()
-        .then(result => {
-            renderPaginationMovies(result.total_results, result.page);
-        })
-        .catch(console.log);
-    clearGallery();
+
 }
 
 export function renderMarkup(fetchFunc) {
-
-       clearMarkup()
        clearGallery();
-
-    fetchFunc
+        apiService.searchedMovies = "";
+    // fetchFunc
+    apiService
+    .fetchTrendingFilms()
         .then(data => {
             apiService
                 .getGenres()
@@ -87,8 +74,9 @@ export function renderMarkup(fetchFunc) {
                     appendMarkup(markup);
                 })
                 .catch(console.log);
-        })
-        .catch(console.log);
+         renderPaginationMovies(data.total_results, data.page);
+            })           
+        .catch(console.log);     
 }
 
 export function filterGenres(conditions, array) {
@@ -133,6 +121,7 @@ export function appendMarkup(element) {
 }
 
 export function clearGallery() {
+    dataArray = [];
     mainContainer.galleryContainer.innerHTML = '';
 }
 
@@ -140,7 +129,6 @@ function resultsNotification(results) {
     if (results.length === 0) {
         errorNotif();
     }
-
     if (results.length >= 1) {
         header.heroNotification.innerHTML = '';
         renderSearchMarkup();
@@ -175,8 +163,7 @@ export function renderModalFilm() {
   
     modalFilmRefs.filmClickListener.addEventListener('click',(event) => {
         event.preventDefault();
-
-        apiService.fetchTrendingFilms().then(data => {           
+        apiService.fetchTrendingFilms().then(data => {  
             dataArray = data.results;            
             targetFilm = (dataArray.find(film => film.id == event.path[3].id));
             console.log(targetFilm);
@@ -195,47 +182,7 @@ function appendMarkupModal(element) {
     modalFilmRefs.modalClear.insertAdjacentHTML('afterbegin', element);
 }
 
-function clearMarkup() {
-    dataArray = [];
-}
 
 function clearModal() {
     modalFilmRefs.modalClear.innerHTML = '';
-}
-
-function renderPaginationMovies(totalItems, currentPage) {
-    const container = document.getElementById('tui-pagination-container');
-   
-    const options = {
-        totalItems,
-        itemsPerPage: 20,
-        visiblePages: 7,
-        page: currentPage,
-        centerAlign: true,
-        firstItemClassName: 'tui-first-child',
-        lastItemClassName: 'tui-last-child',
-        template: {
-            page: '<a href="#" class="tui-page-btn button_modifier">{{page}}</a>',
-            currentPage: '<strong class="tui-page-btn button_modifier tui-is-selected selected-accent">{{page}}</strong>',
-            moveButton:
-                '<a href="#" class="tui-page-btn button_more tui-{{type}}">' +
-                '<span class="tui-ico-{{type}}">{{type}}</span>' +
-                '</a>',
-            disabledMoveButton:
-                '<span class="tui-page-btn button_modifier tui-is-disabled tui-{{type}}">' +
-                '<span class="tui-ico-{{type}}">{{type}}</span>' +
-                '</span>',
-            moreButton:
-                '<a href="#" class="tui-page-btn button_more tui-{{type}}-is-ellip">' +
-                '<span class="tui-ico-ellip">...</span>' +
-                '</a>'
-        },
-    }
-
-    const instance = new Pagination(container, options);
-
-    instance.on('afterMove', (event) => {
-        apiService.page = event.page;
-        renderSearchMarkup();
-    });   
 }
