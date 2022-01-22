@@ -1,6 +1,7 @@
 import { ApiService } from './API-service';
 import { API_IMG } from './const';
 import { errorNotif } from './header';
+import { result } from "lodash";
 
 import { mainContainer, header, modalFilmRefs } from './refs';
 import { firebaseBtnListeners } from './firebase.js';
@@ -77,6 +78,45 @@ export function renderMarkup(fetchFunc) {
          renderPaginationMovies(data.total_results, data.page);
             })           
         .catch(console.log);     
+}
+  
+export function renderMarkupWatchedQueue(fetchFunc, watchedStatus, user) {
+    dataArray = [];
+    clearGallery();
+    
+    fetchFunc.then((recordsArrayFb) => {
+            const records = Object.values(recordsArrayFb);
+            const sortedRecords = Object.values(records).filter((record => record.uid === user.uid && record.watched === watchedStatus));
+
+            let sortedMovies = [];
+            for (const record of sortedRecords) {
+                sortedMovies.push(record.movie);
+            }
+            
+            let data = {
+                page: 1,
+                results: sortedMovies,
+                total_results: sortedMovies.length,
+                total_pages: 1,
+            };
+            apiService.getGenres().then(({ genres }) => {
+                data.results.forEach(({ id, title, genre_ids, poster_path, release_date }) => {
+            const filterResult = filterGenres(genre_ids, genres);
+            responseProcessing(id, title, filterResult, poster_path, release_date);
+            });
+            }).then(next => {
+                const markup = filmCard(dataArray);
+                appendMarkup(markup);
+            }).catch(console.log);
+    }).catch(console.log);
+}
+
+export function filterGenres(conditions, array) {
+    const filter = array.filter(item => conditions.includes(item.id)).map(obj => obj.name);
+    if (filter.length > 2) {
+        filter.splice(2);
+    }
+    return filter;
 }
 
 export function filterGenres(conditions, array) {

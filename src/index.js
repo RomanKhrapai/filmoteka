@@ -12,7 +12,7 @@ import { renderModalFilm } from '../src/js/markup';
 import { loadDataFromLS, setDataToLS, addMovieToLocalStorage, removeMovieFromLocalStorage} from './js/localeStorage';
 import { header, mainContainer, team , modalFilmRefs} from "../src/js/refs.js";
 
-import { checkAuth, userSignOut } from '../src/js/auth.js';
+import { checkAuth } from '../src/js/auth.js';
 import { onBtnHomeClick, onBtnLibraryClick, onBtnWatchedClick, onBtnQueueClick, onHeaderButtonClick, homePageRender, fetchMovies, onInputInput } from '../src/js/header.js';
 import { ApiService } from "./js/API-service";
 const apiService = new ApiService();
