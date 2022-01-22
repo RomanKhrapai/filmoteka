@@ -119,14 +119,6 @@ export function filterGenres(conditions, array) {
     return filter;
 }
 
-export function filterGenres(conditions, array) {
-    const filter = array.filter(item => conditions.includes(item.id)).map(obj => obj.name);
-    if (filter.length > 2) {
-        filter.splice(2);
-    }
-    return filter;
-}
-
 function goResponseProcessing(result, genres) {
     result.forEach((film) => {
         film.genres = filterGenres(film.genre_ids, genres);
