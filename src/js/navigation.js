@@ -7,7 +7,7 @@ export function scrolTop(){
 }
 
 function oldHashPage(hash){
-   return hash.slice(0,hash.indexOf('&')+1);
+   return hash.slice(0,hash.indexOf('&'));
 }
 
 function oldHashSearch(hash){
@@ -33,13 +33,14 @@ if(!!search){
     location.hash = `home&search="${search}"&page="1"`;
 }
 else if(!!pagination){
+    console.log(oldPage);
     location.hash = !oldSearch?
     `${oldPage}&page="${pagination}"`:
      `home&search="${oldSearch}"&page="${pagination}"`;
 }
 else if(!!page){
     apiService.resetPage();
-    location.hash = `${page}`;
+    location.hash = `${page}&`;
 }
 }
 
@@ -48,7 +49,6 @@ export function startNavigation(){
     const oldPage = oldHashPage(hash);
 const oldSearch = oldHashSearch(hash);
 const oldPagination = oldHashPagination(hash);
-console.log(oldPagination);
 if(!!oldPagination){
     apiService.page = oldPagination; 
 }
@@ -58,7 +58,6 @@ if(!!oldSearch){
 }else if (oldPage==='home' ){
     renderMarkup(); 
 }else{
-    location.hash = ``;
     renderMarkup(); 
 }
 }
