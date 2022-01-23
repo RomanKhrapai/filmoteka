@@ -14,10 +14,10 @@ function onBackdropClose(event) {
 };
 
 function onHiddenModal(event) {   
-  if (event.path[2].id === 'data-modal-open') {
-    // console.log(event)
+  // if (event.path[2].id === 'data-modal-open') {
+    console.log(event.target)
      onToggleModal()      
-  }
+  // }
 };
 
 function onEscClose(event) {

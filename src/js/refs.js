@@ -46,7 +46,7 @@ const modalFilmRefs = {
     closeModal: document.querySelector('[data-modal-close]'),
     modal: document.querySelector('[data-modal]'),
     backdrop: document.querySelector('.modal-area'),
-    filmClickListener: document.querySelector('.gallery'),
+    // filmClickListener: document.querySelector('.gallery'),
     modalClear: document.querySelector('.data-modal-clear'),
 };
 

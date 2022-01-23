@@ -34,7 +34,7 @@ header.input.addEventListener('input', onInputInput);
 //modal-film
 modalFilmRefs.backdrop.addEventListener('click', onBackdropClose);
 modalFilmRefs.closeModal.addEventListener('click', onToggleModal);
-modalFilmRefs.filmClickListener.addEventListener('click', onHiddenModal);
+mainContainer.galleryContainer.addEventListener('click', onHiddenModal);
 
 // modal-team
 team.openModalTeam.addEventListener('click', toggleModalTeam);
