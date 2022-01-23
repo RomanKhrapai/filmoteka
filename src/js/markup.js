@@ -99,7 +99,8 @@ export function renderMarkupWatchedQueue(fetchFunc, watchedStatus, user) {
                 total_results: sortedMovies.length,
                 total_pages: 1,
             };
-            apiService.getGenres().then(({ genres }) => {
+        apiService.getGenres().then(({ genres }) => {
+                console.log(data.results)
                 data.results.forEach(({ id, title, genre_ids, poster_path, release_date }) => {
             const filterResult = filterGenres(genre_ids, genres);
             responseProcessing(id, title, filterResult, poster_path, release_date);
@@ -170,23 +171,21 @@ function resultsNotification(results) {
 
 export function renderModalFilm() {
     mainContainer.galleryContainer.addEventListener('click', (event) => {
-        event.preventDefault();
-        apiService.fetchTrendingFilms().then(data => {
-                apiService.getGenres().then(({ genres }) => {
-                    goResponseProcessing(data.results, genres);
-                });
-            let targetFilm = dataArray.find(film => film.id == event.path[3].id);
-            console.log(dataArray)
-                const markup = modalFilm(targetFilm);
-                appendMarkupModal(markup);
-                firebaseBtnListeners(targetFilm);
-            })
-            .catch(console.log);
         clearModal();
+        event.preventDefault();
+        const targetFilm = dataArray.find(film => film.id == event.target.parentElement.parentElement.parentElement.id);
+        
+        // console.log(dataArray)
+        // console.log(targetFilm)
+        const markup = modalFilm(targetFilm);
+        // console.log(markup)
+        appendMarkupModal(markup);
+        firebaseBtnListeners(targetFilm);           
     });
 }
 
-function appendMarkupModal(element) {
+
+function appendMarkupModal(element) {    
     modalFilmRefs.modalClear.insertAdjacentHTML('afterbegin', element);
 }
 
