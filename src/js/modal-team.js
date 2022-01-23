@@ -1,25 +1,35 @@
 import { team } from "../js/refs.js";
 
-export function toggleModalTeam() {
+export function openModalTeam() {
     window.addEventListener('keydown', onEscKeydown);
     
-    setTimeout(() => { team.modalTeam.classList.toggle('is-hidden') }, 250);
-    team.modalTeam.classList.contains('is-hidden') ?
-      document.body.style.overflow = "hidden" :
-      document.body.style.overflow = "";
+    setTimeout(() => { team.modalTeam.classList.remove('is-hidden') }, 250);
+    
+    document.body.style.overflow = "hidden";
 }
+
+export function closeModalTeam() {
+    window.removeEventListener('keydown', onEscKeydown);
+    
+    setTimeout(() => { team.modalTeam.classList.add('is-hidden') }, 250);
+  
+    document.body.style.overflow = "";
+  
+}
+
 
 team.backdrop.addEventListener('click', onClickBackdrop);
 
 function onClickBackdrop(e) {
    if (e.currentTarget === e.target) {      
-    toggleModalTeam();
+     closeModalTeam();
+     window.removeEventListener('keydown', onEscKeydown);
   } 
 }
 
 function onEscKeydown(e) {
-    if (e.code === 'Escape') {    
-    toggleModalTeam();
-    window.removeEventListener('keydown', onEscKeydown);    
+  if (e.code === 'Escape') {    
+      closeModalTeam();
+      window.removeEventListener('keydown', onEscKeydown);
   }
 }
