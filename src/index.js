@@ -5,7 +5,7 @@ UeScroll.init();
 
 import { renderMarkup,onFormSubmit} from '../src/js/markup';
 import { onToggleModal, onBackdropClose, onHiddenModal } from './js/modal-film';
-import { toggleModalTeam } from '../src/js/modal-team';
+import { openModalTeam, closeModalTeam } from '../src/js/modal-team';
 import { renderModalFilm } from '../src/js/markup';
 import { startNavigation } from './js/navigation';
 // локальні імпорти
@@ -37,8 +37,8 @@ modalFilmRefs.closeModal.addEventListener('click', onToggleModal);
 mainContainer.galleryContainer.addEventListener('click', onHiddenModal);
 
 // modal-team
-team.openModalTeam.addEventListener('click', toggleModalTeam);
-team.closeModalTeam.addEventListener('click', toggleModalTeam);
+team.openModalTeam.addEventListener('click', openModalTeam);
+team.closeModalTeam.addEventListener('click', closeModalTeam);
 
 //localStorage
 // modal.btnWatched.addEventListener('click', addMovieToLocalStorage);

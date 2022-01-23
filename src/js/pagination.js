@@ -20,7 +20,7 @@ export function renderPaginationMovies(totalItems, currentPage) {
             currentPage: '<strong class="tui-page-btn button_modifier tui-is-selected selected-accent">{{page}}</strong>',
             moveButton:
                 '<a href="#" class="tui-page-btn tui-{{type}} button_more-{{type}}">' +
-                    '<span class="tui-ico-{{type}}">{{type}}</span>' +
+                    '<span class="tui-ico-{{type}}" id="icon_modifier">{{type}}</span>' +
                 '</a>',
             disabledMoveButton:
                 '<span class="tui-page-btn tui-is-disabled tui-{{type}} button_modifier-{{type}}">' +
