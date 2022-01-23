@@ -4,7 +4,7 @@ import { errorNotif, clearNotification} from './header';
 import { result } from "lodash";
 
 import { mainContainer, header, modalFilmRefs } from './refs';
-import { firebaseBtnListeners } from './firebase.js';
+import { addWatchedQueueBtnListeners } from './firebase.js';
 import { localStorageBtnListeners, getData } from './localeStorage';
 
 import filmCard from '../markup-template/filmCard.hbs';
@@ -15,13 +15,15 @@ import { renderPaginationMovies } from './pagination';
 import { setLocation, startNavigation } from './navigation';
 
 export const apiService = new ApiService();
-export let dataArray = [];
-export let targetFilm;
+let dataArray = [];
+export let userRecords = [];
+// export let targetFilm;
 
-
-export function onFormSubmit(event) { 
+// пошук
+export function onFormSubmit(event) {
+    
     event.preventDefault();
-      
+    loaderIsVisible();
     const moviesQuery = event.currentTarget.elements.movies.value;
     apiService.searchedMovies = moviesQuery;
     setLocation(null,moviesQuery)
@@ -29,6 +31,7 @@ export function onFormSubmit(event) {
      apiService.resetPage();
 }
 
+// вивід результатів пошуку
 export function renderSearchMarkup() {
         clearNotification();
         clearGallery();
@@ -41,50 +44,37 @@ export function renderSearchMarkup() {
                         }
             return data;
             })
-            .then(data => {
-                apiService
-                    .getGenres()
-                    .then(({ genres }) => {
-                        goResponseProcessing(data.results, genres);
-                    })
-                    .then(next => {
-                        const markup = filmCard(dataArray);
-                        appendMarkup(markup);
-                    })
-                    .catch(console.log);
-                renderPaginationMovies(data.total_results, data.page);
-                    console.log(data.page);
-            })
-            
-            .catch(console.log)
-    // }
+            .then(data => {renderCards(data)})
+            .catch(console.log);
 }
 
+// вивід популярних фільмів
 export function renderMarkup() {
        clearGallery();
         apiService.searchedMovies = "";
     apiService
     .fetchTrendingFilms()
-        .then(data => {
-            apiService
-                .getGenres()
-                .then(({ genres }) => {
-                    
-                    goResponseProcessing(data.results, genres);
-                })
-                .then(next => {
-                    const markup = filmCard(dataArray);
-                    appendMarkup(markup);
-                })
-                .catch(console.log);
-         renderPaginationMovies(data.total_results, data.page);
-            })           
+        .then(data => {renderCards(data)})           
         .catch(console.log);     
 }
 
+// вивід карток
+function renderCards(data) {
+    apiService
+        .getGenres()
+        .then(({ genres }) => {
+            goResponseProcessing(data.results, genres);
+        })
+        .then(next => {
+            renderLibrary(dataArray);
+        })
+        .catch(console.log);
+    renderPaginationMovies(data.total_results, data.page);
+}
 
+// перевірка наявності фільмів в бібліотеці
 export function renderLibrary(data) {
-    console.log(data);
+    clearGallery();
     if (!data.length) {
         appendMarkup(`<p class='library-text'>NO MOVIES HAVE BEEN ADDED HERE YET</p>`);
         return;
@@ -93,48 +83,31 @@ export function renderLibrary(data) {
     appendMarkup(markup);
 }
 
-
-
-
-
-
-
-
-  
-export function renderMarkupWatchedQueue(fetchFunc, watchedStatus, user) {
-    dataArray = [];
+// вивід карток фільмів з Firebase
+export function renderMarkupWatchedQueue(fetchFunc, watchedStatus) {
     clearGallery();
+    apiService.searchedMovies = "";
+    loaderIsVisible();
     
-    fetchFunc.then((recordsArrayFb) => {
-            const records = Object.values(recordsArrayFb);
-            const sortedRecords = Object.values(records).filter((record => record.uid === user.uid && record.watched === watchedStatus));
+    fetchFunc.then(recordsArrayFb => {
+        userRecords = Object.values(recordsArrayFb);
+        const filteredRecordsWithStatus = Object.values(userRecords).filter((record => record.watched === watchedStatus));
 
-            let sortedMovies = [];
-            for (const record of sortedRecords) {
-                sortedMovies.push(record.movie);
-            }
-            
-            let data = {
-                page: 1,
-                results: sortedMovies,
-                total_results: sortedMovies.length,
-                total_pages: 1,
-            };
-
-        apiService.getGenres().then(({ genres }) => {
-                console.log(data.results)
-                data.results.forEach(({ id, title, genre_ids, poster_path, release_date }) => {
-            const filterResult = filterGenres(genre_ids, genres);
-            responseProcessing(id, title, filterResult, poster_path, release_date);
-            });
-
-            }).then(next => {
-                const markup = filmCard(dataArray);
-                appendMarkup(markup);
-            }).catch(console.log);
+        let sortedMovies = [];
+        for (const record of filteredRecordsWithStatus) {
+            sortedMovies.push(record.movie);
+        }
+        
+        let data = {
+            page: 1,
+            results: sortedMovies,
+            total_results: sortedMovies.length,
+        };
+        renderCards(data);
     }).catch(console.log);
 }
 
+// жанри
 export function filterGenres(conditions, array) {
     const filter = array.filter(item => conditions.includes(item.id)).map(obj => obj.name);
     if (filter.length > 2) {
@@ -182,21 +155,34 @@ export function clearGallery() {
 }
 
 
-
+// модалка фільму
 export function renderModalFilm() {
     mainContainer.galleryContainer.addEventListener('click', (event) => {
-
         clearModal();
         event.preventDefault();
-        const targetFilm = dataArray.find(film => film.id == event.target.parentElement.parentElement.parentElement.id);
-        
-        // console.log(dataArray)
-        // console.log(targetFilm)
-        const markup = modalFilm(targetFilm);
-        // console.log(markup)
-        appendMarkupModal(markup);
-        firebaseBtnListeners(targetFilm);           
+        // const movie_id = dataArray.find(film => film.id == event.target.parentElement.parentElement.parentElement.id);
+        const movie_id = event.target.parentElement.parentElement.parentElement.id;
+        apiService.getMovieDetails(movie_id)
+        .then((targetFilm) => {
+                apiService.getGenres()
+                .then(({ genres }) => {
+                    goResponseModalMovie(targetFilm);
+                })
+                .then(next => {
+                    const markup = modalFilm(targetFilm);
+                    appendMarkupModal(markup);
+                    addWatchedQueueBtnListeners(targetFilm);
+                })
+        })
+        .catch(error => console.log(error));
     });
+}
+
+function goResponseModalMovie(film) {
+    film.genres = film.genres.flatMap(genre => genre.name);
+    film.date = !film.release_date ? 'unknown' : film.release_date.slice(0, 4);     
+    film.img1x = createURLImg(film.poster_path,1)
+    film.img2x = createURLImg(film.poster_path,2)
 }
 
 

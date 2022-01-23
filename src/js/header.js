@@ -1,9 +1,10 @@
 import { header } from "./refs.js";
 
-import { renderMarkup, clearGallery,  renderLibrary} from './markup';
+import { renderMarkup, clearGallery,  renderLibrary, renderMarkupWatchedQueue} from './markup';
 import { ApiService} from "./API-service";
 import { setLocation } from "./navigation.js";
 import { getWatchedMovies, getQueueMovies, getData } from './localeStorage';
+import { getWatchedData, getQueueData } from "./auth";
 
 
 const apiService = new ApiService();
@@ -12,37 +13,39 @@ const apiService = new ApiService();
 export function onBtnHomeClick(event) {
 
  setLocation("home")
-  header.libraryText.classList.add('is-hidden')
+  // header.libraryText.classList.add('is-hidden')
 
 
   resetInpitValue();
   searchIconRemoveClass();
   renderMarkup();
   homeBtnAddClass();
- libraryBtnRemoveClass();
+  libraryBtnRemoveClass();
   homePageRender();
-   watchBtnRemoveClass();
+  watchBtnRemoveClass();
   QueueBtnRemoveClass();
 }
 
 export function onHeaderButtonClick() {
+  // header.libraryText.classList.add('is-hidden');
   resetInpitValue();
   searchIconRemoveClass();
   renderMarkup();
   homePageRender();
   homeBtnAddClass();
   libraryBtnRemoveClass(); 
-   watchBtnRemoveClass();
+  watchBtnRemoveClass();
   QueueBtnRemoveClass();
 }
 
 
 export function onBtnLibraryClick(event) {
   
-setLocation("library")
-   watchBtnAddClass() 
+setLocation("library?")
+   watchBtnAddClass() ;
+  //  renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(user.uid), true);
   // header.libraryText.classList.remove('is-hidden')
-  clearGallery();
+  clearGallery()
  
   header.btnHome.classList.remove('is-active');
   header.btnLibrary.classList.add('is-active'); 
@@ -51,14 +54,16 @@ setLocation("library")
   header.form.classList.add('is-hidden');
   resetInpitValue();
   searchIconRemoveClass();
-  renderLibrary(getWatchedMovies(getData()));
+  // renderLibrary(getWatchedMovies(getData()));
+  getWatchedData();
 }
 
  export function onBtnWatchedClick(event) {
   watchBtnAddClass();
    QueueBtnRemoveClass();
    clearGallery();
-   renderLibrary(getWatchedMovies(getData()));
+  //  renderLibrary(getWatchedMovies(getData()));
+  getWatchedData();
    
 } 
 
@@ -66,10 +71,9 @@ setLocation("library")
   header.btnQueue.classList.add('is-active-btn');
    watchBtnRemoveClass();
    clearGallery();
-   renderLibrary(getQueueMovies(getData()));
+  //  renderLibrary(getQueueMovies(getData()));
+  getQueueData();
 } 
-
-
 
 
 export function homePageRender() {
@@ -139,4 +143,5 @@ export function clearNotification() {
 
 function watchBtnAddClass() {
    header.btnWatched.classList.add('is-active-btn');
+  //  renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(user.uid), true);
   }

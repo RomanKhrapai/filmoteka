@@ -29,10 +29,15 @@ export const ApiService = class {
   
     }
     
- 
+    async  getMovieDetails(movie_id) {
+        const response = await axios.get(`${API.BASIC_URL}/3/movie/${movie_id}?api_key=${API.KEY}`);
+         return response.data;
+      
+    }
     
-    async  fetchMoviesfromFb() {
-    const response = await axios.get("https://filmoteka-7pro-default-rtdb.europe-west1.firebasedatabase.app/records.json");
+    async  fetchMoviesfromFb(uid) {
+    const response = await axios.get(`https://filmoteka-7pro-default-rtdb.europe-west1.firebasedatabase.app/records.json?orderBy="uid"&equalTo="${uid}"&print=pretty`);
+    // https://filmoteka-7pro-default-rtdb.europe-west1.firebasedatabase.app/records.json?orderBy="$key"&startAt="${uid}"&print=pretty
         return response.data;
     }
 

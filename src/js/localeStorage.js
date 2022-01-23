@@ -115,9 +115,7 @@ function saveDataToLocalStorage(movie, status) {
 
 }
 
-export function localStorageBtnListeners(movie) {
-    const btnAddToWatched = document.getElementById("btn__watched");
-    const btnAddToQueue = document.getElementById("btn__queue");
+export function localStorageBtnListeners(btnAddToWatched, btnAddToQueue, movie) {
     btnAddToWatched.addEventListener('click', () => {
         
         saveDataToLocalStorage(movie, true);
