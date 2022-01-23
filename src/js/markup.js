@@ -1,6 +1,6 @@
 import { ApiService } from './API-service';
 import { API_IMG } from './const';
-import { errorNotif, setLocation,clearNotification} from './header';
+import { errorNotif, clearNotification} from './header';
 import { result } from "lodash";
 
 import { mainContainer, header, modalFilmRefs } from './refs';
@@ -11,37 +11,35 @@ import modalFilm from '../markup-template/modalFilm.hbs';
 
 import { loaderIsVisible, loaderIsHidden } from './loader';
 import { renderPaginationMovies } from './pagination';
+import { setLocation, startNavigation } from './navigation';
 
 export const apiService = new ApiService();
 export let dataArray = [];
 export let targetFilm;
 
 
-export function onFormSubmit(event) {
-    
+export function onFormSubmit(event) { 
     event.preventDefault();
-    setLocation('?search-results')
-       
+      
     const moviesQuery = event.currentTarget.elements.movies.value;
     apiService.searchedMovies = moviesQuery;
- 
-          apiService.fetchMovies().then(renderSearchMarkup) 
-
-    // apiService.fetchMovies().then(result => console.log(result));
-  
-    apiService.resetPage();
-
+    setLocation(null,moviesQuery)
+     renderSearchMarkup();
+     apiService.resetPage();
 }
 
-export function renderSearchMarkup(data) {
-     if (data.total_results === 0) {
-        errorNotif(); 
-    }
-    if (data.total_results >= 1) {
+export function renderSearchMarkup() {
         clearNotification();
         clearGallery();
         apiService
             .fetchMovies()
+            .then(data=>{
+                if (data.total_results === 0) {
+                            errorNotif(); 
+                             throw new Error("Search result is not successful.");
+                        }
+            return data;
+            })
             .then(data => {
                 apiService
                     .getGenres()
@@ -54,15 +52,16 @@ export function renderSearchMarkup(data) {
                     })
                     .catch(console.log);
                 renderPaginationMovies(data.total_results, data.page);
+                    console.log(data.page);
             })
-            .catch(console.log);
-    }
+            
+            .catch(console.log)
+    // }
 }
 
-export function renderMarkup(fetchFunc) {
+export function renderMarkup() {
        clearGallery();
         apiService.searchedMovies = "";
-    // fetchFunc
     apiService
     .fetchTrendingFilms()
         .then(data => {
@@ -189,4 +188,3 @@ function appendMarkupModal(element) {
 function clearModal() {
     modalFilmRefs.modalClear.innerHTML = '';
 }
-

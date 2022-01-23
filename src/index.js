@@ -7,6 +7,7 @@ import { renderMarkup,onFormSubmit} from '../src/js/markup';
 import { onToggleModal, onBackdropClose, onHiddenModal } from './js/modal-film';
 import { toggleModalTeam } from '../src/js/modal-team';
 import { renderModalFilm } from '../src/js/markup';
+import { startNavigation } from './js/navigation';
 // локальні імпорти
 
 import { loadDataFromLS, setDataToLS, addMovieToLocalStorage, removeMovieFromLocalStorage} from './js/localeStorage';
@@ -15,11 +16,10 @@ import { header, mainContainer, team , modalFilmRefs} from "../src/js/refs.js";
 import { checkAuth } from '../src/js/auth.js';
 import { onBtnHomeClick, onBtnLibraryClick, onBtnWatchedClick, onBtnQueueClick, onHeaderButtonClick, homePageRender, fetchMovies, onInputInput } from '../src/js/header.js';
 import { ApiService } from "./js/API-service";
-const apiService = new ApiService();
 
 checkAuth();
-
-renderMarkup(apiService.fetchTrendingFilms()); 
+startNavigation();
+// renderMarkup(); 
 renderModalFilm();
 
 

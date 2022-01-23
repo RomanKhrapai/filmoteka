@@ -2,6 +2,7 @@ import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import { renderMarkup, renderSearchMarkup, apiService } from "./markup.js";
 import { loaderIsVisible } from './loader.js';
+import { setLocation, scrolTop } from './navigation.js';
 
 export function renderPaginationMovies(totalItems, currentPage) {
     const container = document.getElementById('tui-pagination-container');
@@ -40,14 +41,13 @@ export function renderPaginationMovies(totalItems, currentPage) {
     instance.on('afterMove', (event) => {
         loaderIsVisible();
         apiService.page = event.page;
-        window.scrollTo({
-        top: 0,
-        behavior: "smooth"});
+        setLocation(null,null,event.page);
+        scrolTop();
 
         if (apiService.searchedMovies) {
             renderSearchMarkup()
         } else {
-            renderMarkup(apiService.fetchTrendingFilms())
+            renderMarkup()
         }
     });
 }

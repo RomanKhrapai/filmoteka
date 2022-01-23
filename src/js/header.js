@@ -1,18 +1,18 @@
 import { header } from "./refs.js";
 import { renderMarkup, clearGallery,  } from './markup';
 import { ApiService} from "./API-service";
-
+import { setLocation } from "./navigation.js";
 
 const apiService = new ApiService();
 
 
 export function onBtnHomeClick(event) {
- setLocation("home?")
+ setLocation("home")
   header.libraryText.classList.add('is-hidden')
 
   resetInpitValue();
   searchIconRemoveClass();
-  renderMarkup(apiService.fetchTrendingFilms());
+  renderMarkup();
   homeBtnAddClass();
  libraryBtnRemoveClass();
   homePageRender();
@@ -23,7 +23,7 @@ export function onBtnHomeClick(event) {
 export function onHeaderButtonClick() {
   resetInpitValue();
   searchIconRemoveClass();
-  renderMarkup(apiService.fetchTrendingFilms());
+  renderMarkup();
   homePageRender();
   homeBtnAddClass();
   libraryBtnRemoveClass(); 
@@ -34,7 +34,7 @@ export function onHeaderButtonClick() {
 
 export function onBtnLibraryClick(event) {
   
-setLocation("library?")
+setLocation("library")
    watchBtnAddClass() 
   header.libraryText.classList.remove('is-hidden')
   clearGallery()
@@ -124,13 +124,7 @@ export function clearNotification() {
      header.heroNotification.innerHTML = ""
 }
 
-export function setLocation(curLoc){
-    try {
-      history.pushState(null, null, curLoc);
-      return;
-    } catch(e) {}
- location.hash = '#' + curLoc;
-}
+
 
 function watchBtnAddClass() {
    header.btnWatched.classList.add('is-active-btn');
