@@ -11,6 +11,7 @@ const apiService = new ApiService();
 
 export function onBtnHomeClick(event) {
  // header.libraryText.classList.add('is-hidden');
+ setLocation("home")
   resetInpitValue();
   searchIconRemoveClass();
   renderMarkup();
@@ -19,10 +20,10 @@ export function onBtnHomeClick(event) {
   homePageRender();
    watchBtnRemoveClass();
   QueueBtnRemoveClass();
-  setLocation("home")
 }
 
 export function onHeaderButtonClick() {
+  setLocation("home")
   resetInpitValue();
   searchIconRemoveClass();
   renderMarkup();

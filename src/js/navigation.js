@@ -38,6 +38,7 @@ else if(!!pagination){
      `home&search="${oldSearch}"&page="${pagination}"`;
 }
 else if(!!page){
+    apiService.resetPage();
     location.hash = `${page}`;
 }
 }
