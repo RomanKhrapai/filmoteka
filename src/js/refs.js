@@ -16,6 +16,8 @@ const header = {
      input: document.querySelector('.hero__input'),
     searchIcon: document.querySelector('.hero__search-icon'),
     heroNotification: document.querySelector('.notification-text'),
+    libraryText : document.querySelector('.library-text'),
+
 
     screenCover: document.querySelector('.screen-background'),
     loader: document.querySelector('.js-loader'),

@@ -1,6 +1,6 @@
 import { ApiService } from './API-service';
 import { API_IMG } from './const';
-import { errorNotif } from './header';
+import { errorNotif, setLocation,clearNotification} from './header';
 import { result } from "lodash";
 
 import { mainContainer, header, modalFilmRefs } from './refs';
@@ -18,43 +18,45 @@ export let targetFilm;
 
 
 export function onFormSubmit(event) {
+    
     event.preventDefault();
-
-    loaderIsVisible();
-
+    setLocation('?search-results')
+       
     const moviesQuery = event.currentTarget.elements.movies.value;
     apiService.searchedMovies = moviesQuery;
+ 
+          apiService.fetchMovies().then(renderSearchMarkup) 
 
-    if (!moviesQuery) {
-        return;
-    }
-    if (moviesQuery === ' ') {
-        return;
-    }
-    apiService.fetchMoviesResults().then(resultsNotification);
-
+    // apiService.fetchMovies().then(result => console.log(result));
+  
     apiService.resetPage();
+
 }
 
-export function renderSearchMarkup() {
-  clearGallery();
-    apiService
-        .fetchMovies()
-        .then(data => {
-            apiService
-                .getGenres()
-                .then(({ genres }) => {
-                    goResponseProcessing(data.results, genres);
-                })
-                .then(next => {
-                    const markup = filmCard(dataArray);
-                    appendMarkup(markup);
-                })
-                .catch(console.log);
-        renderPaginationMovies(data.total_results, data.page);
+export function renderSearchMarkup(data) {
+     if (data.total_results === 0) {
+        errorNotif(); 
+    }
+    if (data.total_results >= 1) {
+        clearNotification();
+        clearGallery();
+        apiService
+            .fetchMovies()
+            .then(data => {
+                apiService
+                    .getGenres()
+                    .then(({ genres }) => {
+                        goResponseProcessing(data.results, genres);
+                    })
+                    .then(next => {
+                        const markup = filmCard(dataArray);
+                        appendMarkup(markup);
+                    })
+                    .catch(console.log);
+                renderPaginationMovies(data.total_results, data.page);
             })
-        .catch(console.log);
-
+            .catch(console.log);
+    }
 }
 
 export function renderMarkup(fetchFunc) {
@@ -159,15 +161,6 @@ export function clearGallery() {
     mainContainer.galleryContainer.innerHTML = '';
 }
 
-function resultsNotification(results) {
-    if (results.length === 0) {
-        errorNotif();
-    }
-    if (results.length >= 1) {
-        header.heroNotification.innerHTML = '';
-        renderSearchMarkup();
-    }
-}
 
 
 export function renderModalFilm() {
@@ -196,3 +189,4 @@ function appendMarkupModal(element) {
 function clearModal() {
     modalFilmRefs.modalClear.innerHTML = '';
 }
+
