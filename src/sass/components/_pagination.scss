@@ -5,7 +5,8 @@
 }
 
 .tui-pagination .tui-page-btn {
-  &.button_modifier {
+  &.button_modifier,
+  &.button_modifier-prev {
     width: 40px;
     color: #000000;
     padding: 13px 0;
@@ -16,12 +17,28 @@
 }
 
 .tui-pagination .tui-page-btn {
+  &.button_modifier-last,
+  &.button_modifier-first {
+    display: none;
+  }
+}
+
+.tui-pagination .tui-page-btn {
+  &.button_more-next,
+  &.button_more-prev,
   &.button_more {
     width: 40px;
     color: #000000;
     border: 1px solid transparent;
     border-radius: 5px;
     background-color: #f7f7f7;
+  }
+}
+
+.tui-pagination .tui-page-btn {
+  &.button_more-last,
+  &.button_more-first {
+    display: none;
   }
 }
 
@@ -47,5 +64,12 @@
 .tui-pagination .tui-is-selected:hover {
   &.selected-accent {
     background-color: #ff6b08;
+  }
+}
+
+#visually-hidden {
+  display: none;
+  @media screen and (min-width: 768px) {
+    display: inline-block;
   }
 }

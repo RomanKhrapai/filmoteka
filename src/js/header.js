@@ -1,12 +1,16 @@
 import { header } from "./refs.js";
-import { renderMarkup, dataArray } from './markup';
-import { ApiService} from "./API-service";
+import { renderMarkup, clearGallery, renderLibrary} from './markup';
+import { ApiService } from "./API-service";
+import { getWatchedMovies, getQueueMovies, getData } from './localeStorage';
 
 
 const apiService = new ApiService();
 
 
 export function onBtnHomeClick(event) {
+ setLocation("home?")
+  // header.libraryText.classList.add('is-hidden')
+
   resetInpitValue();
   searchIconRemoveClass();
   renderMarkup(apiService.fetchTrendingFilms());
@@ -16,6 +20,7 @@ export function onBtnHomeClick(event) {
    watchBtnRemoveClass();
   QueueBtnRemoveClass();
 }
+
 export function onHeaderButtonClick() {
   resetInpitValue();
   searchIconRemoveClass();
@@ -29,6 +34,12 @@ export function onHeaderButtonClick() {
 
 
 export function onBtnLibraryClick(event) {
+  
+setLocation("library?")
+   watchBtnAddClass() 
+  // header.libraryText.classList.remove('is-hidden')
+  clearGallery();
+ 
   header.btnHome.classList.remove('is-active');
   header.btnLibrary.classList.add('is-active'); 
   screenCoverClassList('header-hero__library-wrapper','header-hero__wrapper')
@@ -36,16 +47,22 @@ export function onBtnLibraryClick(event) {
   header.form.classList.add('is-hidden');
   resetInpitValue();
   searchIconRemoveClass();
+  renderLibrary(getWatchedMovies(getData()));
 }
 
  export function onBtnWatchedClick(event) {
-  header.btnWatched.classList.add('is-active-btn');
-  QueueBtnRemoveClass();
+  watchBtnAddClass();
+   QueueBtnRemoveClass();
+   clearGallery();
+   renderLibrary(getWatchedMovies(getData()));
+   
 } 
 
  export function onBtnQueueClick(event) {
   header.btnQueue.classList.add('is-active-btn');
    watchBtnRemoveClass();
+   clearGallery();
+   renderLibrary(getQueueMovies(getData()));
 } 
 
 
@@ -106,7 +123,22 @@ function QueueBtnRemoveClass() {
 export function errorNotif() {
   header.heroNotification.innerHTML = "Search result is not successful. Enter the correct movie name and try again"
   setTimeout(() => {
-           header.heroNotification.innerHTML = ""
+   clearNotification()
         }, 5000);
 }
 
+export function clearNotification() {
+     header.heroNotification.innerHTML = ""
+}
+
+export function setLocation(curLoc){
+    try {
+      history.pushState(null, null, curLoc);
+      return;
+    } catch(e) {}
+ location.hash = '#' + curLoc;
+}
+
+function watchBtnAddClass() {
+   header.btnWatched.classList.add('is-active-btn');
+  }

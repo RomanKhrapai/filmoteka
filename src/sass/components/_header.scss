@@ -149,11 +149,14 @@
 
 .flex-thumb {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  @media screen and (min-width: 768px) {
+    align-items: baseline;
+  }
 }
 
 .site-nav {
-  margin-right: 35px;
+  margin-right: 33px;
 }
 
 .site-nav__list {
@@ -232,4 +235,12 @@
   &:hover {
     text-shadow: rgb(230, 231, 230) 0.5px 0 3px;
   }
+}
+
+.library-text {
+  font-size: 20px;
+  padding-top: 50vh;
+  text-align: center;
+  font-weight: 500;
+  color: rgb(99, 102, 102);
 }
