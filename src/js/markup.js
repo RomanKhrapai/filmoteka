@@ -5,6 +5,7 @@ import { result } from "lodash";
 
 import { mainContainer, header, modalFilmRefs } from './refs';
 import { firebaseBtnListeners } from './firebase.js';
+import { localStorageBtnListeners, getData } from './localeStorage';
 
 import filmCard from '../markup-template/filmCard.hbs';
 import modalFilm from '../markup-template/modalFilm.hbs';
@@ -81,6 +82,25 @@ export function renderMarkup(fetchFunc) {
             })           
         .catch(console.log);     
 }
+
+
+export function renderLibrary(data) {
+    console.log(data);
+    if (!data.length) {
+        appendMarkup(`<p class='library-text'>NO MOVIES HAVE BEEN ADDED HERE YET</p>`);
+        return;
+    }
+    const markup = filmCard(data);
+    appendMarkup(markup);
+}
+
+
+
+
+
+
+
+
   
 export function renderMarkupWatchedQueue(fetchFunc, watchedStatus, user) {
     dataArray = [];
@@ -173,7 +193,8 @@ export function renderModalFilm() {
             let targetFilm = dataArray.find(film => film.id == event.path[3].id);
             console.log(dataArray)
                 const markup = modalFilm(targetFilm);
-                appendMarkupModal(markup);
+            appendMarkupModal(markup);
+            localStorageBtnListeners(targetFilm);
                 firebaseBtnListeners(targetFilm);
             })
             .catch(console.log);

@@ -8,6 +8,10 @@ import { FIREBASE_CONFIG, PATH } from "../js/const.js";
 import { user } from "../js/auth.js";
 import { renderMarkup, renderMarkupWatchedQueue } from "./markup.js";
 
+
+
+
+
 const app = initializeApp(FIREBASE_CONFIG);
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
@@ -17,26 +21,7 @@ const authDataRef = ref(db, PATH);
 export function firebaseBtnListeners(targetFilm) {
     const btnAddToWatched = document.getElementById("btn__watched");
     const btnAddToQueue = document.getElementById("btn__queue");
-  btnAddToWatched.addEventListener('click', () => {
-    saveMovieFb(targetFilm, user.uid, true),
-      
-      btnAddToWatched.addEventListener('click', (userFirebase) => {
-      if (userFirebase) {
-        saveMovieFb(targetFilm, user.uid, true);
-      } else {
-        saveMovieLs();
-      }
-    }); 
-     
-    btnAddToQueue.addEventListener('click', (userFirebase) => {
-      if (userFirebase) {
-        saveMovieFb(targetFilm, user.uid, false);
-      } else {
-        saveMovieLs();
-      }
-    });
-    
-    });
+    btnAddToWatched.addEventListener('click', () => {saveMovieFb(targetFilm, user.uid, true)});
     btnAddToQueue.addEventListener('click', () => {saveMovieFb(targetFilm, user.uid, false)});
 }
 

@@ -13,7 +13,7 @@ const header = {
     btnQueue: document.querySelectorAll('.hero__button')[1],
     headerHeroWrapper: document.querySelector('.header-hero__wrapper'),
     heroList: document.querySelector('.hero__list'),
-     input: document.querySelector('.hero__input'),
+    input: document.querySelector('.hero__input'),
     searchIcon: document.querySelector('.hero__search-icon'),
     heroNotification: document.querySelector('.notification-text'),
     libraryText : document.querySelector('.library-text'),
