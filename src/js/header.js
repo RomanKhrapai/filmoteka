@@ -1,6 +1,7 @@
 import { header } from "./refs.js";
-import { renderMarkup, clearGallery,  } from './markup';
-import { ApiService} from "./API-service";
+import { renderMarkup, clearGallery, renderLibrary} from './markup';
+import { ApiService } from "./API-service";
+import { getWatchedMovies, getQueueMovies, getData } from './localeStorage';
 
 
 const apiService = new ApiService();
@@ -8,7 +9,7 @@ const apiService = new ApiService();
 
 export function onBtnHomeClick(event) {
  setLocation("home?")
-  header.libraryText.classList.add('is-hidden')
+  // header.libraryText.classList.add('is-hidden')
 
   resetInpitValue();
   searchIconRemoveClass();
@@ -36,8 +37,8 @@ export function onBtnLibraryClick(event) {
   
 setLocation("library?")
    watchBtnAddClass() 
-  header.libraryText.classList.remove('is-hidden')
-  clearGallery()
+  // header.libraryText.classList.remove('is-hidden')
+  clearGallery();
  
   header.btnHome.classList.remove('is-active');
   header.btnLibrary.classList.add('is-active'); 
@@ -46,16 +47,22 @@ setLocation("library?")
   header.form.classList.add('is-hidden');
   resetInpitValue();
   searchIconRemoveClass();
+  renderLibrary(getWatchedMovies(getData()));
 }
 
  export function onBtnWatchedClick(event) {
   watchBtnAddClass();
-  QueueBtnRemoveClass();
+   QueueBtnRemoveClass();
+   clearGallery();
+   renderLibrary(getWatchedMovies(getData()));
+   
 } 
 
  export function onBtnQueueClick(event) {
   header.btnQueue.classList.add('is-active-btn');
    watchBtnRemoveClass();
+   clearGallery();
+   renderLibrary(getQueueMovies(getData()));
 } 
 
 

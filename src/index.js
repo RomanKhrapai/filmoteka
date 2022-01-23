@@ -9,7 +9,7 @@ import { toggleModalTeam } from '../src/js/modal-team';
 import { renderModalFilm } from '../src/js/markup';
 // локальні імпорти
 
-import { loadDataFromLS, setDataToLS, addMovieToLocalStorage, removeMovieFromLocalStorage} from './js/localeStorage';
+
 import { header, mainContainer, team , modalFilmRefs} from "../src/js/refs.js";
 
 import { checkAuth } from '../src/js/auth.js';
@@ -44,3 +44,4 @@ team.closeModalTeam.addEventListener('click', toggleModalTeam);
 // modal.btnWatched.addEventListener('click', addMovieToLocalStorage);
 // mainContainer.modal.btnQueue.addEventListener('click', removeMovieFromLocalStorage);
 // refAuth.addEventListener('click', onCheckedAuth);
+
