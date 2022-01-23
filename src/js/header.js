@@ -10,11 +10,7 @@ const apiService = new ApiService();
 
 
 export function onBtnHomeClick(event) {
-
- setLocation("home")
-  header.libraryText.classList.add('is-hidden')
-
-
+ // header.libraryText.classList.add('is-hidden');
   resetInpitValue();
   searchIconRemoveClass();
   renderMarkup();
@@ -23,6 +19,7 @@ export function onBtnHomeClick(event) {
   homePageRender();
    watchBtnRemoveClass();
   QueueBtnRemoveClass();
+  setLocation("home")
 }
 
 export function onHeaderButtonClick() {
