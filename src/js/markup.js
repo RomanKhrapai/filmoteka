@@ -5,6 +5,7 @@ import { result } from "lodash";
 
 import { mainContainer, header, modalFilmRefs } from './refs';
 import { firebaseBtnListeners } from './firebase.js';
+import { localStorageBtnListeners, getData } from './localeStorage';
 
 import filmCard from '../markup-template/filmCard.hbs';
 import modalFilm from '../markup-template/modalFilm.hbs';
@@ -80,6 +81,25 @@ export function renderMarkup() {
             })           
         .catch(console.log);     
 }
+
+
+export function renderLibrary(data) {
+    console.log(data);
+    if (!data.length) {
+        appendMarkup(`<p class='library-text'>NO MOVIES HAVE BEEN ADDED HERE YET</p>`);
+        return;
+    }
+    const markup = filmCard(data);
+    appendMarkup(markup);
+}
+
+
+
+
+
+
+
+
   
 export function renderMarkupWatchedQueue(fetchFunc, watchedStatus, user) {
     dataArray = [];
@@ -100,13 +120,14 @@ export function renderMarkupWatchedQueue(fetchFunc, watchedStatus, user) {
                 total_results: sortedMovies.length,
                 total_pages: 1,
             };
-            apiService
-            .getGenres()
-            .then(({ genres }) => {
-                // data.results.forEach(({ id, title, genre_ids, poster_path, release_date }) => {
-            // const filterResult = filterGenres(genre_ids, genres);
-            goResponseProcessing(data.results, genres);
-            // });
+
+        apiService.getGenres().then(({ genres }) => {
+                console.log(data.results)
+                data.results.forEach(({ id, title, genre_ids, poster_path, release_date }) => {
+            const filterResult = filterGenres(genre_ids, genres);
+            responseProcessing(id, title, filterResult, poster_path, release_date);
+            });
+
             }).then(next => {
                 const markup = filmCard(dataArray);
                 appendMarkup(markup);
@@ -164,23 +185,22 @@ export function clearGallery() {
 
 export function renderModalFilm() {
     mainContainer.galleryContainer.addEventListener('click', (event) => {
-        event.preventDefault();
-        apiService.fetchTrendingFilms().then(data => {
-                apiService.getGenres().then(({ genres }) => {
-                    goResponseProcessing(data.results, genres);
-                });
-            let targetFilm = dataArray.find(film => film.id == event.path[3].id);
-            console.log(dataArray)
-                const markup = modalFilm(targetFilm);
-                appendMarkupModal(markup);
-                firebaseBtnListeners(targetFilm);
-            })
-            .catch(console.log);
+
         clearModal();
+        event.preventDefault();
+        const targetFilm = dataArray.find(film => film.id == event.target.parentElement.parentElement.parentElement.id);
+        
+        // console.log(dataArray)
+        // console.log(targetFilm)
+        const markup = modalFilm(targetFilm);
+        // console.log(markup)
+        appendMarkupModal(markup);
+        firebaseBtnListeners(targetFilm);           
     });
 }
 
-function appendMarkupModal(element) {
+
+function appendMarkupModal(element) {    
     modalFilmRefs.modalClear.insertAdjacentHTML('afterbegin', element);
 }
 

@@ -13,11 +13,11 @@ function onBackdropClose(event) {
   }  
 };
 
-function onHiddenModal(event) {   
-  // if (event.path[2].id === 'data-modal-open') {
-    console.log(event.target)
+function onHiddenModal(event) { 
+  if (event.target.parentElement.parentElement.id === 'data-modal-open')
+  {    
      onToggleModal()      
-  // }
+  }
 };
 
 function onEscClose(event) {

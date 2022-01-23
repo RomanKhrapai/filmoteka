@@ -5,13 +5,18 @@ import axios from "axios";
 export const ApiService = class {
     constructor() {
         this.page = 1;
-         this.searchedMovies = ''
+        this.searchedMovies = ''       
     }
 
     async fetchTrendingFilms() {
         const response = await axios.get(`${API.BASIC_URL}/3/trending/movie/day?api_key=${API.KEY}&page=${this.page}`);
         return response.data;
     }
+
+    // async fetchFilm(id) {
+    //     const response = await axios.get(`${API.BASIC_URL}/3/movie/${id}?api_key=${API.KEY}`);
+    //     return response.data;
+    // }  
 
     async getGenres() {
         const response = await axios.get(`${API.BASIC_URL}/3/genre/movie/list?api_key=${API.KEY}`);

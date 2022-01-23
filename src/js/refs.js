@@ -13,7 +13,7 @@ const header = {
     btnQueue: document.querySelectorAll('.hero__button')[1],
     headerHeroWrapper: document.querySelector('.header-hero__wrapper'),
     heroList: document.querySelector('.hero__list'),
-     input: document.querySelector('.hero__input'),
+    input: document.querySelector('.hero__input'),
     searchIcon: document.querySelector('.hero__search-icon'),
     heroNotification: document.querySelector('.notification-text'),
     libraryText : document.querySelector('.library-text'),
@@ -44,11 +44,11 @@ btnWatched : document.querySelector('#btn__watched'),
 btnQueue : document.querySelector('#btn__queue'),
 refAuth : document.querySelector('.auth__button'),
 }
+
 const modalFilmRefs = {
     closeModal: document.querySelector('[data-modal-close]'),
     modal: document.querySelector('[data-modal]'),
-    backdrop: document.querySelector('.modal-area'),
-    // filmClickListener: document.querySelector('.gallery'),
+    backdrop: document.querySelector('.modal-area'), 
     modalClear: document.querySelector('.data-modal-clear'),
 };
 
