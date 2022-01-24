@@ -7,7 +7,6 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChang
 import { FIREBASE_CONFIG, PATH, NON_AUTH_ICON } from "./const.js";
 import { header } from "./refs.js";
 import { renderMarkupWatchedQueue, renderLibrary, getUserRecords, apiService } from './markup';
-import { ApiService } from "./API-service";
 import { getWatchedMovies, getQueueMovies, getData } from './localeStorage';
 
 const app = initializeApp(FIREBASE_CONFIG);

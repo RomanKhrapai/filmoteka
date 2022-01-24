@@ -3,7 +3,6 @@ import 'tui-pagination/dist/tui-pagination.css';
 import { renderMarkup, renderSearchMarkup, apiService, renderMarkupWatchedQueue } from "./markup.js";
 import { loaderIsVisible } from './loader.js';
 import { setLocation, scrolTop } from './navigation.js';
-import { user } from './auth.js';
 
 export function renderPaginationMovies(totalItems, currentPage) {
     const container = document.getElementById('tui-pagination-container');
@@ -51,7 +50,7 @@ export function renderPaginationMovies(totalItems, currentPage) {
         scrolTop();
 
         if(apiService.searchedMovies === "1"){
-            renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(user.uid), apiService.watched);
+            renderMarkupWatchedQueue( apiService.watched);
         }else if (apiService.searchedMovies) {
             renderSearchMarkup()
         } else {

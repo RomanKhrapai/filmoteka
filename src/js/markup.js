@@ -203,7 +203,6 @@ function clearModal() {
 export async function getUserRecords() {
     await apiService.fetchMoviesfromFb(user.uid).then(recordsArrayFb => {
         userRecords = Object.values(recordsArrayFb);
-        console.log('userRecords', userRecords);
     });
     return userRecords;
 }
