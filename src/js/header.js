@@ -57,7 +57,6 @@ setLocation("library")
 }
 
  export function onBtnWatchedClick(event) {
-  setLocation("library/watched");
   watchBtnAddClass();
    QueueBtnRemoveClass();
    clearGallery();
@@ -67,7 +66,6 @@ setLocation("library")
 } 
 
  export function onBtnQueueClick(event) {
-  setLocation("library/queue");
   header.btnQueue.classList.add('is-active-btn');
    watchBtnRemoveClass();
    clearGallery();

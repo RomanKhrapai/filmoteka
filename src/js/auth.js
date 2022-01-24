@@ -7,7 +7,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChang
 import { FIREBASE_CONFIG, PATH, NON_AUTH_ICON } from "../js/const.js";
 import { header } from "../js/refs.js";
 import { renderMarkupWatchedQueue, renderLibrary } from '../js/markup';
-import { ApiService } from "../js/API-service";
+import { apiService } from "./markup";
 import { getWatchedMovies, getQueueMovies, getData } from './localeStorage';
 
 const app = initializeApp(FIREBASE_CONFIG);
@@ -15,7 +15,7 @@ const provider = new GoogleAuthProvider();
 const auth = getAuth();
 const db = getDatabase();
 const authDataRef = ref(db, PATH);
-const apiService = new ApiService();
+//const apiService = new ApiService();
 
 export let user;
 
@@ -70,6 +70,8 @@ export function checkAuth() {
 export function getWatchedData() {
     onAuthStateChanged(auth, (userFirebase) => {
         if (userFirebase) {
+            apiService.resetPage();
+            apiService.watched = true;
             renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(user.uid), true);
         } else {
             renderLibrary(getWatchedMovies(getData()));
@@ -80,6 +82,8 @@ export function getWatchedData() {
 export function getQueueData() {
     onAuthStateChanged(auth, (userFirebase) => {
         if (userFirebase) {
+            apiService.resetPage();
+            apiService.watched = false;
             renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(user.uid), false);
         } else {
             renderLibrary(getQueueMovies(getData()));

@@ -86,22 +86,24 @@ export function renderLibrary(data) {
 // вивід карток фільмів з Firebase
 export function renderMarkupWatchedQueue(fetchFunc, watchedStatus) {
     clearGallery();
-    apiService.searchedMovies = "";
+    apiService.searchedMovies = "1";
     loaderIsVisible();
     
     fetchFunc.then(recordsArrayFb => {
         userRecords = Object.values(recordsArrayFb);
         const filteredRecordsWithStatus = Object.values(userRecords).filter((record => record.watched === watchedStatus));
-
         let sortedMovies = [];
+        let limit = 20;
+        let page = -1;
         for (const record of filteredRecordsWithStatus) {
-            sortedMovies.push(record.movie);
+            if(limit===20){limit = 0; page++;sortedMovies.push([]); }
+            sortedMovies[page].push(record.movie);
+            limit++;
         }
-        
         let data = {
-            page: 1,
-            results: sortedMovies,
-            total_results: sortedMovies.length,
+            page: apiService.page,
+            results: sortedMovies[apiService.page - 1],
+            total_results:  filteredRecordsWithStatus.length,
         };
         renderCards(data);
     }).catch(console.log);
@@ -138,9 +140,9 @@ function createURLImg(url,zoom){
         'https://romankhrapai.github.io/gallery/images/film-null@1x.jpg':
         'https://romankhrapai.github.io/gallery/images/film-null@2x.jpg';
         }
-            return zoom === 1? 
-            `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE_1x}${url}`:
-            `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE_2x}${url}`; 
+    return zoom === 1? 
+    `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE_1x}${url}`:
+    `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE_2x}${url}`; 
 }
 
 
