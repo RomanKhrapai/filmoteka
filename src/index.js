@@ -3,19 +3,16 @@ import UeScroll from 'ue-scroll-js';
 
 UeScroll.init();
 
-import { renderMarkup,onFormSubmit} from '../src/js/markup';
+// локальні імпорти
+import { onFormSubmit, renderModalFilm} from '../src/js/markup';
 import { onToggleModal, onBackdropClose, onHiddenModal } from './js/modal-film';
 import { openModalTeam, closeModalTeam } from '../src/js/modal-team';
-import { renderModalFilm } from '../src/js/markup';
 import { startNavigation } from './js/navigation';
-// локальні імпорти
-
 
 import { header, mainContainer, team , modalFilmRefs} from "../src/js/refs.js";
 
 import { checkAuth } from '../src/js/auth.js';
-import { onBtnHomeClick, onBtnLibraryClick, onBtnWatchedClick, onBtnQueueClick, onHeaderButtonClick, homePageRender, fetchMovies, onInputInput } from '../src/js/header.js';
-import { ApiService } from "./js/API-service";
+import { onBtnHomeClick, onBtnLibraryClick, onBtnWatchedClick, onBtnQueueClick, onHeaderButtonClick, onInputInput } from '../src/js/header.js';
 
 checkAuth();
 startNavigation();
@@ -39,9 +36,3 @@ mainContainer.galleryContainer.addEventListener('click', onHiddenModal);
 // modal-team
 team.openModalTeam.addEventListener('click', openModalTeam);
 team.closeModalTeam.addEventListener('click', closeModalTeam);
-
-//localStorage
-// modal.btnWatched.addEventListener('click', addMovieToLocalStorage);
-// mainContainer.modal.btnQueue.addEventListener('click', removeMovieFromLocalStorage);
-// refAuth.addEventListener('click', onCheckedAuth);
-

@@ -1,13 +1,14 @@
 // глобальні імпорти
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, onValue } from "firebase/database";
+import { getDatabase, ref } from "firebase/database";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 
 // локальні імпорти
 import { FIREBASE_CONFIG, PATH, NON_AUTH_ICON } from "../js/const.js";
 import { header } from "../js/refs.js";
-import { renderMarkupWatchedQueue } from '../js/markup';
+import { renderMarkupWatchedQueue, renderLibrary } from '../js/markup';
 import { ApiService } from "../js/API-service";
+import { getWatchedMovies, getQueueMovies, getData } from './localeStorage';
 
 const app = initializeApp(FIREBASE_CONFIG);
 const provider = new GoogleAuthProvider();
@@ -34,8 +35,8 @@ export function checkAuth() {
 
             header.btnAuth.firstChild.addEventListener('click', () => {showSignOutButton()});
 
-            header.btnWatched.addEventListener('click', () => {renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(), true, user)});
-            header.btnQueue.addEventListener('click', () => {renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(), false, user)});
+            header.btnWatched.addEventListener('click', () => {renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(user.uid), true)});
+            header.btnQueue.addEventListener('click', () => {renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(user.uid), false)});
 
             // firebaseBtnListeners();
 
@@ -64,6 +65,26 @@ export function checkAuth() {
           })
         };
     });
+}
+
+export function getWatchedData() {
+    onAuthStateChanged(auth, (userFirebase) => {
+        if (userFirebase) {
+            renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(user.uid), true);
+        } else {
+            renderLibrary(getWatchedMovies(getData()));
+        }
+    })
+}
+
+export function getQueueData() {
+    onAuthStateChanged(auth, (userFirebase) => {
+        if (userFirebase) {
+            renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(user.uid), false);
+        } else {
+            renderLibrary(getQueueMovies(getData()));
+        }
+    })
 }
 
 function showAuthUser(photoURL, displayName) {
