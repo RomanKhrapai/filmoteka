@@ -26,9 +26,10 @@ export function onFormSubmit(event) {
     loaderIsVisible();
     const moviesQuery = event.currentTarget.elements.movies.value;
     apiService.searchedMovies = moviesQuery;
-    setLocation(null,moviesQuery)
-     renderSearchMarkup();
+    setLocation(null, moviesQuery)
      apiService.resetPage();
+     renderSearchMarkup();
+    
 }
 
 // вивід результатів пошуку
@@ -69,7 +70,7 @@ function renderCards(data) {
             renderLibrary(dataArray);
         })
         .catch(console.log);
-    renderPaginationMovies(data.total_results, data.page);
+        renderPaginationMovies(data.total_results, data.page);  
 }
 
 // перевірка наявності фільмів в бібліотеці

@@ -151,7 +151,7 @@
   display: flex;
   align-items: flex-end;
   @media screen and (min-width: 768px) {
-    align-items: baseline;
+    align-items: center;
   }
 }
 
@@ -164,6 +164,7 @@
 }
 
 .site-nav__item {
+  position: relative;
   &:first-child {
     margin-right: 39px;
   }
@@ -184,9 +185,9 @@
 
 .is-active {
   &::after {
-    // position: absolute;
-    // bottom: 0;
-    // left: 0;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
     content: '';
     display: block;
     height: 3px;
@@ -243,4 +244,8 @@
   text-align: center;
   font-weight: 500;
   color: rgb(99, 102, 102);
+}
+
+.auth {
+  display: block;
 }

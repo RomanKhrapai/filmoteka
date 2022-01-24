@@ -8,6 +8,11 @@ import { user } from './auth.js';
 export function renderPaginationMovies(totalItems, currentPage) {
     const container = document.getElementById('tui-pagination-container');
     
+    if (totalItems <= 20) {
+        hidePagination();
+        return
+    } 
+
     const options = {
         totalItems,
         itemsPerPage: 20,
@@ -53,4 +58,9 @@ export function renderPaginationMovies(totalItems, currentPage) {
             renderMarkup()
         }
     });
+}
+
+export function hidePagination() {
+    const container = document.getElementById('tui-pagination-container');
+    container.innerHTML = ''
 }
