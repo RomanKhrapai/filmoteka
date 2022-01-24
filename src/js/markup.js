@@ -60,6 +60,10 @@ export function renderMarkup() {
 
 // вивід карток
 function renderCards(data) {
+    if (!data.length) {
+        messageNoMovies()
+        return;
+    }
     apiService
         .getGenres()
         .then(({ genres }) => {
@@ -73,10 +77,14 @@ function renderCards(data) {
 }
 
 // перевірка наявності фільмів в бібліотеці
+function messageNoMovies(){
+    appendMarkup(`<p class='library-text'>NO MOVIES HAVE BEEN ADDED HERE YET</p>`);
+}
+
 export function renderLibrary(data) {
     clearGallery();
     if (!data.length) {
-        appendMarkup(`<p class='library-text'>NO MOVIES HAVE BEEN ADDED HERE YET</p>`);
+        messageNoMovies()
         return;
     }
     const markup = filmCard(data);
