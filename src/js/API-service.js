@@ -5,7 +5,8 @@ import axios from "axios";
 export const ApiService = class {
     constructor() {
         this.page = 1;
-        this.searchedMovies = ''       
+        this.searchedMovies = '';
+        this.watched = false;
     }
 
     async fetchTrendingFilms() {

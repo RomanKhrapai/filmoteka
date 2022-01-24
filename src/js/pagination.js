@@ -1,14 +1,16 @@
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
-import { renderMarkup, renderSearchMarkup, apiService } from "./markup.js";
+import { renderMarkup, renderSearchMarkup, apiService, renderMarkupWatchedQueue } from "./markup.js";
 import { loaderIsVisible } from './loader.js';
 import { setLocation, scrolTop } from './navigation.js';
+import { user } from './auth.js';
 
 export function renderPaginationMovies(totalItems, currentPage) {
     const container = document.getElementById('tui-pagination-container');
-    showPagination();
+
     if (totalItems <= 20) {
         hidePagination();
+        return
     } 
 
     const options = {
@@ -48,7 +50,9 @@ export function renderPaginationMovies(totalItems, currentPage) {
         setLocation(null,null,event.page);
         scrolTop();
 
-        if (apiService.searchedMovies) {
+        if(apiService.searchedMovies === "1"){
+            renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(user.uid), apiService.watched);
+        }else if (apiService.searchedMovies) {
             renderSearchMarkup()
         } else {
             renderMarkup()
@@ -58,10 +62,5 @@ export function renderPaginationMovies(totalItems, currentPage) {
 
 export function hidePagination() {
     const container = document.getElementById('tui-pagination-container');
-    container.style.display = "none";
-}
-
-function showPagination() {
-    const container = document.getElementById('tui-pagination-container'); 
-    container.style.display = "block";
+    container.innerHTML = ''
 }

@@ -1,3 +1,4 @@
+import { onBtnLibraryClick } from "./header";
 import { renderMarkup, renderSearchMarkup, apiService} from "./markup";
 
 export function scrolTop(){
@@ -33,7 +34,6 @@ if(!!search){
     location.hash = `home&search="${search}"&page="1"`;
 }
 else if(!!pagination){
-    console.log(oldPage);
     location.hash = !oldSearch?
     `${oldPage}&page="${pagination}"`:
      `home&search="${oldSearch}"&page="${pagination}"`;
@@ -55,12 +55,10 @@ if(!!oldPagination){
 if(!!oldSearch){ 
     apiService.searchedMovies = oldSearch;
     renderSearchMarkup()
-}else if (oldPage==='home' ){
+}else if (oldPage==='#home' ){
     renderMarkup(); 
-}else if(oldPage==='library/watched'||oldPage==='library'){
-  onBtnWatchedClick();
-}else if(oldPage==='library/queue'){
-    onBtnQueueClick();
+}else if(oldPage==='#library'){
+    onBtnLibraryClick();
 }else{
     renderMarkup(); 
 }
