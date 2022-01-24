@@ -27,8 +27,7 @@ srcset="https://image.tmdb.org/t/p/original{{this.img1x}} 342w, {{this.img2x}} 7
         
         <div class="film__info-list">
             <span class="film__property genre">Genre</span>
-            <span class="film__stat">
-                {{!-- {{this.genres}} --}}
+            <span class="film__stat">               
                 {{#if genres}}
                 {{#each genres}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
                 {{else}}

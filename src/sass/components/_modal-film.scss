@@ -23,15 +23,17 @@
   left: 50%;
   transform: translate(-50%, -50%);
   transition: transform $function-time;
+  max-height: 90%;
+  max-width: 90%;
   overflow-y: scroll;
 
-  @media screen and (min-width: 1280px) {
+  @media screen and (min-width: 1024px) {
     display: flex;
     width: 880px;
     padding: 50px 30px 40px;
   }
 
-  @media screen and (min-width: 768px) and (max-width: 1279px) {
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
     display: flex;
     width: 620px;
     padding: 40px 30px;
@@ -41,7 +43,6 @@
     width: 280px;
     padding: 50px 20px 40px;
     overflow-y: auto;
-    max-height: 320px;
   }
 
   .modal-area--is-hidden & {
@@ -50,11 +51,11 @@
 }
 
 .data-modal-clear {
-  @media screen and (min-width: 1280px) {
+  @media screen and (min-width: 1024px) {
     display: flex;
   }
 
-  @media screen and (min-width: 768px) and (max-width: 1279px) {
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
     display: flex;
   }
 }
@@ -97,11 +98,12 @@
   border-radius: $border-radius;
   margin-right: 30px;
 
-  @media screen and (min-width: 1280px) {
+  @media screen and (min-width: 1024px) {
     width: 396px;
+    height: 478px;
   }
 
-  @media screen and (min-width: 768px) and (max-width: 1279px) {
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
     width: 264px;
     height: 374px;
   }
@@ -117,11 +119,11 @@
   line-height: 1.17;
   margin-bottom: 20px;
 
-  @media screen and (min-width: 1280px) {
+  @media screen and (min-width: 1024px) {
     font-size: 30px;
   }
 
-  @media screen and (min-width: 768px) and (max-width: 1279px) {
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
     font-size: 20px;
   }
 
@@ -132,42 +134,42 @@
 }
 
 .vote {
-  @media screen and (min-width: 1280px) {
+  @media screen and (min-width: 1024px) {
     margin-right: 85px;
   }
 
-  @media screen and (max-width: 1279px) {
+  @media screen and (max-width: 1023px) {
     margin-right: 41px;
   }
 }
 
 .popularity {
-  @media screen and (min-width: 1280px) {
+  @media screen and (min-width: 1024px) {
     margin-right: 97px;
   }
 
-  @media screen and (max-width: 1279px) {
+  @media screen and (max-width: 1023px) {
     margin-right: 53px;
   }
 }
 
 .original-title {
-  @media screen and (min-width: 1280px) {
+  @media screen and (min-width: 1024px) {
     margin-right: 83px;
   }
 
-  @media screen and (max-width: 1279px) {
+  @media screen and (max-width: 1023px) {
     margin-right: 39px;
     min-width: 69px;
   }
 }
 
 .genre {
-  @media screen and (min-width: 1280px) {
+  @media screen and (min-width: 1024px) {
     margin-right: 120px;
   }
 
-  @media screen and (max-width: 1279px) {
+  @media screen and (max-width: 1023px) {
     margin-right: 76px;
   }
 }
@@ -183,7 +185,6 @@
 
 .film__info-list {
   display: flex;
-  // align-items: center;
   margin-bottom: 10px;
 }
 
@@ -248,11 +249,11 @@
     background-color: $accent-color;
   }
 
-  @media screen and (min-width: 1280px) {
+  @media screen and (min-width: 1024px) {
     width: 136px;
   }
 
-  @media screen and (max-width: 1279px) {
+  @media screen and (max-width: 1023px) {
     width: 125px;
   }
 }

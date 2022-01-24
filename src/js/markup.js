@@ -161,23 +161,26 @@ export function clearGallery() {
 // модалка фільму
 export function renderModalFilm() {
     mainContainer.galleryContainer.addEventListener('click', (event) => {
-        clearModal();
-        event.preventDefault();
-        // const movie_id = dataArray.find(film => film.id == event.target.parentElement.parentElement.parentElement.id);
-        const movie_id = event.target.parentElement.parentElement.parentElement.id;
-        apiService.getMovieDetails(movie_id)
-        .then((targetFilm) => {
+       
+        if (event.target.parentElement.parentElement.parentElement.className == 'film-card') {
+            clearModal();
+            event.preventDefault();
+            const movie_id = event.target.parentElement.parentElement.parentElement.id;
+            apiService.getMovieDetails(movie_id)
+            .then((targetFilm) => {            
                 apiService.getGenres()
                 .then(({ genres }) => {
                     goResponseModalMovie(targetFilm);
                 })
-                .then(next => {
+                .then(() => {
                     const markup = modalFilm(targetFilm);
                     appendMarkupModal(markup);
                     addWatchedQueueBtnListeners(targetFilm);
                 })
-        })
-        .catch(error => console.log(error));
+            })
+            .catch(error => console.log(error));
+        }    
+        
     });
 }
 

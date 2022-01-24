@@ -45,6 +45,7 @@ btnQueue : document.querySelector('#btn__queue'),
 refAuth : document.querySelector('.auth__button'),
 }
 
+//modal-film
 const modalFilmRefs = {
     closeModal: document.querySelector('[data-modal-close]'),
     modal: document.querySelector('[data-modal]'),
