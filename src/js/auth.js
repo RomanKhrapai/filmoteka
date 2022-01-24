@@ -6,7 +6,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChang
 // локальні імпорти
 import { FIREBASE_CONFIG, PATH, NON_AUTH_ICON } from "../js/const.js";
 import { header } from "../js/refs.js";
-import { renderMarkupWatchedQueue, renderLibrary } from '../js/markup';
+import { renderMarkupWatchedQueue, renderLibrary, getUserRecords } from '../js/markup';
 import { ApiService } from "../js/API-service";
 import { getWatchedMovies, getQueueMovies, getData } from './localeStorage';
 
@@ -30,15 +30,12 @@ export function checkAuth() {
                 displayName,
                 uid
             };
+            getUserRecords();
+
             header.btnAuth.innerHTML = showAuthUser(user.photoURL, user.displayName);
             header.btnAuth.insertAdjacentHTML ("beforeend", getAuthMenu());
 
             header.btnAuth.firstChild.addEventListener('click', () => {showSignOutButton()});
-
-            header.btnWatched.addEventListener('click', () => {renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(user.uid), true)});
-            header.btnQueue.addEventListener('click', () => {renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(user.uid), false)});
-
-            // firebaseBtnListeners();
 
         } else {
             user = {
@@ -70,7 +67,7 @@ export function checkAuth() {
 export function getWatchedData() {
     onAuthStateChanged(auth, (userFirebase) => {
         if (userFirebase) {
-            renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(user.uid), true);
+            renderMarkupWatchedQueue(true);
         } else {
             renderLibrary(getWatchedMovies(getData()));
         }
@@ -80,7 +77,7 @@ export function getWatchedData() {
 export function getQueueData() {
     onAuthStateChanged(auth, (userFirebase) => {
         if (userFirebase) {
-            renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(user.uid), false);
+            renderMarkupWatchedQueue(false);
         } else {
             renderLibrary(getQueueMovies(getData()));
         }

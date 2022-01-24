@@ -6,7 +6,8 @@ import { getAuth, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
 // локальні імпорти
 import { FIREBASE_CONFIG, PATH } from "../js/const.js";
 import { user } from "../js/auth.js";
-import { userRecords, renderMarkup, renderMarkupWatchedQueue } from "./markup.js";
+import { getUserRecords, userRecords, renderMarkupWatchedQueue } from "./markup.js";
+import { ApiService } from './API-service';
 import { localStorageBtnListeners } from "./localeStorage";
 
 const app = initializeApp(FIREBASE_CONFIG);
@@ -14,47 +15,95 @@ const provider = new GoogleAuthProvider();
 const auth = getAuth();
 const db = getDatabase();
 const authDataRef = ref(db, PATH);
+const apiService = new ApiService();
 
-export function addWatchedQueueBtnListeners(targetFilm) {
-  const btnAddToWatched = document.getElementById("btn__watched");
-  const btnAddToQueue = document.getElementById("btn__queue");
+let btnAddToWatched;
+let btnAddToQueue;
+
+let chosenMovieRef;
+let movieInFb;
+
+export function addWatchedQueueBtnListeners(movie) {
+  btnAddToWatched = document.getElementById("btn__watched");
+  btnAddToQueue = document.getElementById("btn__queue");
+  chosenMovieRef = movie;
   
   onAuthStateChanged(auth, (userFirebase) => {
     if (userFirebase) {
-     firebaseBtnListeners(btnAddToWatched, btnAddToQueue, targetFilm);
+      checkIfMovieExists(chosenMovieRef);
     } else {
-    localStorageBtnListeners(btnAddToWatched, btnAddToQueue, targetFilm);
+    localStorageBtnListeners(btnAddToWatched, btnAddToQueue, chosenMovieRef);
     }
   })
 }
 
-function firebaseBtnListeners(btnAddToWatched, btnAddToQueue, targetFilm) {
-  const index = userRecords.findIndex(record => record.movie.id === targetFilm.id);
-  if (index !== -1) {
-    console.log(userRecords[index]);
-    if (userRecords[index].watched === true) {
-      btnAddToWatched.textContent = "remove from Watched";
-      btnAddToWatched.addEventListener('click', () => {removeMoviefromFb(userRecords[index])});
+function checkIfMovieExists(chosenMovieRef) {
+  getUserRecords().then(() => {
+    const index = userRecords.findIndex(record => record.movie.id === chosenMovieRef.id);
+    movieInFb = userRecords[index];
+  
+    if (index !== -1) {
+  
+      if (movieInFb.watched === true) {
+        btnRemoveFromWatched();
+      } else {
+        btnRemoveFromQueue();
+      }
+  
     } else {
-      btnAddToQueue.textContent = "remove from Queue";
-      btnAddToQueue.addEventListener('click', () => {removeMoviefromFb(userRecords[index])});
-    }
+      console.log('not exists', movieInFb);
+      btnAddToWatched.addEventListener('click', checkButton);
+      btnAddToQueue.addEventListener('click', checkButton);
+    }}).catch(error => console.log(error));
+}
+
+function btnRemoveFromWatched() {
+  btnAddToWatched.removeEventListener('click', checkButton);
+  btnAddToWatched.textContent = "remove from Watched";
+  btnAddToQueue.setAttribute('disabled', true);
+  btnAddToWatched.addEventListener('click', removeMoviefromFb);
+}
+
+function btnRemoveFromQueue() {
+  btnAddToQueue.removeEventListener('click', checkButton);
+  btnAddToQueue.textContent = "remove from Queue";
+    btnAddToWatched.setAttribute('disabled', true);
+    btnAddToQueue.addEventListener('click', removeMoviefromFb);
+}
+
+function removeMoviefromFb(e) {
+  const recordPath = ref(db, PATH + `${movieInFb.uid}-${movieInFb.time_id}`);
+  set(recordPath, null);
+  
+
+  if (e.target.id == "btn__watched") {
+    btnAddToWatched.textContent = "Add to Watched";
+    btnAddToQueue.removeAttribute("disabled");
+
+    btnAddToWatched.removeEventListener('click', removeMoviefromFb);
+
   } else {
-    btnAddToWatched.addEventListener('click', () => {saveMovieFb(targetFilm, user.uid, true)});
-    btnAddToQueue.addEventListener('click', () => {saveMovieFb(targetFilm, user.uid, false)});
+    btnAddToQueue.textContent = "Add to Queue";
+    btnAddToWatched.removeAttribute("disabled");
+
+    btnAddToQueue.removeEventListener('click', removeMoviefromFb);
+  }
+  checkIfMovieExists(chosenMovieRef);
+}
+
+function checkButton(e) {
+  if (e.target.id === "btn__watched") {
+    saveMovieFb(chosenMovieRef, user.uid, true);
+  } else {
+    saveMovieFb(chosenMovieRef, user.uid, false);
   }
 }
 
-function removeMoviefromFb(record) {
-  const recordPath = ref(db, PATH + `${record.uid}-${record.time_id}`);
-  set(recordPath, null);
-}
-
-function saveMovieFb(targetFilm, uid, watched) {
+function saveMovieFb(chosenMovieRef, uid, watched) {
     let time = Date.now();
 
     // A post entry.
-    const {id, title, genres, poster_path, release_date} = targetFilm;
+    const {id, title, genres, poster_path, release_date} = chosenMovieRef;
 
     let recordValue = {
         time_id: time,
@@ -63,11 +112,10 @@ function saveMovieFb(targetFilm, uid, watched) {
         watched: watched,
     }
 
-    console.log('recordValue', recordValue);
-
-    if(!uid) {
+    if(!uid | !recordValue.movie) {
         return;
     }
+    
     set(ref(db, PATH + `${uid}-` + time), recordValue)
       .then(() => {
         // Data saved successfully!
@@ -75,4 +123,11 @@ function saveMovieFb(targetFilm, uid, watched) {
       .catch((error) => {
         // The write failed...
       });
+
+    if (recordValue.watched === true) {
+      btnRemoveFromWatched();
+    } else {
+      btnRemoveFromQueue();
+    }
+    checkIfMovieExists(chosenMovieRef);
 }

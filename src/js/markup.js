@@ -1,15 +1,14 @@
 import { ApiService } from './API-service';
 import { API_IMG } from './const';
 import { errorNotif, clearNotification} from './header';
-import { result } from "lodash";
 
 import { mainContainer, header, modalFilmRefs } from './refs';
 import { addWatchedQueueBtnListeners } from './firebase.js';
-import { localStorageBtnListeners, getData } from './localeStorage';
 
 import filmCard from '../markup-template/filmCard.hbs';
 import modalFilm from '../markup-template/modalFilm.hbs';
 
+import { user } from "../js/auth.js";
 import { loaderIsVisible, loaderIsHidden } from './loader';
 import { renderPaginationMovies } from './pagination';
 import { setLocation, startNavigation } from './navigation';
@@ -85,13 +84,13 @@ export function renderLibrary(data) {
 }
 
 // вивід карток фільмів з Firebase
-export function renderMarkupWatchedQueue(fetchFunc, watchedStatus) {
+export function renderMarkupWatchedQueue(watchedStatus) {
     clearGallery();
     apiService.searchedMovies = "";
     loaderIsVisible();
-    
-    fetchFunc.then(recordsArrayFb => {
-        userRecords = Object.values(recordsArrayFb);
+
+    getUserRecords()
+    .then(userRecords => {
         const filteredRecordsWithStatus = Object.values(userRecords).filter((record => record.watched === watchedStatus));
 
         let sortedMovies = [];
@@ -194,4 +193,12 @@ function appendMarkupModal(element) {
 
 function clearModal() {
     modalFilmRefs.modalClear.innerHTML = '';
+}
+
+export async function getUserRecords() {
+    await apiService.fetchMoviesfromFb(user.uid).then(recordsArrayFb => {
+        userRecords = Object.values(recordsArrayFb);
+        console.log('userRecords', userRecords);
+    });
+    return userRecords;
 }
