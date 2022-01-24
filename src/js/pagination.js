@@ -6,7 +6,12 @@ import { setLocation, scrolTop } from './navigation.js';
 
 export function renderPaginationMovies(totalItems, currentPage) {
     const container = document.getElementById('tui-pagination-container');
-    
+    showPagination();
+    console.log(totalItems)
+    if (totalItems <= 20) {
+        hidePagination();
+    } 
+
     const options = {
         totalItems,
         itemsPerPage: 20,
@@ -50,4 +55,14 @@ export function renderPaginationMovies(totalItems, currentPage) {
             renderMarkup()
         }
     });
+}
+
+export function hidePagination() {
+    const container = document.getElementById('tui-pagination-container');
+    container.style.display = "none";
+}
+
+function showPagination() {
+    const container = document.getElementById('tui-pagination-container'); 
+    container.style.display = "block";
 }

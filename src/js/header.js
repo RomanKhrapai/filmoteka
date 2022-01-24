@@ -5,6 +5,7 @@ import { ApiService} from "./API-service";
 import { setLocation } from "./navigation.js";
 import { getWatchedMovies, getQueueMovies, getData } from './localeStorage';
 import { getWatchedData, getQueueData } from "./auth";
+import { hidePagination } from './pagination';
 
 
 const apiService = new ApiService();
@@ -52,8 +53,8 @@ setLocation("library")
   resetInpitValue();
   searchIconRemoveClass();
   // renderLibrary(getWatchedMovies(getData()));
-  onBtnWatchedClick()
- 
+  onBtnWatchedClick();
+  hidePagination();
 }
 
  export function onBtnWatchedClick(event) {
