@@ -57,6 +57,10 @@ if(!!oldSearch){
     renderSearchMarkup()
 }else if (oldPage==='home' ){
     renderMarkup(); 
+}else if(oldPage==='library/watched'||oldPage==='library'){
+  onBtnWatchedClick();
+}else if(oldPage==='library/queue'){
+    onBtnQueueClick();
 }else{
     renderMarkup(); 
 }
