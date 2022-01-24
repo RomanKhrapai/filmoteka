@@ -39,12 +39,12 @@ export function onHeaderButtonClick() {
 
 export function onBtnLibraryClick(event) {
   
-setLocation("library?")
+setLocation("library")
    watchBtnAddClass() ;
   //  renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(user.uid), true);
   // header.libraryText.classList.remove('is-hidden')
   clearGallery()
- 
+
   header.btnHome.classList.remove('is-active');
   header.btnLibrary.classList.add('is-active'); 
   screenCoverClassList('header-hero__library-wrapper','header-hero__wrapper')
@@ -53,11 +53,12 @@ setLocation("library?")
   resetInpitValue();
   searchIconRemoveClass();
   // renderLibrary(getWatchedMovies(getData()));
-  getWatchedData();
+  onBtnWatchedClick();
   hidePagination();
 }
 
  export function onBtnWatchedClick(event) {
+  setLocation("library/watched");
   watchBtnAddClass();
    QueueBtnRemoveClass();
    clearGallery();
@@ -67,6 +68,7 @@ setLocation("library?")
 } 
 
  export function onBtnQueueClick(event) {
+  setLocation("library/queue");
   header.btnQueue.classList.add('is-active-btn');
    watchBtnRemoveClass();
    clearGallery();

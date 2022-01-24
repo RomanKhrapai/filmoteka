@@ -136,8 +136,8 @@ function addDataArray(item){
 function createURLImg(url,zoom){
     if (!url) {
         return zoom === 1? 
-          'https://cdn.pixabay.com/photo/2019/05/17/05/55/film-4208953_1280.jpg':
-          'https://cdn.pixabay.com/photo/2019/05/17/05/55/film-4208953_1280.jpg';
+        'https://romankhrapai.github.io/gallery/images/film-null@1x.jpg':
+        'https://romankhrapai.github.io/gallery/images/film-null@2x.jpg';
         }
             return zoom === 1? 
             `${API_IMG.BASIC_URL}${API_IMG.FILE_SIZE_1x}${url}`:
