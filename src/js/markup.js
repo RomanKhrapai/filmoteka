@@ -60,7 +60,7 @@ export function renderMarkup() {
 
 // вивід карток
 function renderCards(data) {
-    if (!data.length) {
+    if (!data.results) {
         messageNoMovies()
         return;
     }
