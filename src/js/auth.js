@@ -4,10 +4,10 @@ import { getDatabase, ref } from "firebase/database";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 
 // локальні імпорти
-import { FIREBASE_CONFIG, PATH, NON_AUTH_ICON } from "../js/const.js";
-import { header } from "../js/refs.js";
-import { renderMarkupWatchedQueue, renderLibrary } from '../js/markup';
-import { apiService } from "./markup";
+import { FIREBASE_CONFIG, PATH, NON_AUTH_ICON } from "./const.js";
+import { header } from "./refs.js";
+import { renderMarkupWatchedQueue, renderLibrary, getUserRecords, apiService } from './markup';
+import { ApiService } from "./API-service";
 import { getWatchedMovies, getQueueMovies, getData } from './localeStorage';
 
 const app = initializeApp(FIREBASE_CONFIG);
@@ -15,7 +15,6 @@ const provider = new GoogleAuthProvider();
 const auth = getAuth();
 const db = getDatabase();
 const authDataRef = ref(db, PATH);
-//const apiService = new ApiService();
 
 export let user;
 
@@ -30,15 +29,12 @@ export function checkAuth() {
                 displayName,
                 uid
             };
+            getUserRecords();
+
             header.btnAuth.innerHTML = showAuthUser(user.photoURL, user.displayName);
             header.btnAuth.insertAdjacentHTML ("beforeend", getAuthMenu());
 
             header.btnAuth.firstChild.addEventListener('click', () => {showSignOutButton()});
-
-            header.btnWatched.addEventListener('click', () => {renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(user.uid), true)});
-            header.btnQueue.addEventListener('click', () => {renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(user.uid), false)});
-
-            // firebaseBtnListeners();
 
         } else {
             user = {
@@ -72,7 +68,7 @@ export function getWatchedData() {
         if (userFirebase) {
             apiService.resetPage();
             apiService.watched = true;
-            renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(user.uid), true);
+            renderMarkupWatchedQueue(true);
         } else {
             renderLibrary(getWatchedMovies(getData()));
         }
@@ -84,7 +80,7 @@ export function getQueueData() {
         if (userFirebase) {
             apiService.resetPage();
             apiService.watched = false;
-            renderMarkupWatchedQueue(apiService.fetchMoviesfromFb(user.uid), false);
+            renderMarkupWatchedQueue(false);
         } else {
             renderLibrary(getQueueMovies(getData()));
         }

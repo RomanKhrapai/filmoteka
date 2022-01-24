@@ -7,7 +7,7 @@ import { user } from './auth.js';
 
 export function renderPaginationMovies(totalItems, currentPage) {
     const container = document.getElementById('tui-pagination-container');
-    
+
     if (totalItems <= 20) {
         hidePagination();
         return
