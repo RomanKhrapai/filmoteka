@@ -14,11 +14,6 @@ export const ApiService = class {
         return response.data;
     }
 
-    // async fetchFilm(id) {
-    //     const response = await axios.get(`${API.BASIC_URL}/3/movie/${id}?api_key=${API.KEY}`);
-    //     return response.data;
-    // }  
-
     async getGenres() {
         const response = await axios.get(`${API.BASIC_URL}/3/genre/movie/list?api_key=${API.KEY}`);
         return response.data;

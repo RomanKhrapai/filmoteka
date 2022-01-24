@@ -5,8 +5,8 @@ UeScroll.init();
 
 // локальні імпорти
 import { onFormSubmit, renderModalFilm} from '../src/js/markup';
-import { onToggleModal, onBackdropClose, onHiddenModal } from './js/modal-film';
-import { openModalTeam, closeModalTeam } from '../src/js/modal-team';
+import { onCrossClose, onBackdropClose, onHiddenModal } from './js/modal-film';
+import { openModalTeam, closeModalTeam,  } from '../src/js/modal-team';
 import { startNavigation } from './js/navigation';
 
 import { header, mainContainer, team , modalFilmRefs} from "../src/js/refs.js";
@@ -30,7 +30,7 @@ header.input.addEventListener('input', onInputInput);
 
 //modal-film
 modalFilmRefs.backdrop.addEventListener('click', onBackdropClose);
-modalFilmRefs.closeModal.addEventListener('click', onToggleModal);
+modalFilmRefs.closeModal.addEventListener('click', onCrossClose);
 mainContainer.galleryContainer.addEventListener('click', onHiddenModal);
 
 // modal-team
