@@ -19,7 +19,7 @@ function onBackdropClose(event) {
 };
 
 function onHiddenModal(event) { 
-  if (event.target.parentElement.parentElement.id === 'data-modal-open')
+  if (event.target.parentElement.parentElement.parentElement.className == 'film-card')
   {    
     window.addEventListener('keydown', onEscClose)
     onToggleModal()     
