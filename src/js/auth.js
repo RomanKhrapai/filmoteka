@@ -6,6 +6,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChang
 // локальні імпорти
 import { FIREBASE_CONFIG, NON_AUTH_ICON } from "./const.js";
 import { header } from "./refs.js";
+import { startNavigation } from "./navigation"
 import { renderMarkupWatchedQueue, renderLibrary, getUserRecords, apiService } from './markup';
 import { getWatchedMovies, getQueueMovies, getData } from './localeStorage';
 
@@ -33,7 +34,7 @@ export function checkAuth() {
             header.btnAuth.insertAdjacentHTML ("beforeend", getAuthMenu());
 
             header.btnAuth.firstChild.addEventListener('click', () => {showSignOutButton()});
-
+            startNavigation();
         } else {
             user = {
                 photoURL: NON_AUTH_ICON,
@@ -44,6 +45,7 @@ export function checkAuth() {
             header.btnAuth.firstChild.addEventListener('click', () => {
             signInWithPopup(auth, provider)
             .then((result) => {
+            startNavigation();
             // This gives you a Google Access Token. You can use it to access the Google API.
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
@@ -121,6 +123,7 @@ function checkClickSignOut(e) {
 export function userSignOut() {
     document.removeEventListener('mouseup', checkClickSignOut);
     signOut(auth).then(() => {
+        startNavigation();
     // Sign-out successful.
     }).catch((error) => {
     // An error happened.
