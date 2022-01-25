@@ -1,4 +1,3 @@
-// import { targetFilm } from "./markup";
 import { DB_MOVIES } from "./const";
 
 function saveToLocalStorage(data) { 
@@ -11,8 +10,6 @@ export function getData() {
         return [];
     }
     return JSON.parse(data);
-    
-
 }
 
 function saveDataToLocalStorage(movie, status) {
@@ -28,8 +25,6 @@ function saveDataToLocalStorage(movie, status) {
     movie.watched = status;
     arrayData.push(movie);
     saveToLocalStorage(arrayData);
-    
-
 }
 
 export function localStorageBtnListeners(btnAddToWatched, btnAddToQueue, movie) {
