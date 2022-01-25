@@ -79,16 +79,6 @@ function btnRemoveFromQueue() {
   btnAddToQueue.addEventListener('click', removeMoviefromFb);
 }
 
-// function checkButton(e) {
-//   if (e.target.id === "btn__watched") {
-//     console.log(e.target.id);
-//     saveMovieFb(chosenMovieRef, user.uid, true);
-//   } else {
-//     console.log(e.target.id);
-//     saveMovieFb(chosenMovieRef, user.uid, false);
-//   }
-// }
-
 function removeMoviefromFb(e) {
   let recordPath;
   
