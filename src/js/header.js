@@ -135,4 +135,11 @@ export function clearNotification() {
 
 function watchBtnAddClass() {
    header.btnWatched.classList.add('is-active-btn');
-  }
+}
+  
+export function checkSection() {
+  return header.screenCover.classList.contains('header-hero__library-wrapper');
+}
+export function checkActivityWatchedBtn() {
+  return header.btnWatched.classList.contains('is-active-btn');
+}
