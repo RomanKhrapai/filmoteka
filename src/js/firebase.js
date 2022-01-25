@@ -37,9 +37,11 @@ export function addWatchedQueueBtnListeners(movie) {
 }
 
 function checkIfMovieExists(chosenMovieRef) {
+  console.log('chosenMovieRef', chosenMovieRef);
   getUserRecords().then((userRecords) => {
 
     const existedMovies = userRecords.filter(record => record.movie.id === chosenMovieRef.id);
+    console.log(existedMovies);
 
     if (existedMovies.length !== 0) {
 
@@ -57,30 +59,24 @@ function checkIfMovieExists(chosenMovieRef) {
       
     } else {
       
-      btnAddToWatched.addEventListener('click', checkButton);
-      btnAddToQueue.addEventListener('click', checkButton);
+      btnAddToWatched.addEventListener('click', saveMovieFb);
+      btnAddToQueue.addEventListener('click', saveMovieFb);
     }
   }).catch(error => console.log(error));
 }
 
 function btnRemoveFromWatched() {
-  btnAddToWatched.removeEventListener('click', checkButton);
+  btnAddToWatched.removeEventListener('click', saveMovieFb);
+
   btnAddToWatched.textContent = "remove from Watched";
   btnAddToWatched.addEventListener('click', removeMoviefromFb);
 }
 
 function btnRemoveFromQueue() {
-  btnAddToQueue.removeEventListener('click', checkButton);
+  btnAddToQueue.removeEventListener('click', saveMovieFb);
+
   btnAddToQueue.textContent = "remove from Queue";
   btnAddToQueue.addEventListener('click', removeMoviefromFb);
-}
-
-function checkButton(e) {
-  if (e.target.id === "btn__watched") {
-    saveMovieFb(chosenMovieRef, user.uid, true);
-  } else {
-    saveMovieFb(chosenMovieRef, user.uid, false);
-  }
 }
 
 function removeMoviefromFb(e) {
@@ -102,7 +98,15 @@ function removeMoviefromFb(e) {
   checkLocation();
 }
 
-function saveMovieFb(chosenMovieRef, uid, watched) {
+function saveMovieFb(e) {
+  let watched;
+
+    if (e.target.id === "btn__watched") {
+      watched = true;
+    } else {
+      watched = false;
+    }
+
     let time = Date.now();
 
     // A post entry.
@@ -110,31 +114,24 @@ function saveMovieFb(chosenMovieRef, uid, watched) {
 
     let recordValue = {
         time_id: time,
-        uid,
+        uid: user.uid,
         movie: {id, title, genre_ids: genres, poster_path, release_date},
-        watched: watched,
+        watched,
     }
 
-    if(!uid | !recordValue.movie) {
+    if(!recordValue.uid | !recordValue.movie) {
         return;
     }
     
-    set(ref(db, PATH + `${uid}-` + time), recordValue)
+    set(ref(db, PATH + `${user.uid}-` + time), recordValue)
       .then(() => {
+        checkIfMovieExists(chosenMovieRef);
+        checkLocation();
         // Data saved successfully!
       })
       .catch((error) => {
         // The write failed...
       });
-
-    if (recordValue.watched === true) {
-      btnRemoveFromWatched();
-    } else {
-      btnRemoveFromQueue();
-    }
-    checkIfMovieExists(chosenMovieRef);
-
-    checkLocation();
 }
 
 function checkLocation() {
