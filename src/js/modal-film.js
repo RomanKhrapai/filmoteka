@@ -1,7 +1,14 @@
 import { modalFilmRefs } from "./refs";
+import { getWatchedData, getQueueData } from "./auth";
+import { checkSection, checkActivityWatchedBtn } from "./header";
 
  
-function onToggleModal() {  
+export function onToggleModal() {  
+
+  if (checkSection()) {
+    checkActivityWatchedBtn() ? getWatchedData() : getQueueData();
+  }
+
   modalFilmRefs.modal.classList.toggle('modal-area--is-hidden');
   modalFilmRefs.modal.classList.contains('modal-area--is-hidden') ? document.body.style.overflow = "" : document.body.style.overflow = "hidden";    
 };  
@@ -9,6 +16,7 @@ function onToggleModal() {
 function onCrossClose() {   
   onToggleModal();
   window.removeEventListener('keydown', onEscClose);  
+
 }
 
 function onBackdropClose(event) { 
@@ -16,6 +24,7 @@ function onBackdropClose(event) {
     onToggleModal();
     window.removeEventListener('keydown', onEscClose);
   }  
+
 };
 
 function onHiddenModal(event) { 
@@ -24,6 +33,7 @@ function onHiddenModal(event) {
     window.addEventListener('keydown', onEscClose)
     onToggleModal()     
   }
+
 };
 
 function onEscClose(event) {  
@@ -31,6 +41,7 @@ function onEscClose(event) {
     onToggleModal();
     window.removeEventListener('keydown', onEscClose);    
   } 
+
  };
 
 
