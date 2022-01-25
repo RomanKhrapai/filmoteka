@@ -1,27 +1,26 @@
 // глобальні імпорти
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, onValue } from "firebase/database";
+import { getDatabase, ref, set } from "firebase/database";
 import { getAuth, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
 
 // локальні імпорти
-import { FIREBASE_CONFIG, PATH } from "../js/const.js";
-import { user } from "../js/auth.js";
-import { getUserRecords, userRecords, renderMarkupWatchedQueue } from "./markup.js";
-import { ApiService } from './API-service';
+import { FIREBASE_CONFIG, PATH } from "./const";
+import { header } from "./refs"
+import { user } from "./auth";
+import { getUserRecords, renderMarkupWatchedQueue } from "./markup";
 import { localStorageBtnListeners } from "./localeStorage";
 
 const app = initializeApp(FIREBASE_CONFIG);
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
 const db = getDatabase();
-const authDataRef = ref(db, PATH);
-const apiService = new ApiService();
 
 let btnAddToWatched;
 let btnAddToQueue;
 
 let chosenMovieRef;
-let movieInFb;
+let watchedMovie;
+let queueMovie;
 
 export function addWatchedQueueBtnListeners(movie) {
   btnAddToWatched = document.getElementById("btn__watched");
@@ -38,57 +37,42 @@ export function addWatchedQueueBtnListeners(movie) {
 }
 
 function checkIfMovieExists(chosenMovieRef) {
-  getUserRecords().then(() => {
-    const index = userRecords.findIndex(record => record.movie.id === chosenMovieRef.id);
-    movieInFb = userRecords[index];
-  
-    if (index !== -1) {
-  
-      if (movieInFb.watched === true) {
-        btnRemoveFromWatched();
-      } else {
-        btnRemoveFromQueue();
+  getUserRecords().then((userRecords) => {
+
+    const existedMovies = userRecords.filter(record => record.movie.id === chosenMovieRef.id);
+
+    if (existedMovies.length !== 0) {
+
+      for (const movie of existedMovies) {
+        if (movie.watched === true) {
+          watchedMovie = movie;
+          btnRemoveFromWatched();
+        } 
+        
+        if (movie.watched === false) {
+          queueMovie = movie;
+          btnRemoveFromQueue();
+        }
       }
-  
+      
     } else {
-      console.log('not exists', movieInFb);
+      
       btnAddToWatched.addEventListener('click', checkButton);
       btnAddToQueue.addEventListener('click', checkButton);
-    }}).catch(error => console.log(error));
+    }
+  }).catch(error => console.log(error));
 }
 
 function btnRemoveFromWatched() {
   btnAddToWatched.removeEventListener('click', checkButton);
   btnAddToWatched.textContent = "remove from Watched";
-  btnAddToQueue.setAttribute('disabled', true);
   btnAddToWatched.addEventListener('click', removeMoviefromFb);
 }
 
 function btnRemoveFromQueue() {
   btnAddToQueue.removeEventListener('click', checkButton);
   btnAddToQueue.textContent = "remove from Queue";
-    btnAddToWatched.setAttribute('disabled', true);
-    btnAddToQueue.addEventListener('click', removeMoviefromFb);
-}
-
-function removeMoviefromFb(e) {
-  const recordPath = ref(db, PATH + `${movieInFb.uid}-${movieInFb.time_id}`);
-  set(recordPath, null);
-  
-
-  if (e.target.id == "btn__watched") {
-    btnAddToWatched.textContent = "Add to Watched";
-    btnAddToQueue.removeAttribute("disabled");
-
-    btnAddToWatched.removeEventListener('click', removeMoviefromFb);
-
-  } else {
-    btnAddToQueue.textContent = "Add to Queue";
-    btnAddToWatched.removeAttribute("disabled");
-
-    btnAddToQueue.removeEventListener('click', removeMoviefromFb);
-  }
-  checkIfMovieExists(chosenMovieRef);
+  btnAddToQueue.addEventListener('click', removeMoviefromFb);
 }
 
 function checkButton(e) {
@@ -97,6 +81,25 @@ function checkButton(e) {
   } else {
     saveMovieFb(chosenMovieRef, user.uid, false);
   }
+}
+
+function removeMoviefromFb(e) {
+  let recordPath;
+  
+  if (e.target.id == "btn__watched") {
+    recordPath = ref(db, PATH + `${watchedMovie.uid}-${watchedMovie.time_id}`);
+    btnAddToWatched.textContent = "Add to Watched";
+    btnAddToWatched.removeEventListener('click', removeMoviefromFb);
+
+  } else {
+    recordPath = ref(db, PATH + `${queueMovie.uid}-${queueMovie.time_id}`);
+    btnAddToQueue.textContent = "Add to Queue";
+    btnAddToQueue.removeEventListener('click', removeMoviefromFb);
+  }
+  set(recordPath, null);
+
+  checkIfMovieExists(chosenMovieRef);
+  checkLocation();
 }
 
 function saveMovieFb(chosenMovieRef, uid, watched) {
@@ -130,4 +133,14 @@ function saveMovieFb(chosenMovieRef, uid, watched) {
       btnRemoveFromQueue();
     }
     checkIfMovieExists(chosenMovieRef);
+
+    checkLocation();
+}
+
+function checkLocation() {
+  if (header.btnWatched.classList.contains("is-active-btn")) {
+    renderMarkupWatchedQueue(true);
+  } else if (header.btnQueue.classList.contains("is-active-btn")) {
+    renderMarkupWatchedQueue(false);
+  }
 }

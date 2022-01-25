@@ -5,7 +5,7 @@
 .auth__button {
   display: flex;
   align-items: center;
-  // padding: 4px 0;
+  height: 20px;
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -71,11 +71,15 @@
 
 .icon {
   display: inline-block;
-  width: 2em;
-  height: 2em;
   stroke-width: 0;
   stroke: $light-text-color;
   fill: $light-text-color;
+  width: 20px;
+  height: 20px;
+  
+  @media (min-width: 768px) {
+    margin-left: 5px;
+  }
 }
 
 .auth:hover #non-auth-user,
