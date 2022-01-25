@@ -33,7 +33,6 @@ export const ApiService = class {
     
     async  fetchMoviesfromFb(uid) {
     const response = await axios.get(`https://filmoteka-7pro-default-rtdb.europe-west1.firebasedatabase.app/records.json?orderBy="uid"&equalTo="${uid}"&print=pretty`);
-    // https://filmoteka-7pro-default-rtdb.europe-west1.firebasedatabase.app/records.json?orderBy="$key"&startAt="${uid}"&print=pretty
         return response.data;
     }
 

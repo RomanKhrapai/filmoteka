@@ -26,7 +26,7 @@ export const API_IMG = {
 
 export const DB_MOVIES = "db-movies";
 
-export const NON_AUTH_ICON = `<svg id="non-auth-user" stroke-width="2" viewBox="-10 -10 80 80" class="icon">
+export const NON_AUTH_ICON = `<svg id="non-auth-user" stroke-width="2" viewBox="0 0 60 60" class="icon">
 	<path d="M54.164,35.163C54.709,32.978,55,30.742,55,28.5C55,13.337,42.664,1,27.5,1S0,13.337,0,28.5
 		c0,8.01,3.444,15.229,8.927,20.259l-0.026,0.023l0.891,0.751c0.056,0.047,0.117,0.086,0.173,0.133
 		c0.477,0.396,0.972,0.772,1.476,1.136c0.159,0.115,0.318,0.23,0.479,0.341c0.535,0.369,1.085,0.719,1.646,1.051

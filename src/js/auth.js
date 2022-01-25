@@ -1,10 +1,10 @@
 // глобальні імпорти
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref } from "firebase/database";
+import { getDatabase } from "firebase/database";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 
 // локальні імпорти
-import { FIREBASE_CONFIG, PATH, NON_AUTH_ICON } from "./const.js";
+import { FIREBASE_CONFIG, NON_AUTH_ICON } from "./const.js";
 import { header } from "./refs.js";
 import { renderMarkupWatchedQueue, renderLibrary, getUserRecords, apiService } from './markup';
 import { getWatchedMovies, getQueueMovies, getData } from './localeStorage';
@@ -13,7 +13,6 @@ const app = initializeApp(FIREBASE_CONFIG);
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
 const db = getDatabase();
-const authDataRef = ref(db, PATH);
 
 export let user;
 
@@ -87,13 +86,13 @@ export function getQueueData() {
 }
 
 function showAuthUser(photoURL, displayName) {
-    return `<button class="auth__button"><span class="auth__name">${displayName}</span>
+    return `<button class="auth__button" aria-label="user"><span class="auth__name">${displayName}</span>
             <img src="${photoURL}" class="auth__img" alt="user image" width="20" height="20">
             </button>`
 };
 
 function showNonAuthUser(logo, displayName) {
-    return `<button class="auth__button"><span class="auth__name">${displayName}</span>
+    return `<button class="auth__button" aria-label="Log In"><span class="auth__name">${displayName}</span>
             ${logo}
             </button>`
 };

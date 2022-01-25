@@ -16,7 +16,6 @@ import { setLocation, startNavigation } from './navigation';
 export const apiService = new ApiService();
 let dataArray = [];
 export let userRecords = [];
-// export let targetFilm;
 
 // пошук
 export function onFormSubmit(event) {

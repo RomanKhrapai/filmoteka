@@ -1,4 +1,3 @@
-// import { targetFilm } from "./markup";
 import { DB_MOVIES } from "./const";
 
 function saveToLocalStorage(data) { 
