@@ -1,9 +1,11 @@
 import { modalFilmRefs } from "./refs";
+
 import { addWatchedQueueBtnListeners } from './firebase.js';
 import modalFilm from '../markup-template/modalFilm.hbs';
 import { trailer} from "./open-trailer";
 import {apiService,changeDateandImageInObgect} from "./markup"
- 
+import { getWatchedData, getQueueData } from "./auth";
+import { checkSection, checkActivityWatchedBtn } from "./header";
 
 export { onCrossClose, onBackdropClose, onHiddenModal }
 
@@ -34,6 +36,9 @@ function clearModal() {
 }
 
 function onToggleModal() {  
+   if (checkSection()) {
+    checkActivityWatchedBtn() ? getWatchedData() : getQueueData();
+  }
   
  if( modalFilmRefs.modal.classList.contains('modal-area--is-hidden')){
 document.body.style.overflow = "hidden";
@@ -47,12 +52,14 @@ document.body.style.overflow = "hidden";
 
 function onCrossClose() {   
   onToggleModal(); 
+
 }
 
 function onBackdropClose(event) { 
   if (event.currentTarget == event.target) {      
     onToggleModal();
   }  
+
 };
 
 function onHiddenModal(event) { 
@@ -64,11 +71,13 @@ function onHiddenModal(event) {
     window.addEventListener('keydown', onEscClose)
        renderModalFilm(elem.id); 
   }
+
 };
 
 function onEscClose(event) {  
   if (event.code === 'Escape') {    
     onToggleModal();
   } 
+
  };
 

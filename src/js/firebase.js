@@ -8,7 +8,7 @@ import { FIREBASE_CONFIG, PATH } from "./const";
 import { header } from "./refs"
 import { user } from "./auth";
 import { getUserRecords, renderMarkupWatchedQueue } from "./markup";
-import { localStorageBtnListeners } from "./localeStorage";
+import { isMovieInLocalStorage } from "./localeStorage";
 
 
 const app = initializeApp(FIREBASE_CONFIG);
@@ -33,7 +33,7 @@ export function addWatchedQueueBtnListeners(movie) {
     if (userFirebase) {
       checkIfMovieExists(chosenMovieRef);
     } else {
-    localStorageBtnListeners(btnAddToWatched, btnAddToQueue, chosenMovieRef);
+    isMovieInLocalStorage(chosenMovieRef, btnAddToWatched, btnAddToQueue);
     }
   })
 }
@@ -43,8 +43,6 @@ function checkIfMovieExists(chosenMovieRef) {
   getUserRecords().then((userRecords) => {
 
     const existedMovies = userRecords.filter(record => record.movie.id === chosenMovieRef.id);
-    console.log(existedMovies);
-
     if (existedMovies.length !== 0) {
 
       for (const movie of existedMovies) {
