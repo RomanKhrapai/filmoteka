@@ -39,10 +39,13 @@ export function addWatchedQueueBtnListeners(movie) {
 }
 
 function checkIfMovieExists(chosenMovieRef) {
-  console.log('chosenMovieRef', chosenMovieRef);
   getUserRecords().then((userRecords) => {
 
     const existedMovies = userRecords.filter(record => record.movie.id === chosenMovieRef.id);
+
+    btnAddToWatched.addEventListener('click', saveMovieFb);
+    btnAddToQueue.addEventListener('click', saveMovieFb);
+
     if (existedMovies.length !== 0) {
 
       for (const movie of existedMovies) {
@@ -56,11 +59,6 @@ function checkIfMovieExists(chosenMovieRef) {
           btnRemoveFromQueue();
         }
       }
-      
-    } else {
-      
-      btnAddToWatched.addEventListener('click', saveMovieFb);
-      btnAddToQueue.addEventListener('click', saveMovieFb);
     }
   }).catch(error => console.log(error));
 }
@@ -109,13 +107,10 @@ function saveMovieFb(e) {
 
     let time = Date.now();
 
-    // A post entry.
-    const {id, title, genres, poster_path, release_date} = chosenMovieRef;
-
     let recordValue = {
         time_id: time,
         uid: user.uid,
-        movie: {id, title, genre_ids: genres, poster_path, release_date},
+        movie: chosenMovieRef,
         watched,
     }
 

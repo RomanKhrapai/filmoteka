@@ -7,7 +7,6 @@ UeScroll.init();
 import { onFormSubmit} from '../src/js/markup';
 import { onCrossClose, onBackdropClose, onHiddenModal, renderModalFilm } from './js/modal-film';
 import { openModalTeam, closeModalTeam,  } from '../src/js/modal-team';
-import { startNavigation } from './js/navigation';
 
 import { header, mainContainer, team , modalFilmRefs} from "../src/js/refs.js";
 
@@ -15,9 +14,7 @@ import { checkAuth } from '../src/js/auth.js';
 import { onBtnHomeClick, onBtnLibraryClick, onBtnWatchedClick, onBtnQueueClick, onHeaderButtonClick, onInputInput } from '../src/js/header.js';
 
 checkAuth();
-startNavigation();
-
-
+renderModalFilm();
 
 header.btnHome.addEventListener('click', onBtnHomeClick);
 header.form.addEventListener('submit', onFormSubmit);
