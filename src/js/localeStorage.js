@@ -112,8 +112,6 @@ export function isMovieInLocalStorage(movie, btnWatched, btnQueue) {
     });
 
     if (btnWatched.dataset.action === "add" || btnQueue.dataset.action === "add") {
-        console.log(btnWatched.dataset.action);
-        console.log(btnQueue.dataset.action);
         if (btnWatched.dataset.action === "add") {
             btnWatched.addEventListener('click', checkButton);
         } else {
