@@ -36,6 +36,11 @@ export const ApiService = class {
         return response.data;
     }
 
+    async getTrailers(movie_id){
+        const response = await axios.get(`${API.BASIC_URL}/3/movie/${movie_id}/videos?api_key=${API.KEY}&language=en-US`);
+        return response.data;             
+    }
+
     increasePage() {
         this.page += 1;
     }

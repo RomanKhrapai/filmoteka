@@ -26,6 +26,28 @@ export const API_IMG = {
 
 export const DB_MOVIES = "db-movies";
 
+export const GENRES = {
+	 28  : "Action",
+	 12  : "Adventure",
+	 16  : "Animation",
+	 35  : "Comedy",
+	 80  : "Crime",
+	 99  : "Documentary",
+	 18  : "Drama",
+	 10751  : "Family",
+	 14  : "Fantasy",
+	 36  : "History",
+	 27  : "Horror",
+	 10402  : "Music",
+	 9648  : "Mystery",
+	 10749  : "Romance",
+	 878  : "Science Fiction",
+	 10770  : "TV Movie",
+	 53  : "Thriller",
+	 10752  : "War",
+	 37  : "Western"
+}
+
 export const NON_AUTH_ICON = `<svg id="non-auth-user" stroke-width="2" viewBox="0 0 60 60" class="icon">
 	<path d="M54.164,35.163C54.709,32.978,55,30.742,55,28.5C55,13.337,42.664,1,27.5,1S0,13.337,0,28.5
 		c0,8.01,3.444,15.229,8.927,20.259l-0.026,0.023l0.891,0.751c0.056,0.047,0.117,0.086,0.173,0.133
