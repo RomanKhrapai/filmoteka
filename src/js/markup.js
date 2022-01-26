@@ -105,6 +105,7 @@ export function renderMarkupWatchedQueue(watchedStatus) {
             results: !sortedMovies.length ? [] : sortedMovies[apiService.page - 1],
             total_results:  filteredRecordsWithStatus.length,
         };
+        renderPaginationMovies(data.total_results, data.page); 
         renderLibrary(data.results);
     }).catch(console.log);
 }
