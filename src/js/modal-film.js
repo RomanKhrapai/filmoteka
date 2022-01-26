@@ -7,7 +7,7 @@ import {apiService,changeDateandImageInObgect} from "./markup"
 import { getWatchedData, getQueueData } from "./auth";
 import { checkSection, checkActivityWatchedBtn } from "./header";
 
-export { onCrossClose, onBackdropClose, onHiddenModal }
+export { onCrossClose, onBackdropClose, onHiddenModal, onToggleModal}
 
  function renderModalFilm(movie_id) {
           apiService.getMovieDetails(movie_id)
