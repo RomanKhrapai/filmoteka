@@ -10,6 +10,7 @@ import { user } from "./auth";
 import { getUserRecords, renderMarkupWatchedQueue } from "./markup";
 import { localStorageBtnListeners } from "./localeStorage";
 
+
 const app = initializeApp(FIREBASE_CONFIG);
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
@@ -27,6 +28,7 @@ export function addWatchedQueueBtnListeners(movie) {
   btnAddToQueue = document.getElementById("btn__queue");
   chosenMovieRef = movie;
   
+
   onAuthStateChanged(auth, (userFirebase) => {
     if (userFirebase) {
       checkIfMovieExists(chosenMovieRef);

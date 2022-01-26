@@ -1,7 +1,7 @@
-
+<div  class="data-modal-clear">
 <img class="modal__img" src="{{this.img1x}}" alt="{{this.title}}" 
 sizes="(min-width: 1024px) 274px, (min-width: 768px) 294px, (max-width: 767px) 280px" 
-srcset="https://image.tmdb.org/t/p/original{{this.img1x}} 342w, {{this.img2x}} 780w"
+srcset="{{this.img1x}} 342w, {{this.img2x}} 780w"
 >
 
 <div class="film__info">
@@ -45,14 +45,18 @@ srcset="https://image.tmdb.org/t/p/original{{this.img1x}} 342w, {{this.img2x}} 7
         </p>
     </div>
     <div class="main__btn-modal">
-        <button type="button" id="btn__watched" class="main__btn main__btn-margin">
+        <button type="button" id="btn__watched" class="main__btn">
         ADD TO WATCHED
         </button>
-        <button type="button" id="btn__queue" class="main__btn">
+        <button type="button" id="btn__queue" class="main__btn ">
         ADD TO QUEUE
+        </button>
+        <button type="button" id="btn__trailer" class="main__btn main__btn-margin" disabled="true" >
+        OPEN TRAILER
         </button>
     </div>            
 </div>
-
-
+</div>
+<div id = "show-video">
+</div>
  

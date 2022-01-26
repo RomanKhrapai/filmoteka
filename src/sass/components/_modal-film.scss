@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  overflow-y: hidden;
+  //overflow-y: hidden;
   z-index: 999;
   background-color: rgba(0, 0, 0, 0.6);
   opacity: 1;
@@ -25,7 +25,7 @@
   transition: transform $function-time;
   max-height: 90%;
   max-width: 90%;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   @media screen and (min-width: 1024px) {
     display: flex;
@@ -42,7 +42,6 @@
   @media screen and (min-width: 320px) and(max-width: 767px) {
     width: 280px;
     padding: 50px 20px 40px;
-    overflow-y: auto;
   }
 
   .modal-area--is-hidden & {
@@ -50,6 +49,14 @@
   }
 }
 
+.show-video{
+  padding-top: 30px;
+  padding-bottom: 30px;
+  justify-content: center;
+  display: flex;
+ background:  center / 15% no-repeat url('../images/loader.svg');
+
+}
 .data-modal-clear {
   @media screen and (min-width: 1024px) {
     display: flex;
@@ -177,6 +184,14 @@
 .film__info {
   font-weight: 500;
   font-size: 12px;
+  width: 240px;
+
+  @media screen and (min-width: 768px) {
+    width:  270px;
+  }
+  @media screen and (min-width: 1024px) {
+    width: 470px;
+  }
 }
 
 .film__property {
@@ -238,6 +253,7 @@
   text-align: center;
   cursor: pointer;
   height: 44px;
+  width: 112px;
   user-select: none;
   border: 1px solid;
   border-radius: $border-radius;
@@ -248,20 +264,38 @@
     color: $light-text-color;
     background-color: $accent-color;
   }
-
+@media screen and (min-width: 768px) {
+    width: 125px;
+  }
   @media screen and (min-width: 1024px) {
     width: 136px;
   }
 
-  @media screen and (max-width: 1023px) {
-    width: 125px;
-  }
+  
 }
 
 .main__btn-margin {
-  margin-right: 15px;
+  
+  @media screen and (max-width: 1023px) {
+    margin-top: 15px;
+  }
 }
 
 .main__btn-modal {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  
+}
+.show-video__playr{
+width: 100%;
+height: 150px;
+@media screen and (min-width: 768px) {
+  height: 350px;
+}
+@media screen and (min-width: 1024px) {
+  height: 512px;
+}
+
+
 }
