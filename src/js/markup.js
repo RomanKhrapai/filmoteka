@@ -109,10 +109,10 @@ export function renderMarkupWatchedQueue(watchedStatus) {
         }
         let data = {
             page: apiService.page,
-            results: sortedMovies[apiService.page - 1],
+            results: !sortedMovies.length ? [] : sortedMovies[apiService.page - 1],
             total_results:  filteredRecordsWithStatus.length,
         };
-        renderCards(data);
+        renderLibrary(data.results);
     }).catch(console.log);
 }
 

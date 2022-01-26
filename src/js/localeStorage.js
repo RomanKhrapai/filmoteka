@@ -96,7 +96,6 @@ export function isMovieInLocalStorage(movie, btnWatched, btnQueue) {
     const existedMovies = arrayData.filter(item => item.id === movie.id);
 
     if (!existedMovies.length ) {
-         console.log("hi");
         btnWatched.addEventListener('click', checkButton);
         btnQueue.addEventListener('click', checkButton);
         return;
