@@ -14,7 +14,7 @@ import { checkAuth } from '../src/js/auth.js';
 import { onBtnHomeClick, onBtnLibraryClick, onBtnWatchedClick, onBtnQueueClick, onHeaderButtonClick, onInputInput } from '../src/js/header.js';
 
 checkAuth();
-renderModalFilm();
+
 
 header.btnHome.addEventListener('click', onBtnHomeClick);
 header.form.addEventListener('submit', onFormSubmit);
