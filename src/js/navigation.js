@@ -6,6 +6,12 @@ export function scrolTop(){
         top: 0,
         behavior: "smooth"});
 }
+export function scrolDown(box){
+    box.scrollTo({
+        top: 500,
+        behavior: "smooth"});
+}
+
 
 function oldHashPage(hash){
    return hash.slice(0,hash.indexOf('&'));

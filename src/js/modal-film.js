@@ -1,37 +1,75 @@
 import { modalFilmRefs } from "./refs";
+
+import { addWatchedQueueBtnListeners } from './firebase.js';
+import modalFilm from '../markup-template/modalFilm.hbs';
+import { trailer} from "./open-trailer";
+import {apiService,changeDateandImageInObgect} from "./markup"
 import { getWatchedData, getQueueData } from "./auth";
 import { checkSection, checkActivityWatchedBtn } from "./header";
 
- 
-export function onToggleModal() {  
+export { onCrossClose, onBackdropClose, onHiddenModal }
 
-  if (checkSection()) {
+ function renderModalFilm(movie_id) {
+          apiService.getMovieDetails(movie_id)
+          .then((targetFilm) => {            
+              goResponseModalMovie(targetFilm);
+              appendMarkupModal(modalFilm(targetFilm));
+              addWatchedQueueBtnListeners(targetFilm);
+              trailer(movie_id);
+          })
+          .catch(error => console.log(error));    
+}
+
+function goResponseModalMovie(film) {
+  film.genres = film.genres.flatMap(genre => genre.name);
+  changeDateandImageInObgect(film)
+}
+
+
+function appendMarkupModal(element) {    
+  modalFilmRefs.modalClear.innerHTML= element;
+}
+
+
+function clearModal() {
+  modalFilmRefs.modalClear.innerHTML = '';
+}
+
+function onToggleModal() {  
+   if (checkSection()) {
     checkActivityWatchedBtn() ? getWatchedData() : getQueueData();
   }
-
-  modalFilmRefs.modal.classList.toggle('modal-area--is-hidden');
-  modalFilmRefs.modal.classList.contains('modal-area--is-hidden') ? document.body.style.overflow = "" : document.body.style.overflow = "hidden";    
+  
+ if( modalFilmRefs.modal.classList.contains('modal-area--is-hidden')){
+document.body.style.overflow = "hidden";
+} 
+  else {  document.body.style.overflow = "" ;
+  clearModal();
+  window.removeEventListener('keydown', onEscClose);
+};    
+ modalFilmRefs.modal.classList.toggle('modal-area--is-hidden');
 };  
 
 function onCrossClose() {   
-  onToggleModal();
-  window.removeEventListener('keydown', onEscClose);  
+  onToggleModal(); 
 
 }
 
 function onBackdropClose(event) { 
   if (event.currentTarget == event.target) {      
     onToggleModal();
-    window.removeEventListener('keydown', onEscClose);
   }  
 
 };
 
 function onHiddenModal(event) { 
-  if (event.target.parentElement.parentElement.parentElement.className == 'film-card')
+  event.preventDefault();
+  const elem = event.target.parentElement.parentElement.parentElement;
+  if (elem.className == 'film-card')
   {    
+    onToggleModal() 
     window.addEventListener('keydown', onEscClose)
-    onToggleModal()     
+       renderModalFilm(elem.id); 
   }
 
 };
@@ -39,10 +77,7 @@ function onHiddenModal(event) {
 function onEscClose(event) {  
   if (event.code === 'Escape') {    
     onToggleModal();
-    window.removeEventListener('keydown', onEscClose);    
   } 
 
  };
 
-
-export { onCrossClose, onBackdropClose, onHiddenModal }
