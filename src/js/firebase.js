@@ -21,7 +21,6 @@ let btnAddToQueue;
 let chosenMovieRef;
 let watchedMovie;
 let queueMovie;
-let status;
 
 export function addWatchedQueueBtnListeners(movie) {
   btnAddToWatched = document.getElementById("btn__watched");
@@ -76,6 +75,7 @@ function btnRemoveFromQueue() {
 
 function removeMoviefromFb(e) {
   let recordPath;
+  let status;
 
   if (e.target.id == "btn__watched") {
     status = "Watched";
@@ -99,6 +99,7 @@ function removeMoviefromFb(e) {
 
 function saveMovieFb(e) {
   let watched;
+  let status;
 
     if (e.target.id === "btn__watched") {
       watched = true;
