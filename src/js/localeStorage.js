@@ -32,7 +32,9 @@ function saveDataToLocalStorage(movie, status) {
 }
 
 function changeStatusBtn(btn, status) {
-     btn.textContent = `remove from ${status}`;
+     btn.setAttribute("data-action", "remove");
+    btn.textContent = `remove from ${status}`;
+   
 }
 
 
@@ -81,7 +83,7 @@ function checkButton(e) {
     if (e.target.id === "btn__watched") {
         notificationAdd(chosenMovie, "Watched");
         saveDataToLocalStorage(chosenMovie, true);
-         btnRemove(e.target, "Watched");
+        btnRemove(e.target, "Watched");
         
     } else {
         notificationAdd(chosenMovie, "Queue");
@@ -94,17 +96,16 @@ function checkButton(e) {
 export function isMovieInLocalStorage(movie, btnWatched, btnQueue) {
     chosenMovie = movie;
     const arrayData = getData();
-
+    
     const existedMovies = arrayData.filter(item => item.id === movie.id);
 
-    if (!existedMovies.length ) {
+    if (!existedMovies.length) {
         btnWatched.addEventListener('click', checkButton);
         btnQueue.addEventListener('click', checkButton);
         return;
-     }
+    }
     
     existedMovies.forEach(item => {
-        
         if (item.watched) {
             btnRemove(btnWatched, "Watched");
         } else {
@@ -112,9 +113,14 @@ export function isMovieInLocalStorage(movie, btnWatched, btnQueue) {
         }
     });
 
-    // btnWatched.addEventListener('click', checkButton);
-    // btnQueue.addEventListener('click', checkButton);
-    
+    if (btnWatched.dataset.action === "add" || btnQueue.dataset.action === "add") {
+        if (btnWatched.dataset.action === "add") {
+            btnWatched.addEventListener('click', checkButton);
+        } else {
+            btnQueue.addEventListener('click', checkButton);
+        }
+    }
+
 
 }
 

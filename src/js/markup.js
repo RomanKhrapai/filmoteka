@@ -1,17 +1,17 @@
 import { ApiService } from './API-service';
-import { API_IMG } from './const';
+import { API_IMG, GENRES } from './const';
 import { errorNotif, clearNotification} from './header';
 
-import { mainContainer, header, modalFilmRefs } from './refs';
-import { addWatchedQueueBtnListeners } from './firebase.js';
+import { mainContainer } from './refs';
+
 
 import filmCard from '../markup-template/filmCard.hbs';
-import modalFilm from '../markup-template/modalFilm.hbs';
 
 import { user } from "../js/auth.js";
 import { loaderIsVisible, loaderIsHidden } from './loader';
 import { renderPaginationMovies } from './pagination';
-import { setLocation, startNavigation } from './navigation';
+import { setLocation} from './navigation';
+
 
 export const apiService = new ApiService();
 let dataArray = [];
@@ -62,16 +62,9 @@ function renderCards(data) {
     if (!data.results) {
         messageNoMovies()
         return;
-    }
-    apiService
-        .getGenres()
-        .then(({ genres }) => {
-            goResponseProcessing(data.results, genres);
-        })
-        .then(next => {
-            renderLibrary(dataArray);
-        })
-        .catch(console.log);
+    } 
+        goResponseProcessing(data.results);
+        renderLibrary(dataArray);
         renderPaginationMovies(data.total_results, data.page);  
 }
 
@@ -112,29 +105,30 @@ export function renderMarkupWatchedQueue(watchedStatus) {
             results: !sortedMovies.length ? [] : sortedMovies[apiService.page - 1],
             total_results:  filteredRecordsWithStatus.length,
         };
+        renderPaginationMovies(data.total_results, data.page); 
         renderLibrary(data.results);
     }).catch(console.log);
 }
 
 // жанри
-export function filterGenres(conditions, array) {
-    const filter = array.filter(item => conditions.includes(item.id)).map(obj => obj.name);
-    if (filter.length > 2) {
-        filter.splice(2);
+export function decipherGenres(film) {
+    film.genres = film.genre_ids.map(item=>GENRES[item]);
+    if (film.genres.length > 2) {
+        film.genres.splice(2);
     }
-    return filter;
 }
 
-function goResponseProcessing(result, genres) {
+function goResponseProcessing(result) {
     result.forEach((film) => {
-        film.genres = filterGenres(film.genre_ids, genres);
-        film.date = !film.release_date ? 'unknown' : film.release_date.slice(0, 4);     
-        film.img1x = createURLImg(film.poster_path,1)
-        film.img2x = createURLImg(film.poster_path,2)
-      
+        decipherGenres(film);
+        changeDateandImageInObgect(film)
         addDataArray(film);
-          },
-           );
+          }, );}
+
+export function changeDateandImageInObgect(film){
+    film.date = !film.release_date ? 'unknown' : film.release_date.slice(0, 4);     
+    film.img1x = createURLImg(film.poster_path,1);
+    film.img2x = createURLImg(film.poster_path,2);
 }
 
 function addDataArray(item){
@@ -155,7 +149,8 @@ function createURLImg(url,zoom){
 
 export function appendMarkup(element) {
     loaderIsHidden();
-    mainContainer.galleryContainer.insertAdjacentHTML('beforeend', element);
+    
+    mainContainer.galleryContainer.innerHTML= element;
 }
 
 export function clearGallery() {
@@ -163,53 +158,9 @@ export function clearGallery() {
     mainContainer.galleryContainer.innerHTML = '';
 }
 
-
-// модалка фільму
-export function renderModalFilm() {
-    mainContainer.galleryContainer.addEventListener('click', (event) => {
-       
-        if (event.target.parentElement.parentElement.parentElement.className == 'film-card') {
-            clearModal();
-            event.preventDefault();
-            const movie_id = event.target.parentElement.parentElement.parentElement.id;
-            apiService.getMovieDetails(movie_id)
-            .then((targetFilm) => {            
-                apiService.getGenres()
-                .then(({ genres }) => {
-                    goResponseModalMovie(targetFilm);
-                })
-                .then(() => {
-                    const markup = modalFilm(targetFilm);
-                    appendMarkupModal(markup);
-                    addWatchedQueueBtnListeners(targetFilm);
-                })
-            })
-            .catch(error => console.log(error));
-        }    
-        
-    });
-}
-
-function goResponseModalMovie(film) {
-    film.genres = film.genres.flatMap(genre => genre.name);
-    film.date = !film.release_date ? 'unknown' : film.release_date.slice(0, 4);     
-    film.img1x = createURLImg(film.poster_path,1)
-    film.img2x = createURLImg(film.poster_path,2)
-}
-
-
-function appendMarkupModal(element) {    
-    modalFilmRefs.modalClear.insertAdjacentHTML('afterbegin', element);
-}
-
-
-function clearModal() {
-    modalFilmRefs.modalClear.innerHTML = '';
-}
-
 export async function getUserRecords() {
     await apiService.fetchMoviesfromFb(user.uid).then(recordsArrayFb => {
         userRecords = Object.values(recordsArrayFb);
     });
     return userRecords;
-}
+  }

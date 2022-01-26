@@ -50,7 +50,7 @@ const modalFilmRefs = {
     closeModal: document.querySelector('[data-modal-close]'),
     modal: document.querySelector('[data-modal]'),
     backdrop: document.querySelector('.modal-area'), 
-    modalClear: document.querySelector('.data-modal-clear'),
+    modalClear: document.querySelector('.data-modal-film'),
 };
 
 export {header, mainContainer, team, localStorage, modalFilmRefs};

@@ -59,7 +59,7 @@ export function checkAuth() {
             // ...
             });
           })
-        };
+          startNavigation(); };
     });
 }
 
