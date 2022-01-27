@@ -49,12 +49,13 @@ export function getQueueMovies(data) {
 
 
 function deleteData() {
-    onToggleModal();
+    
     const arrayData = getData();
     const { movie, indexOfMovie } = findData(arrayData, chosenMovie.id);
     const newArray = [...arrayData];
     newArray.splice(indexOfMovie, 1);
     saveToLocalStorage(newArray);
+    onToggleModal();
 }
 
 function findData(arrayData, id) { 
@@ -79,7 +80,7 @@ function btnRemove(btn, status) {
 }
 
 function checkButton(e) {
-      onToggleModal();
+      
     if (e.target.id === "btn__watched") {
         notificationAdd(chosenMovie, "Watched");
         saveDataToLocalStorage(chosenMovie, true);
@@ -90,7 +91,7 @@ function checkButton(e) {
         saveDataToLocalStorage(chosenMovie, false);
         btnRemove(e.target, "Queue");
     }
-
+    onToggleModal();
 }
 
 export function isMovieInLocalStorage(movie, btnWatched, btnQueue) {
