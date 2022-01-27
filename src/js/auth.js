@@ -1,26 +1,27 @@
 // глобальні імпорти
-import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+//import { initializeApp } from "firebase/app";
+//import { getDatabase } from "firebase/database";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 
-// локальні імпорти
-import { FIREBASE_CONFIG, NON_AUTH_ICON } from "./const.js";
+// локальні імпорти  FIREBASE_CONFIG,
+import { NON_AUTH_ICON } from "./const.js";
 import { header } from "./refs.js";
 import { startNavigation } from "./navigation"
 import { renderMarkupWatchedQueue, renderLibrary, getUserRecords, apiService } from './markup';
 import { getWatchedMovies, getQueueMovies, getData } from './localeStorage';
+import {onBtnHomeClick} from "./header"
 
-const app = initializeApp(FIREBASE_CONFIG);
+//const app = initializeApp(FIREBASE_CONFIG);
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
-const db = getDatabase();
+//const db = getDatabase();
 
 export let user;
 
 // авторизація
 
 export function checkAuth() {
-        onAuthStateChanged(auth, (userFirebase) => {
+        onAuthStateChanged(auth, (userFirebase) => { 
         if (userFirebase) {
             const {photoURL, displayName, uid} = userFirebase;
             user = {
@@ -36,7 +37,6 @@ export function checkAuth() {
             header.btnAuth.firstChild.addEventListener('click', () => {showSignOutButton()});
             startNavigation();
         } else {
-            startNavigation();
             user = {
                 photoURL: NON_AUTH_ICON,
                 displayName: `LOG IN`
@@ -46,45 +46,41 @@ export function checkAuth() {
             header.btnAuth.firstChild.addEventListener('click', () => {
             signInWithPopup(auth, provider)
             .then((result) => {
-            // This gives you a Google Access Token. You can use it to access the Google API.
             const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-            const user = result.user; // The signed-in user info.
-            // ...
-            }).catch((error) => {
-            const errorCode = error.code; // Handle Errors here.
-            const errorMessage = error.message;
-            const email = error.email; // The email of the user's account used.
-            const credential = GoogleAuthProvider.credentialFromError(error); // The AuthCredential type that was used.
-            // ...
+            })
+            .catch((error) => {
+            const credential = GoogleAuthProvider.credentialFromError(error); 
             });
-          })
-          startNavigation(); };
-    });
+            })
+        onBtnHomeClick(); 
+         };
+    });  
 }
 
 export function getWatchedData() {
-    onAuthStateChanged(auth, (userFirebase) => {
-        if (userFirebase) {
+    // onAuthStateChanged(auth, (userFirebase) => {
+    //     if (userFirebase) {
+        if (!!auth.currentUser){
             apiService.resetPage();
             apiService.watched = true;
             renderMarkupWatchedQueue(true);
         } else {
             renderLibrary(getWatchedMovies(getData()));
         }
-    })
+    // })
 }
 
 export function getQueueData() {
-    onAuthStateChanged(auth, (userFirebase) => {
-        if (userFirebase) {
+    // onAuthStateChanged(auth, (userFirebase) => {
+    //     if (userFirebase) {
+        if (!!auth.currentUser){
             apiService.resetPage();
             apiService.watched = false;
             renderMarkupWatchedQueue(false);
         } else {
             renderLibrary(getQueueMovies(getData()));
         }
-    })
+    // })
 }
 
 function showAuthUser(photoURL, displayName) {
@@ -123,7 +119,6 @@ function checkClickSignOut(e) {
 export function userSignOut() {
     document.removeEventListener('mouseup', checkClickSignOut);
     signOut(auth).then(() => {
-        startNavigation();
     // Sign-out successful.
     }).catch((error) => {
     // An error happened.

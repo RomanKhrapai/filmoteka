@@ -1,7 +1,8 @@
 // глобальні імпорти
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set } from "firebase/database";
-import { getAuth, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
+//GoogleAuthProvider,
+import { getAuth,  onAuthStateChanged } from "firebase/auth";
 
 // локальні імпорти
 import { FIREBASE_CONFIG, PATH } from "./const";
@@ -12,7 +13,7 @@ import { isMovieInLocalStorage, notificationAdd, notificationRemove } from "./lo
 
 
 const app = initializeApp(FIREBASE_CONFIG);
-const provider = new GoogleAuthProvider();
+//const provider = new GoogleAuthProvider();
 const auth = getAuth();
 const db = getDatabase();
 

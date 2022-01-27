@@ -11,7 +11,8 @@ import { openModalTeam, closeModalTeam,  } from '../src/js/modal-team';
 import { header, mainContainer, team , modalFilmRefs} from "../src/js/refs.js";
 
 import { checkAuth } from '../src/js/auth.js';
-import { onBtnHomeClick, onBtnLibraryClick, onBtnWatchedClick, onBtnQueueClick, onHeaderButtonClick, onInputInput } from '../src/js/header.js';
+// onHeaderButtonClick,
+import { onBtnHomeClick, onBtnLibraryClick, onBtnWatchedClick, onBtnQueueClick,  onInputInput } from '../src/js/header.js';
 
 checkAuth();
 
@@ -20,7 +21,7 @@ header.form.addEventListener('submit', onFormSubmit);
 header.btnLibrary.addEventListener('click', onBtnLibraryClick);
 header.btnWatched.addEventListener('click', onBtnWatchedClick);
 header.btnQueue.addEventListener('click', onBtnQueueClick);
-header.headerButton.addEventListener('click', onHeaderButtonClick);
+//header.headerButton.addEventListener('click', onHeaderButtonClick);
 header.input.addEventListener('input', onInputInput);
 
 //modal-film

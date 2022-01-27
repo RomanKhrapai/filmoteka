@@ -1,13 +1,13 @@
 import { header } from "./refs.js";
 
 import { renderMarkup, clearGallery, renderLibrary} from './markup';
-import { ApiService} from "./API-service";
+//import { ApiService} from "./API-service";
 import { setLocation } from "./navigation.js";
 import { getWatchedData, getQueueData } from "./auth";
 import { hidePagination } from './pagination';
 
 
-const apiService = new ApiService();
+//const apiService = new ApiService();
 
 
 export function onBtnHomeClick(event) {
@@ -22,17 +22,17 @@ export function onBtnHomeClick(event) {
   QueueBtnRemoveClass();
 }
 
-export function onHeaderButtonClick() {
-  setLocation("home")
-  resetInpitValue();
-  searchIconRemoveClass();
-  renderMarkup();
-  homePageRender();
-  homeBtnAddClass();
-  libraryBtnRemoveClass(); 
-  watchBtnRemoveClass();
-  QueueBtnRemoveClass();
-}
+// export function onHeaderButtonClick() {
+//   setLocation("home")
+//   resetInpitValue();
+//   searchIconRemoveClass();
+//   renderMarkup();
+//   homePageRender();
+//   homeBtnAddClass();
+//   libraryBtnRemoveClass(); 
+//   watchBtnRemoveClass();
+//   QueueBtnRemoveClass();
+// }
 
 
 export function onBtnLibraryClick(event) {

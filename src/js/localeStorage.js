@@ -1,6 +1,6 @@
 import { DB_MOVIES } from "./const";
 import Notiflix from 'notiflix';
-import { renderMarkupWatchedQueue, renderLibrary, getUserRecords, apiService } from './markup';
+//import { renderMarkupWatchedQueue, renderLibrary, getUserRecords, apiService } from './markup';
 import { onToggleModal } from "./modal-film";
 
 let chosenMovie;

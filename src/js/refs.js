@@ -2,7 +2,7 @@
 
 // header
 const header = {
-    headerButton: document.querySelector('.header__link'),
+    //headerButton: document.querySelector('.header__link'),
     btnHome: document.querySelectorAll('.site-nav__link')[0],
     btnLibrary: document.querySelectorAll('.site-nav__link')[1],
     btnAuth: document.querySelector('.auth'),
