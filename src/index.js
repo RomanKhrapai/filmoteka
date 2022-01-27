@@ -15,7 +15,6 @@ import { onBtnHomeClick, onBtnLibraryClick, onBtnWatchedClick, onBtnQueueClick, 
 
 checkAuth();
 
-
 header.btnHome.addEventListener('click', onBtnHomeClick);
 header.form.addEventListener('submit', onFormSubmit);
 header.btnLibrary.addEventListener('click', onBtnLibraryClick);

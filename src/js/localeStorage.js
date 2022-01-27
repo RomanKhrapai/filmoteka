@@ -64,11 +64,13 @@ function findData(arrayData, id) {
 
 }
 
-function notificationAdd(movie, status) {
+export function notificationAdd(movie, status) {
     Notiflix.Notify.success(`${movie.title} has been successfully added to ${status}!`);
 }
 
-
+export function notificationRemove(movie, status) {
+    Notiflix.Notify.success(`${movie.title} has been successfully removed from ${status}!`);
+}
 
 function btnRemove(btn, status) {
     btn.removeEventListener('click', checkButton);

@@ -8,7 +8,7 @@ import { FIREBASE_CONFIG, PATH } from "./const";
 import { header } from "./refs"
 import { user } from "./auth";
 import { getUserRecords, renderMarkupWatchedQueue } from "./markup";
-import { isMovieInLocalStorage } from "./localeStorage";
+import { isMovieInLocalStorage, notificationAdd, notificationRemove } from "./localeStorage";
 
 
 const app = initializeApp(FIREBASE_CONFIG);
@@ -65,44 +65,50 @@ function checkIfMovieExists(chosenMovieRef) {
 
 function btnRemoveFromWatched() {
   btnAddToWatched.removeEventListener('click', saveMovieFb);
-
   btnAddToWatched.textContent = "remove from Watched";
   btnAddToWatched.addEventListener('click', removeMoviefromFb);
 }
 
 function btnRemoveFromQueue() {
   btnAddToQueue.removeEventListener('click', saveMovieFb);
-
   btnAddToQueue.textContent = "remove from Queue";
   btnAddToQueue.addEventListener('click', removeMoviefromFb);
 }
 
 function removeMoviefromFb(e) {
   let recordPath;
-  
+  let status;
+
   if (e.target.id == "btn__watched") {
+    status = "Watched";
     recordPath = ref(db, PATH + `${watchedMovie.uid}-${watchedMovie.time_id}`);
     btnAddToWatched.textContent = "Add to Watched";
     btnAddToWatched.removeEventListener('click', removeMoviefromFb);
 
   } else {
+    status = "Queue";
     recordPath = ref(db, PATH + `${queueMovie.uid}-${queueMovie.time_id}`);
     btnAddToQueue.textContent = "Add to Queue";
     btnAddToQueue.removeEventListener('click', removeMoviefromFb);
   }
-  set(recordPath, null);
 
-  checkIfMovieExists(chosenMovieRef);
-  checkLocation();
+  set(recordPath, null).then(() => {
+    notificationRemove(chosenMovieRef, status);
+    checkIfMovieExists(chosenMovieRef);
+    checkLocation();
+  })
 }
 
 function saveMovieFb(e) {
   let watched;
+  let status;
 
     if (e.target.id === "btn__watched") {
       watched = true;
+      status = "Watched";
     } else {
       watched = false;
+      status = "Queue";
     }
 
     let time = Date.now();
@@ -120,6 +126,7 @@ function saveMovieFb(e) {
     
     set(ref(db, PATH + `${user.uid}-` + time), recordValue)
       .then(() => {
+        notificationAdd(chosenMovieRef, status);
         checkIfMovieExists(chosenMovieRef);
         checkLocation();
         // Data saved successfully!
